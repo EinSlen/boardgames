@@ -13,7 +13,7 @@ export const routes: Routes = [
   },
   {
     path: 'morpion',
-    loadComponent: () => import('./morpion/morpion.page').then( m => m.MorpionPage)
+    loadComponent: () => import('./tic-tac-toe/morpion/morpion.page').then(m => m.MorpionPage)
   },
 
 ];

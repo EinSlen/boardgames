@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Morpion
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isLoading">
+    <app-loader></app-loader>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div class="header">
+      Morpion Game
+    </div>
+
+    <div class="game-board">
+      <app-gameboard></app-gameboard>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="auto">
+          <ion-button expand="block" (click)="startGame('expert')" color="danger">
+            Expert
+            <ion-icon slot="end" name="skull"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="auto">
+          <ion-button expand="block" (click)="startGame('medium')" color="warning">
+            Medium
+            <ion-icon slot="end" name="hammer"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="auto">
+          <ion-button expand="block" (click)="startGame('facile')" color="success">
+            Facile
+            <ion-icon slot="end" name="beer"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
