@@ -48,6 +48,6 @@ export class HomePage implements OnInit {
     this.stopSlideShow();
     setTimeout(() => {
       this.startSlideShow();
-    }, 3000);
+    }, 5000);
   }
 }
