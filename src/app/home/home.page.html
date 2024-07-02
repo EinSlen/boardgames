@@ -1,20 +1,26 @@
-<ion-header [translucent]="true">
+<!-- src/app/presentation/presentation.page.html -->
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>BoardGames</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content>
+  <div class="carousel-container">
+    <div class="carousel-wrapper" [style.transform]="'translateX(' + (-currentSlide * 100) + '%)'">
+      <div class="carousel-slide" *ngFor="let slide of slides">
+        <img [src]="slide.img" alt="Slide Image">
+        <h2>{{ slide.title }}</h2>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button (click)="prevSlide()">&#10094;</button>
+      <button (click)="nextSlide()">&#10095;</button>
+    </div>
   </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="settings"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
