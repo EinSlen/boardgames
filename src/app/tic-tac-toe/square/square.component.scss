@@ -1,8 +1,31 @@
+/* Exemple de style pour les états des cases */
+.square::after {
+  content: "";
+  display: none;
+  width: 80%;
+  height: 80%;
+  background-color: transparent;
+  border-radius: 50%;
+  position: absolute;
+  pointer-events: none;
+}
+
 .square {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2em;
-  border: 1px solid #ccc;
+  color: #333333;
+  width: 50px;
+  height: 50px;
+}
+
+.square:nth-child(n+1) {
+  background: tomato;
+}
+
+.square.x::after {
+  display: block;
+  border: 10px solid #ff6347; /* Couleur pour X */
+}
+
+.square.o::after {
+  display: block;
+  border: 10px solid #6495ed; /* Couleur pour O */
 }

@@ -75,8 +75,6 @@ export class HomePage implements OnInit {
 
   resetSlideShow() {
     this.stopSlideShow();
-    setTimeout(() => {
-      this.startSlideShow();
-    }, 5000);
+    this.startSlideShow();
   }
 }

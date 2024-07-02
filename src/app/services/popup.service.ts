@@ -13,8 +13,8 @@ export class PopupService {
       const alert = await this.alertController.create({
         header: 'Qui commence ?',
         inputs: [
-          { name: 'player', type: 'radio', label: 'Joueur', value: 'player', checked: true },
-          { name: 'computer', type: 'radio', label: 'Ordinateur', value: 'computer' }
+          { name: 'player', type: 'radio', label: 'Joueur', value: 'Joueur', checked: true },
+          { name: 'computer', type: 'radio', label: 'Ordinateur', value: 'Ordinateur' }
         ],
         buttons: [
           {

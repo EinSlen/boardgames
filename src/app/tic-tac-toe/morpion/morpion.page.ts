@@ -27,15 +27,18 @@ import {LoaderComponent} from "../../loader/loader.component";
 })
 export class MorpionPage implements OnInit {
   isLoading = true;
+  start_play: string = 'player'
+  diffuculty: string = 'facile'
 
   constructor(private popupService: PopupService, private gameService: GameService) {}
 
   async startGame(difficulty: string) {
     const startingPlayer = await this.popupService.showStartGamePopup();
 
-    // Démarrer le jeu avec le joueur ou l'ordinateur en fonction de 'startingPlayer' et de la difficulté sélectionnée
     console.log('Qui commence:', startingPlayer);
     console.log('Difficulté sélectionnée:', difficulty);
+    this.start_play = startingPlayer;
+    this.diffuculty = difficulty;
 
     this.gameService.startGame(startingPlayer, difficulty);
   }

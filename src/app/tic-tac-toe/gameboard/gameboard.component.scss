@@ -1,0 +1,13 @@
+.game-board {
+  background: #333333;
+}
+
+.square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem; /* Taille de la police */
+  height: 100px; /* Hauteur d'une case */
+  width: 100px; /* Largeur d'une case */
+  border: 1px solid #ccc; /* Bordure des cases */
+}
