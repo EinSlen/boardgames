@@ -1,14 +1,26 @@
 import {Component, OnInit} from '@angular/core';
-import {IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonButton, IonFabButton, IonIcon} from '@ionic/angular/standalone';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonIcon, IonRouterLink, IonButton,
+} from '@ionic/angular/standalone';
 import {NgForOf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {SettingsModalComponent} from "../settings-modal/settings-modal.component";
+import { ModalController } from '@ionic/angular';
+import {addIcons} from "ionicons";
+import {closeCircleOutline, settingsOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonButton, IonIcon, NgOptimizedImage, NgForOf, RouterLink],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon, NgOptimizedImage, NgForOf, IonRouterLink, IonButton, RouterLink],
 })
 export class HomePage implements OnInit {
   currentSlide = 0;
@@ -19,10 +31,26 @@ export class HomePage implements OnInit {
   ];
   private slideInterval: any;
 
-  constructor() {}
+  constructor(private modalController: ModalController) {
+    addIcons({
+      'settings-outline': settingsOutline,
+      'close-circle-outline' : closeCircleOutline,
+    });
+  }
 
   ngOnInit() {
     this.startSlideShow();
+  }
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: SettingsModalComponent,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {
+        value: 123
+      }
+    });
+    modal.present();
   }
 
   startSlideShow() {
