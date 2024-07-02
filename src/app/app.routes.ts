@@ -1,4 +1,5 @@
-import { Routes } from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from "@angular/core";
 
 export const routes: Routes = [
   {
@@ -10,4 +11,9 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'morpion',
+    loadComponent: () => import('./morpion/morpion.page').then( m => m.MorpionPage)
+  },
+
 ];

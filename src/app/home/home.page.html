@@ -8,9 +8,10 @@
 <ion-content>
   <div class="carousel-container">
     <div class="carousel-wrapper" [style.transform]="'translateX(' + (-currentSlide * 100) + '%)'">
-      <div class="carousel-slide" *ngFor="let slide of slides">
-        <img [src]="slide.img" alt="Slide Image">
+      <div routerLink class="carousel-slide" *ngFor="let slide of slides">
+        <img src="{{slide.img}}" alt="Slide Image">
         <h2>{{ slide.title }}</h2>
+        <p class="click-to-play">CLICK TO PLAY</p>
       </div>
     </div>
     <div class="carousel-controls">

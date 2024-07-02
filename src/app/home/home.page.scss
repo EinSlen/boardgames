@@ -1,5 +1,4 @@
-
-/* src/app/presentation/presentation.page.scss */
+//* src/app/home/home.page.scss */
 .carousel-container {
   position: relative;
   width: 100%;
@@ -8,23 +7,49 @@
   overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Align items flex-start for top alignment */
   flex-direction: column;
+  height: 80vh; /* Reduced height to give space at the top */
 }
+
 .carousel-wrapper {
   display: flex;
   transition: transform 0.5s ease-in-out;
   width: 100%;
 }
+
 .carousel-slide {
   min-width: 100%;
   box-sizing: border-box;
   text-align: center;
 }
+
 .carousel-slide img {
   width: 100%;
   height: auto;
 }
+
+.carousel-controls {
+  position: absolute;
+  width: 100%;
+  top: 10px; /* Adjusted top distance */
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(0); /* Removed translateY for absolute positioning */
+}
+
+.carousel-controls button {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carousel-controls button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 .carousel-controls {
   position: absolute;
   width: 100%;
@@ -33,14 +58,38 @@
   justify-content: space-between;
   transform: translateY(-50%);
 }
+
+.carousel-controls button:first-child {
+  margin-left: 10px; /* Adjust the distance to the left edge */
+}
+
+.carousel-controls button:last-child {
+  margin-right: 10px; /* Adjust the distance to the right edge */
+}
+
 .carousel-controls button {
-  background-color: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: white;
-  padding: 10px;
-  cursor: pointer;
+  border-radius: 50%;
 }
-.carousel-controls button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+
+.click-to-play {
+  text-align: center;
+  font-size: 24px;
+  padding: 20px;
+  animation: slideDown 1s ease-in-out infinite alternate;
 }
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(20px);
+    opacity: 1;
+  }
+}
+
+
+
+
 
