@@ -1,6 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon} from '@ionic/angular/standalone';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonIcon,
+} from '@ionic/angular/standalone';
 import {NgForOf, NgOptimizedImage} from "@angular/common";
+import {SettingsModalComponent} from "../settings-modal/settings-modal.component";
+import { ModalController } from '@ionic/angular';
+import {addIcons} from "ionicons";
+import {closeCircleOutline, settingsOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-home',
@@ -18,10 +30,26 @@ export class HomePage implements OnInit {
   ];
   private slideInterval: any;
 
-  constructor() {}
+  constructor(private modalController: ModalController) {
+    addIcons({
+      'settings-outline': settingsOutline,
+      'close-circle-outline' : closeCircleOutline,
+    });
+  }
 
   ngOnInit() {
     this.startSlideShow();
+  }
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: SettingsModalComponent,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {
+        value: 123
+      }
+    });
+    modal.present();
   }
 
   startSlideShow() {
