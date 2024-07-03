@@ -1,0 +1,31 @@
+<ion-content class="ion-padding">
+  <br>
+  <br>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <h2 class="ion-text-center">Comment jouer au Tic Tac Toe</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <p>Le Tic Tac Toe est un jeu joué sur une grille de 3x3 cases.</p>
+        <p>Deux joueurs jouent à tour de rôle en plaçant leur symbole (X ou O) dans une case vide.</p>
+        <p>Le premier joueur à aligner 3 de ses symboles horizontalement, verticalement ou en diagonale gagne la partie.</p>
+        <p>Si toutes les cases sont remplies et qu'aucun joueur n'a gagné, la partie est déclarée nulle.</p>
+        <p>Le joueur qui place le symbole X commence la partie.</p>
+        <p>Pour placer un symbole, cliquez simplement sur la case où vous voulez le placer.</p>
+        <p>Une fois qu'un symbole est placé, il ne peut pas être déplacé.</p>
+        <p>Le jeu se poursuit jusqu'à ce qu'un joueur gagne ou que toutes les cases soient remplies.</p>
+        <p>Amusez-vous bien !</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+<ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="closeDidactModal()">
+    <ion-icon name="close-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
