@@ -32,13 +32,15 @@ export class GameService {
   selectSquare(row: number, col: number) {
     if (!this.board[row][col] && !this.gameEnded) {
       this.board[row][col] = this.currentPlayer;
-      if (this.checkWinner(row, col)) {
+      if (this.isDraw()) {
+        console.log("draw");
+        this.gameEnded = true;
+        this.popupService.showGameResultPopup( "draw")
+      } else if (this.checkWinner(row, col)) {
         this.gameEnded = true;
         console.log(`Le joueur ${this.currentPlayer} a gagné !`);
         this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player" : "computer")
-      } else if(this.checkDraw()) {
-        console.log(`La partie est draw`);
-      }else {
+      } else {
         this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
         if (this.currentPlayer === 'O') {
           this.aiMove();
@@ -46,6 +48,7 @@ export class GameService {
       }
     }
   }
+
 
   checkWinner(row: number, col: number): boolean {
     if (
@@ -81,15 +84,16 @@ export class GameService {
     return false;
   }
 
-  checkDraw(): boolean {
-    for(let i = 0; i<this.board.length; i++) {
-      for(let j = 0; j<this.board[i].length; j++) {
-        if(this.board[i][j] != '') {
-          return false;
+  isDraw(): boolean {
+    let isDraw = true;
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board[i].length; j++) {
+        if (this.board[i][j] === '') {
+          isDraw = false;
         }
       }
     }
-    return true;
+    return isDraw
   }
 
   aiMove() {
