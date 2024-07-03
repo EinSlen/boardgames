@@ -6,12 +6,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div class="container">
-    <div class="scores">
-      <p>Joueur 1: {{ player1.score }}</p>
-      <p>Joueur 2: {{ player2.score }}</p>
-    </div>
-    <canvas #pongCanvas></canvas>
+<ion-content>
+  <div class="game-container">
+    <div class="ball"></div>
+    <div class="paddle player"></div>
+    <div class="paddle ai"></div>
   </div>
 </ion-content>
