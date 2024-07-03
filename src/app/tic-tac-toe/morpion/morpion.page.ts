@@ -21,7 +21,7 @@ import {SettingsModalComponent} from "../../settings-modal/settings-modal.compon
 import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
 import {ModalController, NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {closeCircleOutline, helpCircleOutline, settingsOutline, arrowBackCircleOutline} from "ionicons/icons";
+import {closeCircleOutline, helpCircleOutline, settingsOutline, arrowBackCircleOutline, trendingDownOutline, removeOutline, trendingUpOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-morpion',
@@ -44,7 +44,10 @@ export class MorpionPage implements OnInit {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
       'help-circle-outline' : helpCircleOutline,
-      'arrow-back-circle-outline' : arrowBackCircleOutline
+      'arrow-back-circle-outline' : arrowBackCircleOutline,
+      'beer': trendingDownOutline,
+      'hammer': removeOutline,
+      'skull': trendingUpOutline
     });
   }
 
