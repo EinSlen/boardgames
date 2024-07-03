@@ -6,6 +6,7 @@ import {GameboardComponent} from "./tic-tac-toe/gameboard/gameboard.component";
 import {LoaderComponent} from "./loader/loader.component";
 import { ModalController } from '@ionic/angular';
 import { RouterLink} from "@angular/router";
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @Component({

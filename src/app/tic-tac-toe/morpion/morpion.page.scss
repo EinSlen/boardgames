@@ -82,3 +82,51 @@ ion-content {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.difficulty-facile {
+  background-color: lightgreen;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.difficulty-medium {
+  background-color: yellow;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.difficulty-expert {
+  background-color: lightcoral;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.arrow {
+  position: absolute;
+  top: -15px; /* Position initiale plus haute au-dessus du bouton */
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg); /* Rotate de 180 degrés */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent; /* Ajustez la taille des côtés de la flèche */
+  border-right: 10px solid transparent; /* Ajustez la taille des côtés de la flèche */
+  border-bottom: 20px solid #39a0de; /* Ajustez la taille et la couleur de la pointe de la flèche */
+  opacity: 0;
+  animation: moveArrow 2s infinite alternate; /* Animation de mouvement plus lente */
+}
+
+@keyframes moveArrow {
+  0% {
+    top: -30px; /* Position initiale */
+  }
+  50% {
+    top: -20px; /* Position légèrement au-dessus du bouton */
+  }
+  100% {
+    top: -20px; /* Position légèrement au-dessous du bouton */
+  }
+}
+
+.arrow.visible {
+  opacity: 1;
+}

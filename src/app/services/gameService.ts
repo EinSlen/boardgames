@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {PopupService} from "./popup.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class GameService {
   difficulty: string = 'facile';
   thinking: boolean = false;
 
-  constructor() {}
+  constructor(private popupService: PopupService) {}
 
   startGame(startingPlayer: string, difficulty: string) {
     this.currentPlayer = startingPlayer === 'Joueur' ? 'X' : 'O';
@@ -34,6 +35,7 @@ export class GameService {
       if (this.checkWinner(row, col)) {
         this.gameEnded = true;
         console.log(`Le joueur ${this.currentPlayer} a gagné !`);
+        this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player" : "computer")
       } else if(this.checkDraw()) {
         console.log(`La partie est draw`);
       }else {

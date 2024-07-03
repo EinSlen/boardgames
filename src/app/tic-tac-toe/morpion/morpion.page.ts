@@ -28,7 +28,12 @@ import {LoaderComponent} from "../../loader/loader.component";
 export class MorpionPage implements OnInit {
   isLoading: boolean = true;
   start_play: string = 'player';
-  diffuculty: string = 'facile';
+  selectedDifficulty: string = 'facile';
+  difficulties: { label: string; value: string; icon: string, color: string }[] = [
+    { label: 'Facile', value: 'facile', icon: 'beer', color: 'success' },
+    { label: 'Medium', value: 'medium', icon: 'hammer', color: 'warning' },
+    { label: 'Expert', value: 'expert', icon: 'skull', color: 'danger' },
+  ];
 
 
   constructor(private popupService: PopupService, private gameService: GameService) {}
@@ -40,7 +45,7 @@ export class MorpionPage implements OnInit {
     console.log('Qui commence:', startingPlayer);
     console.log('Difficulté sélectionnée:', difficulty);
     this.start_play = startingPlayer;
-    this.diffuculty = difficulty;
+    this.selectedDifficulty = difficulty;
 
     this.gameService.startGame(startingPlayer, difficulty);
   }
@@ -53,6 +58,23 @@ export class MorpionPage implements OnInit {
 
   get isThinking() {
     return this.gameService.thinking;
+  }
+
+  get difficultyClass(): string {
+    switch (this.selectedDifficulty) {
+      case 'facile':
+        return 'difficulty-facile';
+      case 'medium':
+        return 'difficulty-medium';
+      case 'expert':
+        return 'difficulty-expert';
+      default:
+        return '';
+    }
+  }
+
+  get currentTurn(): string {
+    return this.gameService.currentPlayer === 'X' ? 'Joueur' : 'Ordinateur';
   }
 
 }
