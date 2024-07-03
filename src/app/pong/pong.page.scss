@@ -1,12 +1,32 @@
+ion-header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+}
+
+ion-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Utilisation de 100vh pour occuper toute la hauteur de la fenêtre */
+  background-color: #222; /* Couleur de fond du contenu */
+  overflow: hidden; /* Empêche le défilement */
+}
+
 canvas {
-  background-color: #000;
-  display: block;
-  margin: auto;
-  margin-top: 50px;
+  //transform: rotate(-90deg); /* Rotation de -90 degrés pour l'orientation verticale */
+  transform-origin: center; /* Centre de rotation */
+  background-color: #111; /* Couleur de fond du canvas */
 }
 
 .scores {
-  text-align: center;
-  margin-top: 20px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
   color: white;
+  font-size: 18px;
+}
+
+.scores p {
+  margin: 5px 0;
 }

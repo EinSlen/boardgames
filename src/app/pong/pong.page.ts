@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -10,13 +10,14 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
-export class PongPage implements OnInit {
-  @ViewChild('pongCanvas', { static: true }) canvas: HTMLCanvasElement = document.getElementById('pongCanvas') as HTMLCanvasElement;
-  ctx: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
+export class PongPage implements AfterViewInit {
+@ViewChild('pongCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
+  ctx: CanvasRenderingContext2D | null = null;
   intervalId: any;
 
-  paddleHeight = 100;
+
   paddleWidth = 10;
+  paddleHeight = 100;
   ballSize = 10;
 
   player1 = {
@@ -24,7 +25,7 @@ export class PongPage implements OnInit {
     y: 150,
     width: this.paddleWidth,
     height: this.paddleHeight,
-    score: 0
+    score: 0,
   };
 
   player2 = {
@@ -32,7 +33,7 @@ export class PongPage implements OnInit {
     y: 150,
     width: this.paddleWidth,
     height: this.paddleHeight,
-    score: 0
+    score: 0,
   };
 
   ball = {
@@ -40,15 +41,21 @@ export class PongPage implements OnInit {
     y: 200,
     dx: 3,
     dy: 3,
-    size: this.ballSize
+    size: this.ballSize,
   };
 
-  constructor() { }
+  // Pour suivre la position de la souris
+  mousePosition = {
+    x: 0,
+    y: 0,
+  };
 
-  ngOnInit() {
-    this.canvas = document.getElementById('pongCanvas') as HTMLCanvasElement;
-    this.ctx = this.canvas.getContext('2d');
+  constructor() {}
+
+  ngAfterViewInit() {
+    this.ctx = this.canvasRef.nativeElement.getContext('2d');
     this.startGame();
+    this.setupMouseControls();
   }
 
   startGame() {
@@ -58,7 +65,9 @@ export class PongPage implements OnInit {
   }
 
   draw() {
+    if (!this.ctx) return; // Vérifie si le contexte est défini
     this.clearCanvas();
+    this.updatePlayerPosition();
     this.drawPaddle(this.player1.x, this.player1.y);
     this.drawPaddle(this.player2.x, this.player2.y);
     this.drawBall(this.ball.x, this.ball.y);
@@ -72,30 +81,29 @@ export class PongPage implements OnInit {
   }
 
   clearCanvas() {
-    if(this.ctx) this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if (this.ctx) this.ctx.clearRect(0, 0, this.canvasRef.nativeElement.width, this.canvasRef.nativeElement.height);
   }
 
   drawPaddle(x: number, y: number) {
-    if(this.ctx) {
+    if (this.ctx) {
       this.ctx.fillStyle = '#FFF';
       this.ctx.fillRect(x, y, this.paddleWidth, this.paddleHeight);
     }
   }
 
   drawBall(x: number, y: number) {
-    if(this.ctx) {
+    if (this.ctx) {
       this.ctx.beginPath();
       this.ctx.arc(x, y, this.ballSize, 0, Math.PI * 2);
       this.ctx.fillStyle = '#FFF';
       this.ctx.fill();
       this.ctx.closePath();
     }
-
   }
 
   checkCollision() {
     // Check collision with top and bottom walls
-    if (this.ball.y + this.ball.dy > this.canvas.height - this.ballSize || this.ball.y + this.ball.dy < this.ballSize) {
+    if (this.ball.y + this.ball.dy > this.canvasRef.nativeElement.height - this.ballSize || this.ball.y + this.ball.dy < this.ballSize) {
       this.ball.dy = -this.ball.dy;
     }
 
@@ -115,7 +123,7 @@ export class PongPage implements OnInit {
 
   checkPoint() {
     // Check if ball passed the paddles
-    if (this.ball.x + this.ball.dx > this.canvas.width - this.ballSize) {
+    if (this.ball.x + this.ball.dx > this.canvasRef.nativeElement.width - this.ballSize) {
       this.player1.score++;
       this.resetBall();
     }
@@ -127,25 +135,37 @@ export class PongPage implements OnInit {
   }
 
   resetBall() {
-    this.ball.x = this.canvas.width / 2;
-    this.ball.y = this.canvas.height / 2;
+    this.ball.x = this.canvasRef.nativeElement.width / 2;
+    this.ball.y = this.canvasRef.nativeElement.height / 2;
     this.ball.dx = -this.ball.dx;
     this.ball.dy = -this.ball.dy;
   }
 
-  @HostListener('document.keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key === 'ArrowUp' && this.player2.y > 0) {
-      this.player2.y -= 10;
+  updatePlayerPosition() {
+    // Mise à jour de la position du joueur 1 en fonction de la position de la souris
+    this.player1.y = this.mousePosition.y - this.paddleHeight / 2;
+
+    // Limitez la position du joueur 1 à l'écran
+    this.player1.y = Math.max(Math.min(this.player1.y, this.canvasRef.nativeElement.height - this.paddleHeight), 0);
+
+    // Mise à jour de la position de l'IA (joueur 2)
+    // Simulation d'une IA simple qui suit la balle
+    if (this.ball.y > this.player2.y + this.paddleHeight / 2) {
+      this.player2.y += 3; // Vitesse de déplacement de l'IA
+    } else if (this.ball.y < this.player2.y + this.paddleHeight / 2) {
+      this.player2.y -= 3; // Vitesse de déplacement de l'IA
     }
-    if (event.key === 'ArrowDown' && this.player2.y < this.canvas.height - this.player2.height) {
-      this.player2.y += 10;
-    }
-    if (event.key === 'w' && this.player1.y > 0) {
-      this.player1.y -= 10;
-    }
-    if (event.key === 's' && this.player1.y < this.canvas.height - this.player1.height) {
-      this.player1.y += 10;
-    }
+
+    // Limitez la position de l'IA à l'écran
+    this.player2.y = Math.max(Math.min(this.player2.y, this.canvasRef.nativeElement.height - this.paddleHeight), 0);
+  }
+
+  setupMouseControls() {
+    // Écoute des mouvements de la souris sur le canvas
+    this.canvasRef.nativeElement.addEventListener('mousemove', (event) => {
+      const canvasRect = this.canvasRef.nativeElement.getBoundingClientRect();
+      this.mousePosition.x = event.clientX - canvasRect.left;
+      this.mousePosition.y = event.clientY - canvasRect.top;
+    });
   }
 }
