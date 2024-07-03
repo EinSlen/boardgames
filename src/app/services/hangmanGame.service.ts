@@ -1,20 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {alphabet} from "../../models/keyboard";
-import {IonicModule} from "@ionic/angular";
-import {NgForOf} from "@angular/common";
+import {alphabet} from "../models/keyboard";
+import {Injectable} from "@angular/core";
 
-@Component({
-  selector: 'app-keyboard',
-  templateUrl: './keyboard.component.html',
-  styleUrls: ['./keyboard.component.scss'],
-  imports: [
-    IonicModule,
-    NgForOf
-  ],
-  standalone: true
+
+@Injectable({
+  providedIn: 'root'
 })
-export class KeyboardComponent  implements OnInit {
-
+export class HangmanGameService{
   firstRow : string[] = [];
   secondRow: string[] = [];
   thirdRow : string[] = [];
@@ -54,12 +45,4 @@ export class KeyboardComponent  implements OnInit {
     }
 
   }
-
-  ngOnInit() {}
-
-
-
-
-
-
 }

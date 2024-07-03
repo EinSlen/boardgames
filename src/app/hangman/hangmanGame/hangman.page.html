@@ -15,7 +15,44 @@
 
   <ion-title class="ion-text-center ion-margin-top">Jeu du pendu</ion-title>
 
+  <!--Letters-->
+  <ion-grid class="ion-text-center">
+    <ion-row class="row">
+      <ion-button class="small-button" *ngFor="let letter of service.firstRow">
+        {{letter}}
+      </ion-button>
+    </ion-row>
 
-  <app-keyboard></app-keyboard>
+    <ion-row class="row">
+      <ion-button class="small-button" *ngFor="let letter of service.secondRow">
+        {{letter}}
+      </ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" *ngFor="let letter of service.thirdRow">
+        {{letter}}
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+
+  <!--Numbers-->
+  <ion-grid class="ion-text-center">
+    <ion-row class="row">
+      <ion-button class="small-button" *ngFor="let n of service.numFirstRow">{{n}}</ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" *ngFor="let n of service.numSecondRow">{{n}}</ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" *ngFor="let n of service.numThirdRow">{{n}}</ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" *ngFor="let n of service.numLastRow">{{n}}</ion-button>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
