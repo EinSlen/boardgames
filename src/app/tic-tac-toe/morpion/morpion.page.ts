@@ -17,11 +17,10 @@ import {SquareComponent} from "../square/square.component";
 import {PopupService} from "../../services/popup.service";
 import {GameboardComponent} from "../gameboard/gameboard.component";
 import {LoaderComponent} from "../../loader/loader.component";
-import {SettingsModalComponent} from "../../settings-modal/settings-modal.component";
 import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
 import {ModalController, NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {closeCircleOutline, helpCircleOutline, settingsOutline, arrowBackCircleOutline, happyOutline, alertCircleOutline, skullOutline} from "ionicons/icons";
+import {closeCircleOutline, helpCircleOutline, arrowBackCircleOutline, happyOutline, alertCircleOutline, skullOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-morpion',
@@ -84,7 +83,7 @@ export class MorpionPage implements OnInit {
     const modal = await this.modalController.create({
       component: DidactModalComponent,
       componentProps: {
-        value: 123
+        gameName: 'morpion'
       }
     });
     modal.present();

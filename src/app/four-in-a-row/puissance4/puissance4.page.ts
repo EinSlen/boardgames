@@ -99,7 +99,18 @@ export class Puissance4Page implements OnInit {
     }
   }
 
+
   get currentTurn(): string {
-    return this.gameService.currentPlayer === '🔴' ? 'Joueur' : 'Ordinateur';
+    this.selectedDifficulty = this.gameService.getdifficulty;
+    return this.selectedDifficulty != '' ? this.gameService.currentPlayer === '🔴' ? 'Joueur' : 'Ordinateur' : this.gameService.currentPlayer === '🔴' ? 'Joueur 1' : 'Joueur 2';
+  }
+
+  restartGame() {
+    this.gameService.startGame('Joueur', this.selectedDifficulty);
+  }
+
+  switchToPlayerVsPlayer() {
+    this.selectedDifficulty = ''
+    this.gameService.startGame('Joueur 1', ''); // Exemple: Ne pas passer de difficulté pour joueur contre joueur
   }
 }
