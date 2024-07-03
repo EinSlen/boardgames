@@ -7,7 +7,7 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
-  IonIcon, IonRow,
+  IonIcon, IonRow, IonText,
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
@@ -21,7 +21,7 @@ import {HangmanGameService} from "../../services/hangmanGame.service";
   templateUrl: './hangman.page.html',
   styleUrls: ['./hangman.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon, IonGrid, IonRow]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon, IonGrid, IonRow, IonText]
 })
 export class HangmanPage implements OnInit {
 

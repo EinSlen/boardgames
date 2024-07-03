@@ -15,6 +15,9 @@
 
   <ion-title class="ion-text-center ion-margin-top">Jeu du pendu</ion-title>
 
+<ion-grid class="ion-text-center">
+  <ion-text class="hidden-word" *ngFor="let c of service.hiddenWord">{{c}}</ion-text>
+</ion-grid>
   <!--Letters-->
   <ion-grid class="ion-text-center">
     <ion-row class="row">

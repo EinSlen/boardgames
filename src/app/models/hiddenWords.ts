@@ -1,0 +1,22 @@
+export const hiddenWords = [
+  "chat",
+  "chien",
+  "maison",
+  "voiture",
+  "ordinateur",
+  "jardin",
+  "fleur",
+  "montagne",
+  "rivière",
+  "étoile",
+  "musique",
+  "soleil",
+  "plage",
+  "vacances",
+  "heureux",
+  "famille",
+  "voyage",
+  "livre",
+  "football",
+  "piano"
+];
