@@ -1,15 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()">
-        <ion-icon name="arrow-back-circle-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
     <ion-title>
-      Accueil
+      Four in a row
     </ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <div *ngIf="isLoading">
     <app-loader></app-loader>
@@ -17,7 +13,7 @@
 
   <div *ngIf="!isLoading">
     <div class="header">
-      TIC-TAC-TOE
+      Four in a row
     </div>
     <ion-fab vertical="top" horizontal="end" slot="fixed">
       <ion-fab-button (click)="openDidactModal()">
@@ -30,6 +26,7 @@
 
     <div class="info-game">
       <p>Au tour de: {{currentTurn}}</p>
+      <p>Difficulté sélectionnée: <span [ngClass]="difficultyClass">{{ selectedDifficulty }}</span></p>
     </div>
 
     <div *ngIf="isThinking" class="loader-container">

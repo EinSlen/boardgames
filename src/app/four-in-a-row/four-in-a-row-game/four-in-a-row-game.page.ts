@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonRow,
-  IonTitle,
-  IonToolbar,
-  IonButton,
-  IonIcon, IonFab, IonFabButton, IonButtons
+    IonCol,
+    IonContent,
+    IonGrid,
+    IonHeader,
+    IonRow,
+    IonTitle,
+    IonToolbar,
+    IonButton,
+    IonIcon, IonFab, IonFabButton
 } from '@ionic/angular/standalone';
 import {GameService} from "../../services/gameService";
 import {SquareComponent} from "../square/square.component";
@@ -19,18 +19,18 @@ import {GameboardComponent} from "../gameboard/gameboard.component";
 import {LoaderComponent} from "../../loader/loader.component";
 import {SettingsModalComponent} from "../../settings-modal/settings-modal.component";
 import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
-import {ModalController, NavController} from "@ionic/angular";
+import {ModalController} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {closeCircleOutline, helpCircleOutline, settingsOutline, arrowBackCircleOutline, trendingDownOutline, removeOutline, trendingUpOutline} from "ionicons/icons";
+import {closeCircleOutline, helpCircleOutline, settingsOutline} from "ionicons/icons";
 
 @Component({
-  selector: 'app-morpion',
-  templateUrl: './morpion.page.html',
-  styleUrls: ['./morpion.page.scss'],
+  selector: 'app-four-in-a-row-game',
+  templateUrl: './four-in-a-row-game.page.html',
+  styleUrls: ['./four-in-a-row-game.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton, IonButtons]
+    imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton]
 })
-export class MorpionPage implements OnInit {
+export class FourInARowGamePage implements OnInit {
   isLoading: boolean = true;
   start_play: string = 'player';
   selectedDifficulty: string = 'facile';
@@ -40,14 +40,11 @@ export class MorpionPage implements OnInit {
     { label: 'Expert', value: 'expert', icon: 'skull', color: 'danger' },
   ];
 
-  constructor(private popupService: PopupService, private gameService: GameService, private modalController: ModalController,  private navCtrl: NavController) {
+
+  constructor(private popupService: PopupService, private gameService: GameService, private modalController: ModalController) {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
       'help-circle-outline' : helpCircleOutline,
-      'arrow-back-circle-outline' : arrowBackCircleOutline,
-      'beer': trendingDownOutline,
-      'hammer': removeOutline,
-      'skull': trendingUpOutline
     });
   }
 
@@ -82,10 +79,6 @@ export class MorpionPage implements OnInit {
 
   get isThinking() {
     return this.gameService.thinking;
-  }
-
-  goBack() {
-    this.navCtrl.back();
   }
 
   get difficultyClass(): string {

@@ -13,7 +13,6 @@ ion-content {
     justify-content: center;
     align-items: center;
     margin: 20px 0;
-    padding-top: 50px;
   }
 
   .info-game {
@@ -45,7 +44,7 @@ ion-content {
           --border-radius: 12px;
           --padding-start: 20px;
           --padding-end: 20px;
-          --animation: buttonAnimation 0.1s ease infinite;
+          --animation: buttonAnimation 1s ease infinite;
 
           ion-icon {
             margin-left: 8px;
