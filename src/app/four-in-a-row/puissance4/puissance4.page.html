@@ -1,7 +1,12 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>
-      Four in a row
+      Puissance 4
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,10 +18,10 @@
 
   <div *ngIf="!isLoading">
     <div class="header">
-      Four in a row
+      PUISSANCE 4
     </div>
     <ion-fab vertical="top" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="openDidactModal()">
+      <ion-fab-button (click)="openDidactModal('puissance4')">
         <ion-icon name="help-circle-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab>
@@ -26,7 +31,6 @@
 
     <div class="info-game">
       <p>Au tour de: {{currentTurn}}</p>
-      <p>Difficulté sélectionnée: <span [ngClass]="difficultyClass">{{ selectedDifficulty }}</span></p>
     </div>
 
     <div *ngIf="isThinking" class="loader-container">
