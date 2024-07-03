@@ -31,6 +31,10 @@
 
     <div class="info-game">
       <p>Au tour de: {{currentTurn}}</p>
+
+      <ion-button (click)="restartGame()">Recommencer</ion-button>
+      <ion-button (click)="switchToPlayerVsPlayer()">Joueur vs Joueur</ion-button>
+
     </div>
 
     <div *ngIf="isThinking" class="loader-container">
