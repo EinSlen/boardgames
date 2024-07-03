@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Four in a row
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isLoading">
+    <app-loader></app-loader>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div class="header">
+      Four in a row
+    </div>
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="openDidactModal()">
+        <ion-icon name="help-circle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <div class="game-board">
+      <app-gameboard></app-gameboard>
+    </div>
+
+    <div class="info-game">
+      <p>Au tour de: {{currentTurn}}</p>
+      <p>Difficulté sélectionnée: <span [ngClass]="difficultyClass">{{ selectedDifficulty }}</span></p>
+    </div>
+
+    <div *ngIf="isThinking" class="loader-container">
+      <app-loader class="loader"></app-loader>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="auto" *ngFor="let difficulty of difficulties">
+          <div class="arrow" [ngClass]="{'visible': difficulty.value === selectedDifficulty}"></div>
+          <ion-button expand="block" (click)="startGame(difficulty.value)" [color]="difficulty.value === selectedDifficulty ? difficulty.color : 'light'" class="difficulty-button">
+            {{ difficulty.label }}
+            <ion-icon slot="end" [name]="difficulty.icon"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+</ion-content>
