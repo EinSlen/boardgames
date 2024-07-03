@@ -14,9 +14,10 @@ export const routes: Routes = [
   {
     path: 'morpion',
     loadComponent: () => import('./tic-tac-toe/morpion/morpion.page').then(m => m.MorpionPage)
-  },  {
-    path: 'hangman',
-    loadComponent: () => import('./hangman/hangman.page').then( m => m.HangmanPage)
+  },
+  {
+    path: 'hangmanGame',
+    loadComponent: () => import('./hangman/hangmanGame/hangman.page').then(m => m.HangmanPage)
   },
 
 

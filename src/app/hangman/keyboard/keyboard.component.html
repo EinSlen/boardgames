@@ -1,0 +1,38 @@
+<!--Letters-->
+<ion-grid class="ion-text-center">
+  <ion-row class="row">
+    <ion-button class="small-button" *ngFor="let letter of firstRow">
+      {{ letter }}
+    </ion-button>
+  </ion-row>
+  <ion-row class="row">
+    <ion-button class="small-button" *ngFor="let letter of secondRow">
+      {{ letter }}
+    </ion-button>
+  </ion-row>
+  <ion-row class="row">
+    <ion-button class="small-button" *ngFor="let letter of thirdRow">
+      {{ letter }}
+    </ion-button>
+  </ion-row>
+</ion-grid>
+
+<!--Numbers-->
+<ion-grid class="ion-text-center">
+  <ion-row class="row">
+    <ion-button class="small-button" *ngFor="let n of numFirstRow">{{n}}</ion-button>
+  </ion-row>
+
+  <ion-row class="row">
+    <ion-button class="small-button" *ngFor="let n of numSecondRow">{{n}}</ion-button>
+  </ion-row>
+
+  <ion-row class="row">
+    <ion-button class="small-button" *ngFor="let n of numThirdRow">{{n}}</ion-button>
+  </ion-row>
+
+  <ion-row class="row">
+    <ion-button class="small-button" *ngFor="let n of numLastRow">{{n}}</ion-button>
+  </ion-row>
+
+</ion-grid>

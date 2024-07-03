@@ -5,13 +5,14 @@ import {IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonTitle, IonTool
 import {NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
 import {arrowBackCircleOutline, closeCircleOutline, helpCircleOutline} from "ionicons/icons";
+import {KeyboardComponent} from "../keyboard/keyboard.component";
 
 @Component({
-  selector: 'app-hangman',
+  selector: 'app-hangmanGame',
   templateUrl: './hangman.page.html',
   styleUrls: ['./hangman.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon, KeyboardComponent]
 })
 export class HangmanPage implements OnInit {
 
@@ -25,6 +26,9 @@ export class HangmanPage implements OnInit {
 
   ngOnInit() {
   }
+
+
+
 
   goBack(){
     this.navCtrl.back();
