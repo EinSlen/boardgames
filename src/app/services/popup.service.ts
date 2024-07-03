@@ -6,8 +6,7 @@ import * as confetti from 'canvas-confetti';
   providedIn: 'root'
 })
 export class PopupService {
-
-  constructor(private alertController: AlertController) { }
+  constructor(private alertController: AlertController) {}
 
   async showStartGamePopup(): Promise<string> {
     return new Promise<string>(async (resolve) => {
@@ -31,7 +30,7 @@ export class PopupService {
     });
   }
 
-  async showGameResultPopup(winner: string) {
+  async showGameResultPopup(winner: string, restartCallback: (difficulty: string) => void) {
     const emoji = winner === 'player' ? '🎉' :
       winner === 'computer' ? '💩' :
         '❌';
@@ -45,7 +44,7 @@ export class PopupService {
         {
           text: 'RECOMMENCER',
           handler: () => {
-            //TODO add demain ici la logique pour recommencer le jeu
+            this.promptDifficultySelection(restartCallback);
           }
         }
       ]
@@ -54,11 +53,51 @@ export class PopupService {
     await alert.present();
 
     if (winner === 'player') {
-      this.launchConfetti(); // Lancer les confettis si le joueur gagne
+      this.launchConfetti();
     }
   }
 
-  // Méthode pour lancer les confettis
+  private async promptDifficultySelection(restartCallback: (difficulty: string) => void) {
+    const difficultyAlert = await this.alertController.create({
+      header: 'Choisissez la difficulté',
+      inputs: [
+        {
+          name: 'difficulty',
+          type: 'radio',
+          label: 'Facile',
+          value: 'facile',
+          checked: true
+        },
+        {
+          name: 'difficulty',
+          type: 'radio',
+          label: 'Moyen',
+          value: 'medium'
+        },
+        {
+          name: 'difficulty',
+          type: 'radio',
+          label: 'Expert',
+          value: 'expert'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel'
+        },
+        {
+          text: 'OK',
+          handler: (data) => {
+            restartCallback(data.difficulty);
+          }
+        }
+      ]
+    });
+
+    await difficultyAlert.present();
+  }
+
   private launchConfetti() {
     confetti.create(undefined, {
       resize: true,

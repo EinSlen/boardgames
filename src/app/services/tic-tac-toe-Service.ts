@@ -11,6 +11,7 @@ export class TicTacToeService {
   gameEnded: boolean = false;
   difficulty: string = 'facile';
   thinking: boolean = false;
+  winningPositions: number[][] | null = null;
 
   constructor(private popupService: PopupService) {}
 
@@ -23,6 +24,7 @@ export class TicTacToeService {
     ];
     this.gameEnded = false;
     this.difficulty = difficulty;
+    this.winningPositions = null;
 
     if (this.currentPlayer === 'O') {
       this.aiMove();
@@ -32,14 +34,20 @@ export class TicTacToeService {
   selectSquare(row: number, col: number) {
     if (!this.board[row][col] && !this.gameEnded) {
       this.board[row][col] = this.currentPlayer;
-      if (this.checkWinner(row, col)) {
+      const winningPositions = this.checkWinner(row, col);
+      if (winningPositions) {
         this.gameEnded = true;
+        this.winningPositions = winningPositions;
         console.log(`${this.currentPlayer} a gagné !`);
-        this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player" : "computer")
+        this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player" : "computer", (difficulty) => {
+          this.startGame("Joueur", difficulty);
+        })
       } else if (this.isDraw()) {
         console.log("draw");
         this.gameEnded = true;
-        this.popupService.showGameResultPopup( "draw")
+        this.popupService.showGameResultPopup('draw', (difficulty) => {
+          this.startGame("Joueur", difficulty);
+        });
       } else {
         this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
         if (this.currentPlayer === 'O') {
@@ -50,39 +58,26 @@ export class TicTacToeService {
   }
 
 
-  checkWinner(row: number, col: number): boolean {
-    if (
-      this.board[row][0] === this.currentPlayer &&
-      this.board[row][1] === this.currentPlayer &&
-      this.board[row][2] === this.currentPlayer
-    ) {
-      return true;
+  checkWinner(row: number, col: number): number[][] | null {
+    let winPositions: number[][] = [];
+
+    if (this.board[row][0] === this.currentPlayer && this.board[row][1] === this.currentPlayer && this.board[row][2] === this.currentPlayer) {
+      winPositions = [[row, 0], [row, 1], [row, 2]];
+    } else if (this.board[0][col] === this.currentPlayer && this.board[1][col] === this.currentPlayer && this.board[2][col] === this.currentPlayer) {
+      winPositions = [[0, col], [1, col], [2, col]];
+    } else if (row === col && this.board[0][0] === this.currentPlayer && this.board[1][1] === this.currentPlayer && this.board[2][2] === this.currentPlayer) {
+      winPositions = [[0, 0], [1, 1], [2, 2]];
+    } else if (row + col === 2 && this.board[0][2] === this.currentPlayer && this.board[1][1] === this.currentPlayer && this.board[2][0] === this.currentPlayer) {
+      winPositions = [[0, 2], [1, 1], [2, 0]];
     }
-    if (
-      this.board[0][col] === this.currentPlayer &&
-      this.board[1][col] === this.currentPlayer &&
-      this.board[2][col] === this.currentPlayer
-    ) {
-      return true;
+
+    if (winPositions.length > 0) {
+      return winPositions;
+    } else {
+      return null;
     }
-    if (
-      row === col &&
-      this.board[0][0] === this.currentPlayer &&
-      this.board[1][1] === this.currentPlayer &&
-      this.board[2][2] === this.currentPlayer
-    ) {
-      return true;
-    }
-    if (
-      row + col === 2 &&
-      this.board[0][2] === this.currentPlayer &&
-      this.board[1][1] === this.currentPlayer &&
-      this.board[2][0] === this.currentPlayer
-    ) {
-      return true;
-    }
-    return false;
   }
+
 
   isDraw(): boolean {
     let isDraw = true;
