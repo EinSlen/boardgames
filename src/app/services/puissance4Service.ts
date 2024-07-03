@@ -33,11 +33,11 @@ export class Puissance4Service {
           if (this.checkWinner(row, col)) {
             this.gameEnded = true;
             console.log(`${this.currentPlayer} a gagné !`);
-            this.popupService.showGameResultPopup( this.currentPlayer === '🔴' ? "player" : "computer")
+            this.popupService.showGameResultPopup( this.currentPlayer === '🔴' ? "player" : "computer", () => {})
           } else if (this.isDraw()) {
             console.log("draw");
             this.gameEnded = true;
-            this.popupService.showGameResultPopup( "draw")
+            this.popupService.showGameResultPopup( "draw", () => {})
           } else {
             this.currentPlayer = this.currentPlayer === '🔴' ? '🟡' : '🔴';
             if (this.currentPlayer === '🟡') {
