@@ -32,14 +32,14 @@ export class GameService {
   selectSquare(row: number, col: number) {
     if (!this.board[row][col] && !this.gameEnded) {
       this.board[row][col] = this.currentPlayer;
-      if (this.isDraw()) {
+      if (this.checkWinner(row, col)) {
+        this.gameEnded = true;
+        console.log(`${this.currentPlayer} a gagné !`);
+        this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player" : "computer")
+      } else if (this.isDraw()) {
         console.log("draw");
         this.gameEnded = true;
         this.popupService.showGameResultPopup( "draw")
-      } else if (this.checkWinner(row, col)) {
-        this.gameEnded = true;
-        console.log(`Le joueur ${this.currentPlayer} a gagné !`);
-        this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player" : "computer")
       } else {
         this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
         if (this.currentPlayer === 'O') {

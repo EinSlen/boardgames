@@ -9,8 +9,9 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  NavController,
   IonButton,
-  IonIcon
+  IonIcon, IonButtons
 } from '@ionic/angular/standalone';
 import {GameService} from "../../services/gameService";
 import {SquareComponent} from "../square/square.component";
@@ -23,7 +24,7 @@ import {LoaderComponent} from "../../loader/loader.component";
   templateUrl: './morpion.page.html',
   styleUrls: ['./morpion.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonButtons]
 })
 export class MorpionPage implements OnInit {
   isLoading: boolean = true;
@@ -36,7 +37,7 @@ export class MorpionPage implements OnInit {
   ];
 
 
-  constructor(private popupService: PopupService, private gameService: GameService) {}
+  constructor(private popupService: PopupService, private gameService: GameService,  private navCtrl: NavController) {}
 
   async startGame(difficulty: string) {
     let startingPlayer = "Joueur"
@@ -58,6 +59,10 @@ export class MorpionPage implements OnInit {
 
   get isThinking() {
     return this.gameService.thinking;
+  }
+
+  goBack() {
+    this.navCtrl.back();
   }
 
   get difficultyClass(): string {

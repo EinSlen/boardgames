@@ -1,11 +1,15 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>
-      Morpion
+      Accueil
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <div *ngIf="isLoading">
     <app-loader></app-loader>
@@ -13,7 +17,7 @@
 
   <div *ngIf="!isLoading">
     <div class="header">
-      Morpion Game
+      TIC-TAC-TOE
     </div>
 
     <div class="game-board">
