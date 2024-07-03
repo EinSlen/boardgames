@@ -12,7 +12,7 @@ import {
   IonButton,
   IonIcon, IonFab, IonFabButton, IonButtons
 } from '@ionic/angular/standalone';
-import {GameService} from "../../services/gameService";
+import {TicTacToeService} from "../../services/tic-tac-toe-Service";
 import {SquareComponent} from "../square/square.component";
 import {PopupService} from "../../services/popup.service";
 import {GameboardComponent} from "../gameboard/gameboard.component";
@@ -21,7 +21,7 @@ import {SettingsModalComponent} from "../../settings-modal/settings-modal.compon
 import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
 import {ModalController, NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {closeCircleOutline, helpCircleOutline, settingsOutline, arrowBackCircleOutline, trendingDownOutline, removeOutline, trendingUpOutline} from "ionicons/icons";
+import {closeCircleOutline, helpCircleOutline, settingsOutline, arrowBackCircleOutline, happyOutline, alertCircleOutline, skullOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-morpion',
@@ -40,14 +40,14 @@ export class MorpionPage implements OnInit {
     { label: 'Expert', value: 'expert', icon: 'skull', color: 'danger' },
   ];
 
-  constructor(private popupService: PopupService, private gameService: GameService, private modalController: ModalController,  private navCtrl: NavController) {
+  constructor(private popupService: PopupService, private gameService: TicTacToeService, private modalController: ModalController, private navCtrl: NavController) {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
       'help-circle-outline' : helpCircleOutline,
       'arrow-back-circle-outline' : arrowBackCircleOutline,
-      'beer': trendingDownOutline,
-      'hammer': removeOutline,
-      'skull': trendingUpOutline
+      'beer': happyOutline,
+      'hammer': alertCircleOutline,
+      'skull': skullOutline
     });
   }
 

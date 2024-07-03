@@ -4,7 +4,7 @@ import {PopupService} from "./popup.service";
 @Injectable({
   providedIn: 'root'
 })
-export class GameService {
+export class TicTacToeService {
 
   currentPlayer: string = 'X';
   board: string[][] = [];

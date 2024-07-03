@@ -12,7 +12,7 @@ import {
     IonButton,
     IonIcon, IonFab, IonFabButton
 } from '@ionic/angular/standalone';
-import {GameService} from "../../services/gameService";
+import {TicTacToeService} from "../../services/tic-tac-toe-Service";
 import {SquareComponent} from "../square/square.component";
 import {PopupService} from "../../services/popup.service";
 import {GameboardComponent} from "../gameboard/gameboard.component";
@@ -41,7 +41,7 @@ export class FourInARowGamePage implements OnInit {
   ];
 
 
-  constructor(private popupService: PopupService, private gameService: GameService, private modalController: ModalController) {
+  constructor(private popupService: PopupService, private gameService: TicTacToeService, private modalController: ModalController) {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
       'help-circle-outline' : helpCircleOutline,
