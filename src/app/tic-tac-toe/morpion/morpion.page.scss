@@ -49,3 +49,9 @@ ion-content {
     }
   }
 }
+
+ion-fab-button {
+  --width: 60px; /* Changez la largeur du bouton */
+  --height: 60px; /* Changez la hauteur du bouton */
+  --font-size: 30px; /* Changez la taille de l'icône à l'intérieur du bouton */
+}
