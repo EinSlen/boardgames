@@ -18,13 +18,36 @@ export class HangmanGameService{
 
   word : string = ""
   hiddenWord : string[] = []
-
+  tries : number = 8;
 
   constructor() {
     this.generateButtons();
     this.generateWord();
     this.generateHiddenWord();
+
+
   }
+
+  clear(){
+    this.tries = 8;
+    this.firstRow = [];
+    this.secondRow = [];
+    this.thirdRow = [];
+    this.numFirstRow = [];
+    this.numSecondRow = [];
+    this.numThirdRow = [];
+    this.numLastRow = []
+
+    this.hiddenWord = []
+
+  }
+
+  restart(){
+    this.clear();
+    this.generateWord()
+    this.generateHiddenWord()
+  }
+
 
 
   generateWord(){
@@ -34,7 +57,7 @@ export class HangmanGameService{
     for (let c of tmp){
       str += c.toUpperCase()
     }
-    this.word = this.removeAccents(str);
+    this.word = str;
   }
 
   generateHiddenWord(){
@@ -43,8 +66,51 @@ export class HangmanGameService{
     }
   }
 
+
   removeAccents(str : string) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  isInWord(char : string, word: string){
+    for (let letter of word) {
+      if (char === letter) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  checkWordFound() {
+    for (let char of this.hiddenWord) {
+      if (char === "-") {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  revealLetter(char : string){
+    for (let i = 0; i < this.word.length; i++){
+      if (this.word[i] === char){
+        this.hiddenWord[i] = char
+      }
+    }
+  }
+
+  checkClickedButton(event :any){
+    const clickedButton = event.target;
+    const letter = clickedButton.textContent.trim();
+    if ( this.tries > 0 && (!this.checkWordFound()) && clickedButton.color === "primary") {
+      const check = this.isInWord(letter, this.word);
+      if (check) {
+        this.revealLetter(letter)
+        clickedButton.color = "success";
+      } else {
+        clickedButton.color = "danger";
+        this.tries --;
+      }
+    }
+
   }
 
   generateButtons(){

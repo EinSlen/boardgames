@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -17,14 +17,14 @@ import {arrowBackCircleOutline, closeCircleOutline, helpCircleOutline} from "ion
 import {HangmanGameService} from "../../services/hangmanGame.service";
 
 @Component({
-  selector: 'app-hangmanGame',
+  selector: 'app-hangman-page',
   templateUrl: './hangman.page.html',
   styleUrls: ['./hangman.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon, IonGrid, IonRow, IonText]
 })
 export class HangmanPage implements OnInit {
-
+  @ViewChildren('smallButtons', { read: ElementRef }) ionButtons!: QueryList<ElementRef>;
   constructor(private navCtrl : NavController, protected service : HangmanGameService) {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
@@ -34,10 +34,18 @@ export class HangmanPage implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
 
 
+  restartGame(){
+    const buttons = document.querySelectorAll(".small-button")
+    buttons.forEach((btn) => {
+      btn.classList.add("danger")
+    })
+    this.service = new HangmanGameService();
+  }
 
   goBack(){
     this.navCtrl.back();

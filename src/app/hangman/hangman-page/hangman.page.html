@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Accueil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-title class="ion-text-center ion-margin-top">Jeu du pendu</ion-title>
+
+<ion-grid class="ion-text-center">
+  <ion-text class="hidden-word" *ngFor="let c of service.hiddenWord">{{c}}</ion-text>
+</ion-grid>
+  <!--Letters-->
+  <ion-grid class="ion-text-center">
+    <ion-row class="row">
+      <ion-button class="small-button" color="primary" *ngFor="let letter of service.firstRow" (click)="service.checkClickedButton($event)">
+        {{letter}}
+      </ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" color="primary" *ngFor="let letter of service.secondRow" (click)="service.checkClickedButton($event)">
+        {{letter}}
+      </ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" color="primary" *ngFor="let letter of service.thirdRow" (click)="service.checkClickedButton($event)">
+        {{letter}}
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+
+  <!--Numbers-->
+  <ion-grid class="ion-text-center">
+    <ion-row class="row">
+      <ion-button class="small-button" color="primary" *ngFor="let n of service.numFirstRow" (click)="service.checkClickedButton($event)">{{n}}</ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" color="primary" *ngFor="let n of service.numSecondRow" (click)="service.checkClickedButton($event)">{{n}}</ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" color="primary" *ngFor="let n of service.numThirdRow" (click)="service.checkClickedButton($event)">{{n}}</ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" color="primary" *ngFor="let n of service.numLastRow" (click)="service.checkClickedButton($event)">{{n}}</ion-button>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid class="ion-text-center">
+  <ion-text>Essaies : {{service.tries}}</ion-text>
+  </ion-grid>
+
+  <ion-button expand="full" (click)="service.restart()">Recommencer</ion-button>
+
+</ion-content>
