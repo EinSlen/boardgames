@@ -13,6 +13,21 @@ ion-content {
     justify-content: center;
     align-items: center;
     margin: 20px 0;
+    padding-top: 50px;
+
+    .square {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      height: 40px;
+      width: 40px;
+      border: 1px solid #ccc;
+
+      &:nth-child(n+1) {
+        background: #47d4ff;
+      }
+    }
   }
 
   .info-game {
@@ -44,7 +59,7 @@ ion-content {
           --border-radius: 12px;
           --padding-start: 20px;
           --padding-end: 20px;
-          --animation: buttonAnimation 1s ease infinite;
+          --animation: buttonAnimation 0.1s ease infinite;
 
           ion-icon {
             margin-left: 8px;
@@ -67,13 +82,13 @@ ion-content {
   }
 }
 
-/* morpion.page.scss */
+/* puissance4.page.scss */
 
 .loader-container {
   position: relative;
   margin-top: 20px;
-  width: 100%; /* Assure que le loader occupe toute la largeur disponible */
-  text-align: center; /* Centre le contenu horizontalement */
+  width: 100%;
+  text-align: center;
 }
 
 .loader {
@@ -103,27 +118,27 @@ ion-content {
 
 .arrow {
   position: absolute;
-  top: -15px; /* Position initiale plus haute au-dessus du bouton */
+  top: -15px;
   left: 50%;
-  transform: translateX(-50%) rotate(180deg); /* Rotate de 180 degrés */
+  transform: translateX(-50%) rotate(180deg);
   width: 0;
   height: 0;
-  border-left: 10px solid transparent; /* Ajustez la taille des côtés de la flèche */
-  border-right: 10px solid transparent; /* Ajustez la taille des côtés de la flèche */
-  border-bottom: 20px solid #39a0de; /* Ajustez la taille et la couleur de la pointe de la flèche */
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #39a0de;
   opacity: 0;
-  animation: moveArrow 2s infinite alternate; /* Animation de mouvement plus lente */
+  animation: moveArrow 2s infinite alternate;
 }
 
 @keyframes moveArrow {
   0% {
-    top: -30px; /* Position initiale */
+    top: -30px;
   }
   50% {
-    top: -20px; /* Position légèrement au-dessus du bouton */
+    top: -20px;
   }
   100% {
-    top: -20px; /* Position légèrement au-dessous du bouton */
+    top: -20px;
   }
 }
 

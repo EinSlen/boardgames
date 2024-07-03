@@ -2,35 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-    IonCol,
-    IonContent,
-    IonGrid,
-    IonHeader,
-    IonRow,
-    IonTitle,
-    IonToolbar,
-    IonButton,
-    IonIcon, IonFab, IonFabButton
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonRow,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonIcon, IonFab, IonFabButton, IonButtons
 } from '@ionic/angular/standalone';
-import {GameService} from "../../services/gameService";
+import {Puissance4Service} from "../../services/puissance4Service";
 import {SquareComponent} from "../square/square.component";
 import {PopupService} from "../../services/popup.service";
 import {GameboardComponent} from "../gameboard/gameboard.component";
 import {LoaderComponent} from "../../loader/loader.component";
-import {SettingsModalComponent} from "../../settings-modal/settings-modal.component";
 import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
-import {ModalController} from "@ionic/angular";
+import {ModalController, NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {closeCircleOutline, helpCircleOutline, settingsOutline} from "ionicons/icons";
+import {closeCircleOutline, helpCircleOutline, arrowBackCircleOutline, trendingDownOutline, removeOutline, trendingUpOutline} from "ionicons/icons";
 
 @Component({
-  selector: 'app-four-in-a-row-game',
-  templateUrl: './four-in-a-row-game.page.html',
-  styleUrls: ['./four-in-a-row-game.page.scss'],
+  selector: 'app-puissance4',
+  templateUrl: './puissance4.page.html',
+  styleUrls: ['./puissance4.page.scss'],
   standalone: true,
-    imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton, IonButtons]
 })
-export class FourInARowGamePage implements OnInit {
+export class Puissance4Page implements OnInit {
   isLoading: boolean = true;
   start_play: string = 'player';
   selectedDifficulty: string = 'facile';
@@ -40,14 +39,16 @@ export class FourInARowGamePage implements OnInit {
     { label: 'Expert', value: 'expert', icon: 'skull', color: 'danger' },
   ];
 
-
-  constructor(private popupService: PopupService, private gameService: GameService, private modalController: ModalController) {
+  constructor(private popupService: PopupService, private gameService: Puissance4Service, private modalController: ModalController,  private navCtrl: NavController) {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
       'help-circle-outline' : helpCircleOutline,
+      'arrow-back-circle-outline' : arrowBackCircleOutline,
+      'beer': trendingDownOutline,
+      'hammer': removeOutline,
+      'skull': trendingUpOutline
     });
   }
-
 
   async startGame(difficulty: string) {
     let startingPlayer = "Joueur"
@@ -67,18 +68,22 @@ export class FourInARowGamePage implements OnInit {
     }, 3000);
   }
 
-  async openDidactModal() {
+  async openDidactModal(gameName: string) {
     const modal = await this.modalController.create({
       component: DidactModalComponent,
       componentProps: {
-        value: 123
+        gameName: gameName
       }
     });
-    modal.present();
+    await modal.present();
   }
 
   get isThinking() {
     return this.gameService.thinking;
+  }
+
+  goBack() {
+    this.navCtrl.back();
   }
 
   get difficultyClass(): string {
@@ -95,6 +100,6 @@ export class FourInARowGamePage implements OnInit {
   }
 
   get currentTurn(): string {
-    return this.gameService.currentPlayer === 'X' ? 'Joueur' : 'Ordinateur';
+    return this.gameService.currentPlayer === '🔴' ? 'Joueur' : 'Ordinateur';
   }
 }
