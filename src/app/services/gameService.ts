@@ -121,7 +121,7 @@ export class GameService {
       }
 
       this.thinking = false;
-    }, 3000);
+    }, 1000);
   }
 
   getRandomMove(): { row: number, col: number } {
