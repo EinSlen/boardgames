@@ -31,13 +31,14 @@ export class PopupService {
   }
 
   async showGameResultPopup(winner: string, restartCallback: (difficulty: string) => void) {
-    const emoji = winner === 'player' ? '🎉' :
+    const emoji = winner.includes('player') ? '🎉' :
       winner === 'computer' ? '💩' :
         '❌';
 
     const alert = await this.alertController.create({
       header: winner === 'player' ? 'Bien joué, Joueur ! Vous avez gagné.' :
-        winner === 'computer' ? 'Désolé, vous avez perdu contre l\'ordinateur.' :
+        winner === 'computer' ? 'Désolé, vous avez perdu contre l\'ordinateur.' : winner === 'player1' ? 'Bien joué, Joueur 1 ! Vous avez gagné.'
+          : winner === 'player2' ? 'Bien joué, Joueur 2 ! Vous avez gagné.'  :
           'Match nul.',
       message: `${emoji}`,
       buttons: [
@@ -52,9 +53,47 @@ export class PopupService {
 
     await alert.present();
 
-    if (winner === 'player') {
+    if (winner.includes('player')) {
       this.launchConfetti();
     }
+  }
+  private async promptGameModeSelection(restartCallback: (mode: string, difficulty?: string) => void) {
+    const modeAlert = await this.alertController.create({
+      header: 'Choisissez le mode de jeu',
+      inputs: [
+        {
+          name: 'mode',
+          type: 'radio',
+          label: 'Joueur contre Joueur',
+          value: 'pvp',
+          checked: true
+        },
+        {
+          name: 'mode',
+          type: 'radio',
+          label: 'Joueur contre Ordinateur',
+          value: 'pvc'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel'
+        },
+        {
+          text: 'OK',
+          handler: (data) => {
+            if (data === 'pvc') {
+              this.promptDifficultySelection(difficulty => restartCallback('pvc', difficulty));
+            } else {
+              restartCallback('pvp');
+            }
+          }
+        }
+      ]
+    });
+
+    await modeAlert.present();
   }
 
   private async promptDifficultySelection(restartCallback: (difficulty: string) => void) {
@@ -89,7 +128,7 @@ export class PopupService {
         {
           text: 'OK',
           handler: (data) => {
-            restartCallback(data.difficulty);
+            restartCallback(data);
           }
         }
       ]

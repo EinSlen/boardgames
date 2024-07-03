@@ -1,6 +1,6 @@
 <ion-grid class="game-board">
   <ion-row *ngFor="let row of gameService.board; let i = index">
-    <ion-col *ngFor="let col of row; let j = index" (click)="gameService.currentPlayer === 'X' && !gameService.thinking ? selectSquare(i, j) : null">
+    <ion-col *ngFor="let col of row; let j = index" (click)="gameService.difficulty != '' ? gameService.currentPlayer === 'X' && !gameService.thinking ? selectSquare(i, j) : null : selectSquare(i, j)">
       <app-square [value]="gameService.board[i][j]" [row]="i" [col]="j"></app-square>
     </ion-col>
   </ion-row>

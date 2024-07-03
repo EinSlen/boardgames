@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {PopupService} from "./popup.service";
+import {MorpionPage} from "../tic-tac-toe/morpion/morpion.page";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,13 @@ export class TicTacToeService {
 
   constructor(private popupService: PopupService) {}
 
+  get getdifficulty() {
+    return this.difficulty
+  }
+
   startGame(startingPlayer: string, difficulty: string) {
-    this.currentPlayer = startingPlayer === 'Joueur' ? 'X' : 'O';
+    console.log(difficulty)
+    this.currentPlayer = difficulty != '' ? startingPlayer === 'Joueur' ? 'X' : 'O' : startingPlayer === 'Joueur 1' ? 'X' : 'O';
     this.board = [
       ['', '', ''],
       ['', '', ''],
@@ -26,7 +32,7 @@ export class TicTacToeService {
     this.difficulty = difficulty;
     this.winningPositions = null;
 
-    if (this.currentPlayer === 'O') {
+    if (this.difficulty != '' && this.currentPlayer === 'O') {
       this.aiMove();
     }
   }
@@ -39,9 +45,15 @@ export class TicTacToeService {
         this.gameEnded = true;
         this.winningPositions = winningPositions;
         console.log(`${this.currentPlayer} a gagné !`);
-        this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player" : "computer", (difficulty) => {
-          this.startGame("Joueur", difficulty);
-        })
+        if(this.difficulty != '') {
+          this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player" : "computer", (difficulty) => {
+            this.startGame("Joueur", difficulty);
+          })
+        } else {
+          this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player1" : "player2", (difficulty) => {
+            this.startGame("Joueur 1", difficulty);
+          })
+        }
       } else if (this.isDraw()) {
         console.log("draw");
         this.gameEnded = true;
@@ -50,7 +62,7 @@ export class TicTacToeService {
         });
       } else {
         this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
-        if (this.currentPlayer === 'O') {
+        if (this.difficulty != '' && this.currentPlayer === 'O') {
           this.aiMove();
         }
       }

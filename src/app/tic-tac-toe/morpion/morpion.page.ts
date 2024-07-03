@@ -28,6 +28,7 @@ import {closeCircleOutline, helpCircleOutline, settingsOutline, arrowBackCircleO
   templateUrl: './morpion.page.html',
   styleUrls: ['./morpion.page.scss'],
   standalone: true,
+  providers: [TicTacToeService],
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton, IonButtons]
 })
 export class MorpionPage implements OnInit {
@@ -59,9 +60,18 @@ export class MorpionPage implements OnInit {
     console.log('Qui commence:', startingPlayer);
     console.log('Difficulté sélectionnée:', difficulty);
     this.start_play = startingPlayer;
-    this.selectedDifficulty = difficulty;
 
     this.gameService.startGame(startingPlayer, difficulty);
+    this.selectedDifficulty = this.gameService.getdifficulty;
+  }
+
+  switchToPlayerVsPlayer() {
+    this.selectedDifficulty = ''
+    this.gameService.startGame('Joueur 1', ''); // Exemple: Ne pas passer de difficulté pour joueur contre joueur
+  }
+
+  restartGame() {
+    this.gameService.startGame('Joueur', this.selectedDifficulty);
   }
 
   ngOnInit(): void {
@@ -88,20 +98,8 @@ export class MorpionPage implements OnInit {
     this.navCtrl.back();
   }
 
-  get difficultyClass(): string {
-    switch (this.selectedDifficulty) {
-      case 'facile':
-        return 'difficulty-facile';
-      case 'medium':
-        return 'difficulty-medium';
-      case 'expert':
-        return 'difficulty-expert';
-      default:
-        return '';
-    }
-  }
-
   get currentTurn(): string {
-    return this.gameService.currentPlayer === 'X' ? 'Joueur' : 'Ordinateur';
+    this.selectedDifficulty = this.gameService.getdifficulty;
+    return this.selectedDifficulty != '' ? this.gameService.currentPlayer === 'X' ? 'Joueur' : 'Ordinateur' : this.gameService.currentPlayer === 'X' ? 'Joueur 1' : 'Joueur 2';
   }
 }
