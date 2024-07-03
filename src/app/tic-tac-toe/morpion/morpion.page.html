@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="goBack()">
-        <ion-icon name="arrow-back"></ion-icon>
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>
@@ -19,7 +19,11 @@
     <div class="header">
       TIC-TAC-TOE
     </div>
-
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="openDidactModal()">
+        <ion-icon name="help-circle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
     <div class="game-board">
       <app-gameboard></app-gameboard>
     </div>

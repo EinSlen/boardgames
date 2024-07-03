@@ -9,22 +9,26 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
-  NavController,
   IonButton,
-  IonIcon, IonButtons
+  IonIcon, IonFab, IonFabButton, IonButtons
 } from '@ionic/angular/standalone';
 import {GameService} from "../../services/gameService";
 import {SquareComponent} from "../square/square.component";
 import {PopupService} from "../../services/popup.service";
 import {GameboardComponent} from "../gameboard/gameboard.component";
 import {LoaderComponent} from "../../loader/loader.component";
+import {SettingsModalComponent} from "../../settings-modal/settings-modal.component";
+import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
+import {ModalController, NavController} from "@ionic/angular";
+import {addIcons} from "ionicons";
+import {closeCircleOutline, helpCircleOutline, settingsOutline, arrowBackCircleOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-morpion',
   templateUrl: './morpion.page.html',
   styleUrls: ['./morpion.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonButtons]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton, IonButtons]
 })
 export class MorpionPage implements OnInit {
   isLoading: boolean = true;
@@ -36,8 +40,14 @@ export class MorpionPage implements OnInit {
     { label: 'Expert', value: 'expert', icon: 'skull', color: 'danger' },
   ];
 
+  constructor(private popupService: PopupService, private gameService: GameService, private modalController: ModalController,  private navCtrl: NavController) {
+    addIcons({
+      'close-circle-outline' : closeCircleOutline,
+      'help-circle-outline' : helpCircleOutline,
+      'arrow-back-circle-outline' : arrowBackCircleOutline
+    });
+  }
 
-  constructor(private popupService: PopupService, private gameService: GameService,  private navCtrl: NavController) {}
 
   async startGame(difficulty: string) {
     let startingPlayer = "Joueur"
@@ -55,6 +65,16 @@ export class MorpionPage implements OnInit {
     setTimeout(() => {
       this.isLoading = false;
     }, 3000);
+  }
+
+  async openDidactModal() {
+    const modal = await this.modalController.create({
+      component: DidactModalComponent,
+      componentProps: {
+        value: 123
+      }
+    });
+    modal.present();
   }
 
   get isThinking() {
@@ -81,5 +101,4 @@ export class MorpionPage implements OnInit {
   get currentTurn(): string {
     return this.gameService.currentPlayer === 'X' ? 'Joueur' : 'Ordinateur';
   }
-
 }
