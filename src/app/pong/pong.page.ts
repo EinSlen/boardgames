@@ -13,7 +13,6 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
 export class PongPage implements AfterViewInit {
 @ViewChild('pongCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
   ctx: CanvasRenderingContext2D | null = null;
-  intervalId: any;
 
 
   paddleWidth = 10;
@@ -44,7 +43,6 @@ export class PongPage implements AfterViewInit {
     size: this.ballSize,
   };
 
-  // Pour suivre la position de la souris
   mousePosition = {
     x: 0,
     y: 0,
@@ -59,13 +57,12 @@ export class PongPage implements AfterViewInit {
   }
 
   startGame() {
-    this.intervalId = setInterval(() => {
+    setInterval(() => {
       this.draw();
     }, 10);
   }
 
   draw() {
-    if (!this.ctx) return; // Vérifie si le contexte est défini
     this.clearCanvas();
     this.updatePlayerPosition();
     this.drawPaddle(this.player1.x, this.player1.y);
@@ -81,24 +78,27 @@ export class PongPage implements AfterViewInit {
   }
 
   clearCanvas() {
-    if (this.ctx) this.ctx.clearRect(0, 0, this.canvasRef.nativeElement.width, this.canvasRef.nativeElement.height);
+    if(this.ctx)
+    this.ctx.clearRect(0, 0, this.canvasRef.nativeElement.width, this.canvasRef.nativeElement.height);
   }
 
   drawPaddle(x: number, y: number) {
-    if (this.ctx) {
+    if(this.ctx) {
       this.ctx.fillStyle = '#FFF';
       this.ctx.fillRect(x, y, this.paddleWidth, this.paddleHeight);
     }
+
   }
 
   drawBall(x: number, y: number) {
-    if (this.ctx) {
+    if(this.ctx) {
       this.ctx.beginPath();
       this.ctx.arc(x, y, this.ballSize, 0, Math.PI * 2);
       this.ctx.fillStyle = '#FFF';
       this.ctx.fill();
       this.ctx.closePath();
     }
+
   }
 
   checkCollision() {
