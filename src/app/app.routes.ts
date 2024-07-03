@@ -19,5 +19,9 @@ export const routes: Routes = [
     path: 'four-in-a-row',
     loadComponent: () => import('./four-in-a-row/four-in-a-row-game/four-in-a-row-game.page').then(m => m.FourInARowGamePage)
   },
+  {
+    path: 'pong',
+    loadComponent: () => import('./pong/pong.page').then( m => m.PongPage)
+  },
 
 ];

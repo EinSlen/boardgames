@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Pong Game
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <canvas #pongCanvas width="600" height="400"></canvas>
+  <div class="scores">
+    <p>Joueur 1: {{ player1.score }}</p>
+    <p>Joueur 2: {{ player2.score }}</p>
+  </div>
+</ion-content>
