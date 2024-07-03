@@ -12,7 +12,7 @@ import {
   IonButton,
   IonIcon, IonFab, IonFabButton, IonButtons
 } from '@ionic/angular/standalone';
-import {GameService} from "../../services/gameService";
+import {TicTacToeService} from "../../services/tic-tac-toe-Service";
 import {SquareComponent} from "../square/square.component";
 import {PopupService} from "../../services/popup.service";
 import {GameboardComponent} from "../gameboard/gameboard.component";
@@ -21,13 +21,14 @@ import {SettingsModalComponent} from "../../settings-modal/settings-modal.compon
 import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
 import {ModalController, NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {closeCircleOutline, helpCircleOutline, settingsOutline, arrowBackCircleOutline, trendingDownOutline, removeOutline, trendingUpOutline} from "ionicons/icons";
+import {closeCircleOutline, helpCircleOutline, settingsOutline, arrowBackCircleOutline, happyOutline, alertCircleOutline, skullOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-morpion',
   templateUrl: './morpion.page.html',
   styleUrls: ['./morpion.page.scss'],
   standalone: true,
+  providers: [TicTacToeService],
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton, IonButtons]
 })
 export class MorpionPage implements OnInit {
@@ -40,14 +41,14 @@ export class MorpionPage implements OnInit {
     { label: 'Expert', value: 'expert', icon: 'skull', color: 'danger' },
   ];
 
-  constructor(private popupService: PopupService, private gameService: GameService, private modalController: ModalController,  private navCtrl: NavController) {
+  constructor(private popupService: PopupService, private gameService: TicTacToeService, private modalController: ModalController, private navCtrl: NavController) {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
       'help-circle-outline' : helpCircleOutline,
       'arrow-back-circle-outline' : arrowBackCircleOutline,
-      'beer': trendingDownOutline,
-      'hammer': removeOutline,
-      'skull': trendingUpOutline
+      'beer': happyOutline,
+      'hammer': alertCircleOutline,
+      'skull': skullOutline
     });
   }
 
@@ -59,9 +60,18 @@ export class MorpionPage implements OnInit {
     console.log('Qui commence:', startingPlayer);
     console.log('Difficulté sélectionnée:', difficulty);
     this.start_play = startingPlayer;
-    this.selectedDifficulty = difficulty;
 
     this.gameService.startGame(startingPlayer, difficulty);
+    this.selectedDifficulty = this.gameService.getdifficulty;
+  }
+
+  switchToPlayerVsPlayer() {
+    this.selectedDifficulty = ''
+    this.gameService.startGame('Joueur 1', ''); // Exemple: Ne pas passer de difficulté pour joueur contre joueur
+  }
+
+  restartGame() {
+    this.gameService.startGame('Joueur', this.selectedDifficulty);
   }
 
   ngOnInit(): void {
@@ -88,20 +98,8 @@ export class MorpionPage implements OnInit {
     this.navCtrl.back();
   }
 
-  get difficultyClass(): string {
-    switch (this.selectedDifficulty) {
-      case 'facile':
-        return 'difficulty-facile';
-      case 'medium':
-        return 'difficulty-medium';
-      case 'expert':
-        return 'difficulty-expert';
-      default:
-        return '';
-    }
-  }
-
   get currentTurn(): string {
-    return this.gameService.currentPlayer === 'X' ? 'Joueur' : 'Ordinateur';
+    this.selectedDifficulty = this.gameService.getdifficulty;
+    return this.selectedDifficulty != '' ? this.gameService.currentPlayer === 'X' ? 'Joueur' : 'Ordinateur' : this.gameService.currentPlayer === 'X' ? 'Joueur 1' : 'Joueur 2';
   }
 }
