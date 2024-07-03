@@ -15,6 +15,8 @@ export class PongPage implements AfterViewInit {
   playerPaddle: HTMLElement | null = null;
   aiPaddle: HTMLElement | null = null;
   container: HTMLElement | null = null;
+  playerScoreElement: HTMLElement | null = null;
+  aiScoreElement: HTMLElement | null = null;
 
   ballX = 50;
   ballY = 50;
@@ -30,6 +32,9 @@ export class PongPage implements AfterViewInit {
   aiPaddleWidth = 100;
   aiPaddleHeight = 20;
 
+  playerScore = 0;
+  aiScore = 0;
+
   intervalId: any;
 
   ngAfterViewInit() {
@@ -37,6 +42,8 @@ export class PongPage implements AfterViewInit {
     this.playerPaddle = document.querySelector('.paddle.player');
     this.aiPaddle = document.querySelector('.paddle.ai');
     this.container = document.querySelector('.game-container');
+    this.playerScoreElement = document.querySelector('.player-score');
+    this.aiScoreElement = document.querySelector('.ai-score');
 
     if (this.ball && this.playerPaddle && this.aiPaddle && this.container) {
       this.startGame();
@@ -83,8 +90,14 @@ export class PongPage implements AfterViewInit {
       this.ballDX = -this.ballDX;
     }
 
-    // Reset ball if it goes out of bounds
-    if (this.ballY + this.ballSize >= this.container.clientHeight || this.ballY <= 0) {
+    // Check if the ball goes out of bounds
+    if (this.ballY + this.ballSize >= this.container.clientHeight) {
+      this.aiScore++;
+      this.updateScore();
+      this.resetBall();
+    } else if (this.ballY <= 0) {
+      this.playerScore++;
+      this.updateScore();
       this.resetBall();
     }
 
@@ -130,5 +143,14 @@ export class PongPage implements AfterViewInit {
         this.playerPaddle.style.left = `${this.playerPaddleX}px`;
       }
     });
+  }
+
+  updateScore() {
+    if (this.playerScoreElement) {
+      this.playerScoreElement.textContent = this.playerScore.toString();
+    }
+    if (this.aiScoreElement) {
+      this.aiScoreElement.textContent = this.aiScore.toString();
+    }
   }
 }

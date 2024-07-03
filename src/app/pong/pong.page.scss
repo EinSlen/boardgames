@@ -28,3 +28,24 @@
 .ai {
   top: 0; /* Positioning AI's paddle at the top */
 }
+
+.score {
+  position: absolute;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  width: 100px;
+  text-align: center;
+}
+
+.player-score {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ai-score {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
