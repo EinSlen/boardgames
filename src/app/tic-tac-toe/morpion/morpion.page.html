@@ -24,6 +24,9 @@
       <p>Au tour de: {{start_play}}</p>
       <p>Difficulté sélectionnée: {{diffuculty}}</p>
     </div>
+    <div *ngIf="isThinking">
+      <app-loader></app-loader>
+    </div>
     <ion-grid>
       <ion-row>
         <ion-col size="auto">

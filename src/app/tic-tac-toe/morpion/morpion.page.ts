@@ -26,14 +26,16 @@ import {LoaderComponent} from "../../loader/loader.component";
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent]
 })
 export class MorpionPage implements OnInit {
-  isLoading = true;
-  start_play: string = 'player'
-  diffuculty: string = 'facile'
+  isLoading: boolean = true;
+  start_play: string = 'player';
+  diffuculty: string = 'facile';
+
 
   constructor(private popupService: PopupService, private gameService: GameService) {}
 
   async startGame(difficulty: string) {
-    const startingPlayer = await this.popupService.showStartGamePopup();
+    let startingPlayer = "Joueur"
+    startingPlayer = await this.popupService.showStartGamePopup();
 
     console.log('Qui commence:', startingPlayer);
     console.log('Difficulté sélectionnée:', difficulty);
@@ -47,6 +49,10 @@ export class MorpionPage implements OnInit {
     setTimeout(() => {
       this.isLoading = false;
     }, 3000);
+  }
+
+  get isThinking() {
+    return this.gameService.thinking;
   }
 
 }
