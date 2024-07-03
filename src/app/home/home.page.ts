@@ -26,7 +26,7 @@ export class HomePage implements OnInit {
   currentSlide = 0;
   slides = [
     { img: '../../assets/morpion.avif', title: 'TIC-TAC-TOE', route: "/morpion" },
-    { img: 'assets/img/slide2.jpg', title: 'Slide 2', route: "" },
+    { img: 'assets/img/slide2.jpg', title: 'Jeu du pendu', route: "/hangman" },
     { img: 'assets/img/slide3.jpg', title: 'Slide 3', route: "" },
   ];
   private slideInterval: any;
