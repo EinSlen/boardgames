@@ -12,8 +12,14 @@ ion-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
     margin: 20px 0;
+  }
+
+  .info-game {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #555;
   }
 
   ion-grid {
@@ -24,15 +30,26 @@ ion-content {
     display: flex;
     justify-content: space-around;
 
-    ion-button {
-      margin: 5px;
-      --border-radius: 12px;
-      --padding-start: 20px;
-      --padding-end: 20px;
-      --animation: buttonAnimation 1s ease infinite;
+    ion-row {
+      display: flex;
+      justify-content: center;
 
-      ion-icon {
-        margin-left: 8px;
+      ion-col {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+
+        ion-button {
+          margin: 5px;
+          --border-radius: 12px;
+          --padding-start: 20px;
+          --padding-end: 20px;
+          --animation: buttonAnimation 1s ease infinite;
+
+          ion-icon {
+            margin-left: 8px;
+          }
+        }
       }
     }
   }
@@ -50,8 +67,66 @@ ion-content {
   }
 }
 
-ion-fab-button {
-  --width: 60px; /* Changez la largeur du bouton */
-  --height: 60px; /* Changez la hauteur du bouton */
-  --font-size: 30px; /* Changez la taille de l'icône à l'intérieur du bouton */
+/* morpion.page.scss */
+
+.loader-container {
+  position: relative;
+  margin-top: 20px;
+  width: 100%; /* Assure que le loader occupe toute la largeur disponible */
+  text-align: center; /* Centre le contenu horizontalement */
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.difficulty-facile {
+  background-color: lightgreen;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.difficulty-medium {
+  background-color: yellow;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.difficulty-expert {
+  background-color: lightcoral;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.arrow {
+  position: absolute;
+  top: -15px; /* Position initiale plus haute au-dessus du bouton */
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg); /* Rotate de 180 degrés */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent; /* Ajustez la taille des côtés de la flèche */
+  border-right: 10px solid transparent; /* Ajustez la taille des côtés de la flèche */
+  border-bottom: 20px solid #39a0de; /* Ajustez la taille et la couleur de la pointe de la flèche */
+  opacity: 0;
+  animation: moveArrow 2s infinite alternate; /* Animation de mouvement plus lente */
+}
+
+@keyframes moveArrow {
+  0% {
+    top: -30px; /* Position initiale */
+  }
+  50% {
+    top: -20px; /* Position légèrement au-dessus du bouton */
+  }
+  100% {
+    top: -20px; /* Position légèrement au-dessous du bouton */
+  }
+}
+
+.arrow.visible {
+  opacity: 1;
 }

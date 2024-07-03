@@ -31,7 +31,15 @@ import {closeCircleOutline, helpCircleOutline, settingsOutline} from "ionicons/i
     imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton]
 })
 export class MorpionPage implements OnInit {
-  isLoading = true;
+  isLoading: boolean = true;
+  start_play: string = 'player';
+  selectedDifficulty: string = 'facile';
+  difficulties: { label: string; value: string; icon: string, color: string }[] = [
+    { label: 'Facile', value: 'facile', icon: 'beer', color: 'success' },
+    { label: 'Medium', value: 'medium', icon: 'hammer', color: 'warning' },
+    { label: 'Expert', value: 'expert', icon: 'skull', color: 'danger' },
+  ];
+
 
   constructor(private popupService: PopupService, private gameService: GameService, private modalController: ModalController) {
     addIcons({
@@ -42,11 +50,13 @@ export class MorpionPage implements OnInit {
 
 
   async startGame(difficulty: string) {
-    const startingPlayer = await this.popupService.showStartGamePopup();
+    let startingPlayer = "Joueur"
+    startingPlayer = await this.popupService.showStartGamePopup();
 
-    // Démarrer le jeu avec le joueur ou l'ordinateur en fonction de 'startingPlayer' et de la difficulté sélectionnée
     console.log('Qui commence:', startingPlayer);
     console.log('Difficulté sélectionnée:', difficulty);
+    this.start_play = startingPlayer;
+    this.selectedDifficulty = difficulty;
 
     this.gameService.startGame(startingPlayer, difficulty);
   }
@@ -65,5 +75,26 @@ export class MorpionPage implements OnInit {
       }
     });
     modal.present();
+  }
+
+  get isThinking() {
+    return this.gameService.thinking;
+  }
+
+  get difficultyClass(): string {
+    switch (this.selectedDifficulty) {
+      case 'facile':
+        return 'difficulty-facile';
+      case 'medium':
+        return 'difficulty-medium';
+      case 'expert':
+        return 'difficulty-expert';
+      default:
+        return '';
+    }
+  }
+
+  get currentTurn(): string {
+    return this.gameService.currentPlayer === 'X' ? 'Joueur' : 'Ordinateur';
   }
 }
