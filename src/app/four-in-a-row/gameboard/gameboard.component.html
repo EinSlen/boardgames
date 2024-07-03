@@ -1,0 +1,7 @@
+<ion-grid class="game-board">
+  <ion-row *ngFor="let row of gameService.board; let i = index">
+    <ion-col *ngFor="let col of row; let j = index" (click)="selectSquare(i, j)">
+      <app-square [value]="gameService.board[i][j]"></app-square>
+    </ion-col>
+  </ion-row>
+</ion-grid>
