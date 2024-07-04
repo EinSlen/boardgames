@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -9,7 +9,7 @@ import {
   IonHeader,
   IonIcon, IonRow, IonText,
   IonTitle,
-  IonToolbar
+  IonToolbar, Platform
 } from '@ionic/angular/standalone';
 import {NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
@@ -23,9 +23,8 @@ import {HangmanGameService} from "../../services/hangmanGame.service";
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon, IonGrid, IonRow, IonText]
 })
-export class HangmanPage implements OnInit {
-  @ViewChildren('smallButtons', { read: ElementRef }) ionButtons!: QueryList<ElementRef>;
-  constructor(private navCtrl : NavController, protected service : HangmanGameService) {
+export class HangmanPage {
+  constructor(private navCtrl : NavController, protected service : HangmanGameService, private platform : Platform) {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
       'help-circle-outline' : helpCircleOutline,
@@ -33,17 +32,15 @@ export class HangmanPage implements OnInit {
     })
   }
 
-  ngOnInit() {
-
-  }
-
 
 
   restartGame(){
-    const buttons = document.querySelectorAll(".small-button")
-    buttons.forEach((btn) => {
-      btn.classList.add("danger")
-    })
+    this.platform.ready().then(() => {
+      const buttons = document.getElementsByTagName('ion-button');
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].color = "primary"
+      }
+    });
     this.service = new HangmanGameService();
   }
 

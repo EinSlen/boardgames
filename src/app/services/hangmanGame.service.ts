@@ -24,34 +24,12 @@ export class HangmanGameService{
     this.generateButtons();
     this.generateWord();
     this.generateHiddenWord();
-
-
-  }
-
-  clear(){
-    this.tries = 8;
-    this.firstRow = [];
-    this.secondRow = [];
-    this.thirdRow = [];
-    this.numFirstRow = [];
-    this.numSecondRow = [];
-    this.numThirdRow = [];
-    this.numLastRow = []
-
-    this.hiddenWord = []
-
-  }
-
-  restart(){
-    this.clear();
-    this.generateWord()
-    this.generateHiddenWord()
   }
 
 
 
   generateWord(){
-    const id = Math.floor(Math.random() * 20)
+    const id = Math.floor(Math.random() * hiddenWords.length)
     let tmp = this.removeAccents(hiddenWords[id]);
     let str = "";
     for (let c of tmp){
