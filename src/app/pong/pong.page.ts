@@ -155,7 +155,7 @@ export class PongPage implements AfterViewInit {
   }
 
   checkWin() {
-    const maxScore = 2; // Score maximum pour gagner
+    const maxScore = 5; // Score maximum pour gagner
     if (this.playerScore >= maxScore || this.aiScore >= maxScore) {
       clearInterval(this.intervalId);
       this.gameStarted = false; // Arrêter le jeu lorsque quelqu'un gagne
