@@ -16,13 +16,13 @@
 
   <ion-title class="ion-text-center ion-margin-top">Jeu du pendu</ion-title>
 
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab class="ion-margin-bottom" vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button (click)="openDidactModal()">
       <ion-icon name="help-circle-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-<ion-grid class="ion-text-center">
+<ion-grid class="ion-text-center ion-margin-top">
   <ion-text class="hidden-word" *ngFor="let c of service.hiddenWord">{{c}}</ion-text>
 </ion-grid>
   <!--Letters-->
@@ -65,6 +65,8 @@
     <img src="../../../assets/hangman-icon/image-penduGame-9.svg" *ngIf="service.tries === 0" />
   </div>
 
-  <ion-button expand="full" (click)="restartGame()">Recommencer</ion-button>
+    <ion-grid class="ion-text-center">
+  <ion-button class="restart" (click)="restartGame()">Recommencer</ion-button>
+    </ion-grid>
 
 </ion-content>
