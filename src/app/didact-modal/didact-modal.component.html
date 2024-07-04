@@ -67,6 +67,27 @@
 
     </ion-grid>
 
+    <ion-grid *ngSwitchCase="'demineur'">
+      <ion-row>
+        <ion-col size="12">
+          <h2 class="ion-text-center">Comment jouer au Démineur</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <p>Le Démineur est un jeu de puzzle classique où vous devez révéler toutes les cases sans bombes.</p>
+          <p>Vous pouvez pour cela utiliser les chiffres des cases découvertes qui indiquent le nombre de bombes sur les cases adjacentes.</p>
+          <p>Si vous découvrez une case avec une bombe, vous perdez la partie.</p>
+          <p>Vous pouvez poser des drapeaux sur les cases que vous pensez être des bombes. Cela vous empêchera d'appuyer accidentellement dessus</p>
+          <p>Le jeu se termine lorsque vous avez découvert toutes les cases sans bombes.</p>
+          <p>Sur ordinateur, utilisez le clic gauche pour découvrir une case et le clic droit pour poser un drapeau.</p>
+          <p>Sur téléphone ou tablette, appuyez sur une case pour la découvrir, ou restez appuyé pour poser un drapeau.</p>
+          <br>
+          <p>Amusez-vous bien !</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
     <ion-grid *ngSwitchDefault>
       <ion-row>
         <ion-col size="12">
