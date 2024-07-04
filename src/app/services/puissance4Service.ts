@@ -29,12 +29,12 @@ export class Puissance4Service {
     }
   }
 
-  placeCoin(col: number) {
+  async placeCoin(col: number) {
     if (!this.gameEnded) {
       for (let row = this.board.length - 1; row >= 0; row--) {
         if (!this.board[row][col]) {
-          this.board[row][col] = this.currentPlayer;
-          if (this.checkWinner(row, col)) {
+          await this.throwCoin(row, col, this.currentPlayer)
+          if (this.checkWinner(row, col, this.currentPlayer)) {
             this.gameEnded = true;
             console.log(`${this.currentPlayer} a gagné !`);
             if (this.difficulty != '') {
@@ -42,17 +42,18 @@ export class Puissance4Service {
                 this.startGame("Joueur", difficulty);
               })
             } else {
-              this.popupService.showGameResultPopup( this.currentPlayer === '🔴' ? "player1" : "player2", (difficulty) => {
+              this.popupService.showGameResultPopup(this.currentPlayer === '🔴' ? "player1" : "player2", (difficulty) => {
                 this.startGame("Joueur 1", difficulty);
               })
             }
           } else if (this.isDraw()) {
             console.log("draw");
             this.gameEnded = true;
-            this.popupService.showGameResultPopup( "draw", () => {})
+            this.popupService.showGameResultPopup("draw", () => {
+            })
           } else {
             this.currentPlayer = this.currentPlayer === '🔴' ? '🟡' : '🔴';
-            if (this.difficulty != ''  && this.currentPlayer === '🟡') {
+            if (this.difficulty != '' && this.currentPlayer === '🟡') {
               this.aiMove();
             }
           }
@@ -62,12 +63,21 @@ export class Puissance4Service {
     }
   }
 
+  async throwCoin(row: number, col: number, player: string) {
+    for (let i = 0; i <= row; i++) {
+      this.board[i][col] = player;
+      if (i > 0) {
+        this.board[i-1][col] = '';
+      }
+      await this.wait(60);
+    }
+  }
 
-  checkWinner(row: number, col: number): boolean {
+  checkWinner(row: number, col: number, player: string): boolean {
     // Vérifie les lignes horizontales
     let count= 0;
     for (let i = 0; i < 7; i++) {
-      if (this.board[row][i] === this.currentPlayer) {
+      if (this.board[row][i] === player) {
         count++;
         if (count === 4) {
           return true;
@@ -82,7 +92,7 @@ export class Puissance4Service {
       if (row + i >= 6) {
         break;
       }
-      if (this.board[row + i][col] !== this.currentPlayer) {
+      if (this.board[row + i][col] !== player) {
         break;
       }
       if (i === 3) {
@@ -93,10 +103,10 @@ export class Puissance4Service {
     // Vérifie les diagonales : \
     for (let i = 3; i < 6; i++) {
       for (let j = 0; j < 4; j++) {
-        if (this.board[i][j] === this.currentPlayer &&
-          this.board[i-1][j+1] === this.currentPlayer &&
-          this.board[i-2][j+2] === this.currentPlayer &&
-          this.board[i-3][j+3] === this.currentPlayer) {
+        if (this.board[i][j] === player &&
+          this.board[i-1][j+1] === player &&
+          this.board[i-2][j+2] === player &&
+          this.board[i-3][j+3] === player) {
           return true;
         }
       }
@@ -106,10 +116,10 @@ export class Puissance4Service {
     // Vérifie les diagonales : /
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 4; j++) {
-        if (this.board[i][j] === this.currentPlayer &&
-          this.board[i+1][j+1] === this.currentPlayer &&
-          this.board[i+2][j+2] === this.currentPlayer &&
-          this.board[i+3][j+3] === this.currentPlayer) {
+        if (this.board[i][j] === player &&
+          this.board[i+1][j+1] === player &&
+          this.board[i+2][j+2] === player &&
+          this.board[i+3][j+3] === player) {
           return true;
         }
       }
@@ -139,11 +149,8 @@ export class Puissance4Service {
         case 'facile':
           move = this.getRandomMove();
           break;
-        case 'medium':
-          move = this.getRandomMove();
-          break;
         case 'expert':
-          move = this.getRandomMove();
+          move = this.getBestMove();
           break;
         default:
           move = this.getRandomMove();
@@ -172,5 +179,45 @@ export class Puissance4Service {
       }
     }
     return { row: -1, col: -1 };
+  }
+
+  getBestMove(): { row: number, col: number } {
+    const opponentWinningMove = this.checkOpponentWinningMove('🔴');
+    if (opponentWinningMove) {
+      console.log('Bloquer le coup gagnant de l\'adversaire : ', opponentWinningMove);
+      return opponentWinningMove;
+    }
+
+    const move = this.getRandomMove();
+    this.board[move.row][move.col] = '🟡';
+    if (this.checkOpponentWinningMove('🔴')) {
+      console.log('Eviter le coup gagnant de l\'adversaire : ', move);
+      this.board[move.row][move.col] = '';
+      this.getBestMove();
+    }
+
+    this.board[move.row][move.col] = '';
+    return move;
+  }
+
+  checkOpponentWinningMove(player: string): { row: number, col: number } | null {
+    for (let row = 0; row < 6; row++) {
+      for (let col = 0; col < 7; col++) {
+        if (!this.board[row][col]) {
+          this.board[row][col] = player;
+          if (this.checkWinner(row, col, player)) {
+            console.log('Coup gagnant de l\'adversaire : ', { row, col })
+            this.board[row][col] = '';
+            return { row, col };
+          }
+          this.board[row][col] = '';
+        }
+      }
+    }
+    return null;
+  }
+
+  wait(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }

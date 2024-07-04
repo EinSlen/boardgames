@@ -76,7 +76,7 @@ export class MorpionPage implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.isLoading = false;
-    }, 3000);
+    }, 1000);
   }
 
   async openDidactModal() {
