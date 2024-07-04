@@ -17,6 +17,7 @@ import {alert, arrowBackCircleOutline, closeCircleOutline, helpCircleOutline} fr
 import {HangmanGameService} from "../../services/hangmanGame.service";
 import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
 import {PopupService} from "../../services/popup.service";
+import {PointsService} from "../../services/points.service";
 
 @Component({
   selector: 'app-hangman-page',
@@ -26,7 +27,7 @@ import {PopupService} from "../../services/popup.service";
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon, IonGrid, IonRow, IonText, IonFab, IonFabButton]
 })
 export class HangmanPage implements OnInit{
-  constructor(private modalController : ModalController,private popupService : PopupService,private alertController: AlertController,private navCtrl : NavController, protected service : HangmanGameService, private platform : Platform) {
+  constructor(private modalController : ModalController,private pointsService : PointsService,private popupService : PopupService,private alertController: AlertController,private navCtrl : NavController, protected service : HangmanGameService, private platform : Platform) {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
       'help-circle-outline' : helpCircleOutline,
@@ -71,6 +72,7 @@ export class HangmanPage implements OnInit{
         }
       ]
     })
+    this.pointsService.addPoints(10);
     await alert.present();
     this.popupService.launchConfetti()
   }
