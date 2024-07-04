@@ -137,7 +137,7 @@ export class PopupService {
     await difficultyAlert.present();
   }
 
-  private launchConfetti() {
+    launchConfetti() {
     confetti.create(undefined, {
       resize: true,
       useWorker: true

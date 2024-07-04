@@ -27,19 +27,19 @@
   <!--Letters-->
   <ion-grid class="ion-text-center">
     <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let letter of service.firstRow" (click)="service.checkClickedButton($event)">
+      <ion-button class="small-button" color="primary" *ngFor="let letter of service.firstRow" (click)="checkClickedButton($event)">
         {{letter}}
       </ion-button>
     </ion-row>
 
     <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let letter of service.secondRow" (click)="service.checkClickedButton($event)">
+      <ion-button class="small-button" color="primary" *ngFor="let letter of service.secondRow" (click)="checkClickedButton($event)">
         {{letter}}
       </ion-button>
     </ion-row>
 
     <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let letter of service.thirdRow" (click)="service.checkClickedButton($event)">
+      <ion-button class="small-button" color="primary" *ngFor="let letter of service.thirdRow" (click)="checkClickedButton($event)">
         {{letter}}
       </ion-button>
     </ion-row>
@@ -48,19 +48,19 @@
   <!--Numbers-->
   <ion-grid class="ion-text-center">
     <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let n of service.numFirstRow" (click)="service.checkClickedButton($event)">{{n}}</ion-button>
+      <ion-button class="small-button" color="primary" *ngFor="let n of service.numFirstRow" (click)="checkClickedButton($event)">{{n}}</ion-button>
     </ion-row>
 
     <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let n of service.numSecondRow" (click)="service.checkClickedButton($event)">{{n}}</ion-button>
+      <ion-button class="small-button" color="primary" *ngFor="let n of service.numSecondRow" (click)="checkClickedButton($event)">{{n}}</ion-button>
     </ion-row>
 
     <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let n of service.numThirdRow" (click)="service.checkClickedButton($event)">{{n}}</ion-button>
+      <ion-button class="small-button" color="primary" *ngFor="let n of service.numThirdRow" (click)="checkClickedButton($event)">{{n}}</ion-button>
     </ion-row>
 
     <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let n of service.numLastRow" (click)="service.checkClickedButton($event)">{{n}}</ion-button>
+      <ion-button class="small-button" color="primary" *ngFor="let n of service.numLastRow" (click)="checkClickedButton($event)">{{n}}</ion-button>
     </ion-row>
   </ion-grid>
 

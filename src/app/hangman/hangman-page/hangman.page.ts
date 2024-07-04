@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -11,11 +11,12 @@ import {
   IonTitle,
   IonToolbar, Platform
 } from '@ionic/angular/standalone';
-import {ModalController, NavController} from "@ionic/angular";
+import {AlertController, ModalController, NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {arrowBackCircleOutline, closeCircleOutline, helpCircleOutline} from "ionicons/icons";
+import {alert, arrowBackCircleOutline, closeCircleOutline, helpCircleOutline} from "ionicons/icons";
 import {HangmanGameService} from "../../services/hangmanGame.service";
 import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
+import {PopupService} from "../../services/popup.service";
 
 @Component({
   selector: 'app-hangman-page',
@@ -24,13 +25,17 @@ import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon, IonGrid, IonRow, IonText, IonFab, IonFabButton]
 })
-export class HangmanPage {
-  constructor(private modalController : ModalController,private navCtrl : NavController, protected service : HangmanGameService, private platform : Platform) {
+export class HangmanPage implements OnInit{
+  constructor(private modalController : ModalController,private popupService : PopupService,private alertController: AlertController,private navCtrl : NavController, protected service : HangmanGameService, private platform : Platform) {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
       'help-circle-outline' : helpCircleOutline,
       'arrow-back-circle-outline' : arrowBackCircleOutline,
     })
+  }
+
+  ngOnInit(): void {
+    this.restartGame()
   }
 
   async openDidactModal() {
@@ -41,6 +46,49 @@ export class HangmanPage {
       }
     });
     modal.present();
+  }
+
+  checkClickedButton(event : any){
+    this.service.checkClickedButton(event)
+    if (this.service.checkWordFound()){
+      this.generatePopUpWin()
+    }
+    else if (this.service.tries <= 0){
+      this.generatePopUpLoose()
+    }
+  }
+
+  async generatePopUpWin(){
+    const alert = await this.alertController.create({
+      header: "Bien joué !",
+      message: "Vous avez trouvé le mot caché !",
+      buttons: [
+        {
+          text: 'Recommencer',
+          handler: () => {
+            this.restartGame()
+          }
+        }
+      ]
+    })
+    await alert.present();
+    this.popupService.launchConfetti()
+  }
+
+  async generatePopUpLoose() {
+    const alert = await this.alertController.create({
+      header: "Dommage !",
+      message: "Vous avez perdu ! Le mot à trouver était "+this.service.word +" !",
+      buttons: [
+        {
+          text: 'Recommencer',
+          handler: () => {
+            this.restartGame()
+          }
+        }
+      ]
+    })
+    await alert.present();
   }
 
   restartGame(){
