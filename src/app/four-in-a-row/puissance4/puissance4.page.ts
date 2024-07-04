@@ -24,9 +24,6 @@ import {
   closeCircleOutline,
   helpCircleOutline,
   arrowBackCircleOutline,
-  trendingDownOutline,
-  removeOutline,
-  trendingUpOutline,
   happyOutline, alertCircleOutline, skullOutline
 } from "ionicons/icons";
 import {ToastComponent} from "../../toast/toast.component";
@@ -44,6 +41,7 @@ export class Puissance4Page implements OnInit {
   selectedDifficulty: string = 'facile';
   difficulties: { label: string; value: string; icon: string, color: string }[] = [
     { label: 'Facile', value: 'facile', icon: 'beer', color: 'success' },
+    { label: 'Medium', value: 'medium', icon: 'hammer', color: 'warning' },
     { label: 'Expert', value: 'expert', icon: 'skull', color: 'danger' },
   ];
 
@@ -98,6 +96,8 @@ export class Puissance4Page implements OnInit {
     switch (this.selectedDifficulty) {
       case 'facile':
         return 'difficulty-facile';
+      case 'medium':
+        return 'difficulty-medium';
       case 'expert':
         return 'difficulty-expert';
       default:

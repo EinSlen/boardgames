@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Accueil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-title class="ion-text-center ion-margin-top">Jeu du pendu</ion-title>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openDidactModal()">
+      <ion-icon name="help-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+<ion-grid class="ion-text-center">
+  <ion-text class="hidden-word" *ngFor="let c of service.hiddenWord">{{c}}</ion-text>
+</ion-grid>
+  <!--Letters-->
+  <ion-grid class="ion-text-center">
+    <ion-row class="row">
+      <ion-button class="small-button" color="primary" *ngFor="let letter of service.firstRow" (click)="checkClickedButton($event)">
+        {{letter}}
+      </ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" color="primary" *ngFor="let letter of service.secondRow" (click)="checkClickedButton($event)">
+        {{letter}}
+      </ion-button>
+    </ion-row>
+
+    <ion-row class="row">
+      <ion-button class="small-button" color="primary" *ngFor="let letter of service.thirdRow" (click)="checkClickedButton($event)">
+        {{letter}}
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid class="ion-text-center">
+  <ion-text>Essaies : {{service.tries}}</ion-text>
+  </ion-grid>
+
+  <!-- Pendu -->
+  <div class="pendu-container ion-text-center">
+    <img src="../../../assets/hangman-icon/image-penduGame-0.svg" *ngIf="service.tries === 9" />
+    <img src="../../../assets/hangman-icon/image-penduGame-1.svg" *ngIf="service.tries === 8" />
+    <img src="../../../assets/hangman-icon/image-penduGame-2.svg" *ngIf="service.tries === 7" />
+    <img src="../../../assets/hangman-icon/image-penduGame-3.svg" *ngIf="service.tries === 6" />
+    <img src="../../../assets/hangman-icon/image-penduGame-4.svg" *ngIf="service.tries === 5" />
+    <img src="../../../assets/hangman-icon/image-penduGame-5.svg" *ngIf="service.tries === 4" />
+    <img src="../../../assets/hangman-icon/image-penduGame-6.svg" *ngIf="service.tries === 3" />
+    <img src="../../../assets/hangman-icon/image-penduGame-7.svg" *ngIf="service.tries === 2" />
+    <img src="../../../assets/hangman-icon/image-penduGame-8.svg" *ngIf="service.tries === 1" />
+    <img src="../../../assets/hangman-icon/image-penduGame-9.svg" *ngIf="service.tries === 0" />
+  </div>
+
+  <ion-button expand="full" (click)="restartGame()">Recommencer</ion-button>
+
+</ion-content>

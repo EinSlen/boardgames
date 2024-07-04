@@ -1,0 +1,34 @@
+.board-container {
+  overflow-x: auto; /* Permet le défilement horizontal si nécessaire */
+  margin: 20px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.board {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+.cell {
+  width: 18px;
+  height: 18px;
+  background-color: green;
+  border: 1px solid #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 15px;
+  color: black;
+}
+
+.cell.revealed {
+  background-color: #fff;
+}
+
+.cell.flagged {
+  color: red;
+}

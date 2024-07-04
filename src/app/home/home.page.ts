@@ -6,7 +6,7 @@ import {
   IonContent,
   IonFab,
   IonFabButton,
-  IonIcon, IonRouterLink, IonButton,
+  IonIcon, IonRouterLink, IonButton, IonLabel, IonGrid, IonCol, IonRow,
 } from '@ionic/angular/standalone';
 import {NgForOf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
@@ -14,13 +14,14 @@ import {SettingsModalComponent} from "../settings-modal/settings-modal.component
 import { ModalController } from '@ionic/angular';
 import {addIcons} from "ionicons";
 import {closeCircleOutline, settingsOutline} from "ionicons/icons";
+import {PointsService} from "../services/points.service";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon, NgOptimizedImage, NgForOf, IonRouterLink, IonButton, RouterLink],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon, NgOptimizedImage, NgForOf, IonRouterLink, IonButton, RouterLink, IonLabel, IonGrid, IonCol, IonRow],
 })
 export class HomePage implements OnInit {
   currentSlide = 0;
@@ -28,11 +29,13 @@ export class HomePage implements OnInit {
     { img: '../../assets/morpion.avif', title: 'TIC-TAC-TOE', route: "/morpion" },
     { img: '../../assets/OIP.jpg', title: 'PONG GAME', route: "/pong" },
     { img: '../../assets/four-in-a-row-logo.png', title: 'Puissance 4', route: "/puissance4" },
-    { img: '../../assets/morpion.avif', title: 'Slide 3', route: "" },
+    { img: '../../assets/minesweeper-logo.png', title: 'Démineur', route: "/demineur" },
+    { img: '../../assets/hangman-icon/image-penduGame-9.svg', title: 'Jeu du pendu', route: "/hangman-page" },
+
   ];
   private slideInterval: any;
 
-  constructor(private modalController: ModalController) {
+  constructor(private modalController: ModalController, private pointsService: PointsService) {
     addIcons({
       'settings-outline': settingsOutline,
       'close-circle-outline' : closeCircleOutline,
@@ -77,5 +80,9 @@ export class HomePage implements OnInit {
   resetSlideShow() {
     this.stopSlideShow();
     this.startSlideShow();
+  }
+
+  get playerPoints(): number {
+    return this.pointsService.getPoints();
   }
 }

@@ -47,18 +47,18 @@ export class TicTacToeService {
         this.winningPositions = winningPositions;
         console.log(`${this.currentPlayer} a gagné !`);
         if(this.difficulty != '') {
-          this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player" : "computer", (difficulty) => {
+          this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player" : "computer", this.difficulty, (difficulty) => {
             this.startGame("Joueur", difficulty);
           })
         } else {
-          this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player1" : "player2", (difficulty) => {
+          this.popupService.showGameResultPopup( this.currentPlayer === 'X' ? "player1" : "player2", this.difficulty, (difficulty) => {
             this.startGame("Joueur 1", difficulty);
           })
         }
       } else if (this.isDraw()) {
         console.log("draw");
         this.gameEnded = true;
-        this.popupService.showGameResultPopup('draw', (difficulty) => {
+        this.popupService.showGameResultPopup('draw', this.difficulty, (difficulty) => {
           this.startGame("Joueur", difficulty);
         });
       } else {

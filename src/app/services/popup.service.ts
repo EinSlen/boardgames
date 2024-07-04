@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {AlertController} from "@ionic/angular";
 import * as confetti from 'canvas-confetti';
 import {ToastService} from "./toast.service";
+import {PointsService} from "./points.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PopupService {
-  constructor(private alertController: AlertController, private toastService: ToastService) {}
+  constructor(private alertController: AlertController, private toastService: ToastService, private pointsService: PointsService) {}
 
   async showStartGamePopup(): Promise<string> {
     return new Promise<string>(async (resolve) => {
@@ -31,16 +32,16 @@ export class PopupService {
     });
   }
 
-  async showGameResultPopup(winner: string, restartCallback: (difficulty: string) => void) {
+  async showGameResultPopup(winner: string, difficulty: string, restartCallback: (difficulty: string) => void) {
     const emoji = winner.includes('player') ? '🎉' :
       winner === 'computer' ? '💩' :
-        '❌';
+        winner === "bomb" ? '💣' : '❌';
 
     const alert = await this.alertController.create({
       header: winner === 'player' ? 'Bien joué, Joueur ! Vous avez gagné.' :
         winner === 'computer' ? 'Désolé, vous avez perdu contre l\'ordinateur.' : winner === 'player1' ? 'Bien joué, Joueur 1 ! Vous avez gagné.'
           : winner === 'player2' ? 'Bien joué, Joueur 2 ! Vous avez gagné.'  :
-          'Match nul.',
+            winner === 'bomb' ? 'Désolé, vous avez perdu' : 'Match nul.',
       message: `${emoji}`,
       buttons: [
         {
@@ -56,6 +57,20 @@ export class PopupService {
 
     if (winner.includes('player')) {
       this.launchConfetti();
+      switch (difficulty) {
+        case 'facile':
+          this.pointsService.addPoints(10);
+          break;
+        case 'medium':
+          this.pointsService.addPoints(20);
+          break;
+        case 'expert':
+          this.pointsService.addPoints(30);
+          break;
+        default:
+          this.pointsService.addPoints(10);
+          break;
+      }
     }
   }
 
@@ -166,7 +181,7 @@ export class PopupService {
     await difficultyAlert.present();
   }
 
-  private launchConfetti() {
+    launchConfetti() {
     confetti.create(undefined, {
       resize: true,
       useWorker: true
