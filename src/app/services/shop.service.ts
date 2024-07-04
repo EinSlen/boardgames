@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ModalController} from "@ionic/angular";
 import {PointsService} from "./points.service";
 import {ToastService} from "./toast.service";
+import {Puissance4Service} from "./puissance4Service";
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class ShopService {
   P4symbol: string;
   P4key = 'P4symbol';
 
-  constructor(private pointsService: PointsService, private toastService: ToastService) {
+  constructor(private pointsService: PointsService, private toastService: ToastService, private puissance4Service: Puissance4Service) {
     this.TTTsymbol = localStorage.getItem(this.TTTkey) || this.shopTTTsymbols[0];
     this.TTTbgcolor = localStorage.getItem(this.TTTbgcolorKey) || this.shopTTTbgcolors[0];
     this.TTTbgskin = localStorage.getItem(this.TTTbgskinKey) || this.shopTTTbgskins[0];
@@ -87,6 +88,7 @@ export class ShopService {
       console.log('NEW SYMBOL', this.shopP4symbols[index])
       this.pointsService.removePoints(this.shopP4prices[index]);
       this.P4symbol = this.shopP4symbols[index];
+      this.puissance4Service.setHumanPlayer = this.P4symbol;
       this.setP4Symbol(this.P4symbol);
     }
   }
