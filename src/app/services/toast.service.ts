@@ -17,7 +17,7 @@ export class ToastService {
   toastState = this.toastSubject.asObservable();
 
   show(message: string, type: 'success' | 'error' | 'info' | 'warning', number?: number) {
-    if(!number) {
+    if(!number && (type != 'warning' && type != 'info')) {
       number = 10;
     }
     this.toastSubject.next({ message, type, number });
