@@ -12,13 +12,15 @@ import {
 } from "@ionic/angular/standalone";
 import {PointsService} from "../../services/points.service";
 import {NgOptimizedImage} from "@angular/common";
+import {ToastService} from "../../services/toast.service";
+import {ToastComponent} from "../../toast/toast.component";
 
 @Component({
   selector: 'app-rank-modal',
   templateUrl: './rank-modal.component.html',
   styleUrls: ['./rank-modal.component.scss'],
   standalone: true,
-  imports: [IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonContent, IonHeader, IonToolbar, IonTitle, IonButton, NgOptimizedImage],
+  imports: [IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonContent, IonHeader, IonToolbar, IonTitle, IonButton, NgOptimizedImage, ToastComponent],
 })
 export class RankModalComponent  implements OnInit {
   progress!: number;
@@ -27,7 +29,7 @@ export class RankModalComponent  implements OnInit {
   highScore!: number;
   currentLevel!: number;
 
-  constructor(private pointsService: PointsService, private modalCtrl: ModalController) {}
+  constructor(private pointsService: PointsService, private modalCtrl: ModalController, private toastService: ToastService) {}
 
   ngOnInit() {
     this.updateProgress();
@@ -46,11 +48,21 @@ export class RankModalComponent  implements OnInit {
   }
 
   addPoints() {
+    const previousLevel = this.currentLevel;
     this.pointsService.addPoints(10); // Example: Add 10 points
     this.updateProgress();
     this.playerPoints = this.pointsService.playerPoints;
     this.highScore = this.pointsService.highScore;
     this.currentLevel = this.pointsService.getCurrentLevel();
+    this.currentLevel = this.calculateLevel();
+    if (this.currentLevel > previousLevel) {
+      console.log(`Level Up! You are now at Level ${this.currentLevel}`);
+      this.toastService.show("Vous venez de passé(e) au niveau : " + this.currentLevel, "warning")
+    }
+  }
+
+  calculateLevel(): number {
+    return Math.floor(this.playerPoints / 100) + 1;
   }
 
   resetPoints() {
