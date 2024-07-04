@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import {PopupService} from "./popup.service";
-import {MorpionPage} from "../tic-tac-toe/morpion/morpion.page";
-import {ToastService} from "./toast.service";
 
 @Injectable({
   providedIn: 'root'

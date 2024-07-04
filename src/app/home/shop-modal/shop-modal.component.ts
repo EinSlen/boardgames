@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from "@ionic/angular";
-import {PointsService} from "../../services/points.service";
 import {
   IonButton,
   IonCard,
@@ -11,81 +10,52 @@ import {
   IonFabButton, IonGrid, IonHeader,
   IonIcon, IonLabel, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar
 } from "@ionic/angular/standalone";
-import {NgForOf} from "@angular/common";
-import {Puissance4Service} from "../../services/puissance4Service";
-import {ToastComponent} from "../../toast/toast.component";
-import {ToastService} from "../../services/toast.service";
+import {NgForOf, NgStyle} from "@angular/common";
+import {ShopService} from "../../services/shop.service";
 
 @Component({
   selector: 'app-shop-modal',
   templateUrl: './shop-modal.component.html',
   styleUrls: ['./shop-modal.component.scss'],
   standalone: true,
-  imports: [IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonContent, IonHeader, IonToolbar, IonTitle, IonButton, IonSelect, IonSelectOption, IonGrid, IonCol, IonRow, NgForOf, IonLabel, ToastComponent],
+  imports: [IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonContent, IonHeader, IonToolbar, IonTitle, IonButton, IonSelect, IonSelectOption, IonGrid, IonCol, IonRow, NgForOf, IonLabel, NgStyle],
 })
 export class ShopModalComponent  implements OnInit {
-  shopTTTsymbols = ['X','$','§','?'];
-  shopTTTprices = [0, 10, 20, 30];
-  TTTsymbol: string;
-  TTTkey = 'TTTsymbol';
-  shopP4symbols = ['🔴','❤️','💜','🎱'];
-  shopP4prices = [0, 10, 20, 30];
-  P4symbol: string;
-  P4key = 'P4symbol';
 
-  constructor(private modalCtrl: ModalController, private pointsService: PointsService, private puissance4Service: Puissance4Service, private toastService: ToastService) {
-    this.TTTsymbol = this.shopTTTsymbols[0];
-    this.P4symbol = this.shopP4symbols[0];
+  constructor(private modalCtrl: ModalController, private shopService: ShopService) {
   }
 
-  ngOnInit() {}
+  shopTTTsymbols = this.shopService.shopTTTsymbols;
+  shopTTTprices = this.shopService.shopTTTprices;
+
+  shopTTTbgcolors = this.shopService.shopTTTbgcolors;
+  shopTTTbgcolorsPrices = this.shopService.shopTTTbgcolorsPrices;
+
+  shopTTTbgskins = this.shopService.shopTTTbgskins;
+  shopTTTbgskinsPrices = this.shopService.shopTTTbgskinsPrices;
+
+  shopP4symbols = this.shopService.shopP4symbols;
+  shopP4prices = this.shopService.shopP4prices;
+
+    ngOnInit() {}
 
   closeModal() {
     this.modalCtrl.dismiss();
   }
 
-  selectTTTSymbol(index: number) {
-    if (this.pointsService.playerPoints < this.shopTTTprices[index]) {
-      this.toastService.show("Points manque pour pouvoir acheter ce cosmétique", 'error', this.shopTTTprices[index]-this.pointsService.playerPoints);
-      console.log('not enough points')
-      return;
-    } else {
-      console.log('NEW SYMBOL', this.shopTTTsymbols[index])
-      this.toastService.show("Nouveau cosmétique appliqué : " + this.shopTTTsymbols[index], 'info');
-      this.pointsService.removePoints(this.shopTTTprices[index]);
-      this.TTTsymbol = this.shopTTTsymbols[index];
-      this.setTTTsymbol(this.TTTsymbol)
-    }
+  selectTTTSymbol(i: number) {
+    this.shopService.selectTTTSymbol(i);
   }
 
-  selectP4Symbol(index: number) {
-    if (this.pointsService.playerPoints < this.shopP4prices[index]) {
-      this.toastService.show("Points manque pour pouvoir acheter ce cosmétique", 'error', this.shopP4prices[index]-this.pointsService.playerPoints);
-      console.log('not enough points')
-      return;
-    } else {
-      console.log('NEW SYMBOL', this.shopP4symbols[index])
-      this.toastService.show("Nouveau cosmétique appliqué : " +  this.shopP4symbols[index], 'info');
-      this.pointsService.removePoints(this.shopP4prices[index]);
-      this.P4symbol = this.shopP4symbols[index];
-      this.setP4symbol(this.P4symbol)
-    }
+  selectTTTbgcolor(i: number) {
+    this.shopService.selectTTTbgcolor(i);
   }
 
-  getTTTsymbol(){
-    return localStorage.getItem(this.TTTkey) || this.TTTsymbol;
+  selectTTTbgskin(i: number) {
+    this.shopService.selectTTTbgskin(i);
   }
 
-  getP4symbol(){
-    return localStorage.getItem(this.P4key) || this.P4symbol;
-  }
-
-  setTTTsymbol(symbol: string){
-    localStorage.setItem(this.TTTkey, symbol);
-  }
-
-  setP4symbol(symbol: string){
-    localStorage.setItem(this.P4key, symbol);
-    this.puissance4Service.setHumanPlayer = symbol;
+  selectP4Symbol(i: number) {
+    this.shopService.selectP4Symbol(i);
   }
 }

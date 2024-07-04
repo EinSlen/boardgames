@@ -10,6 +10,7 @@
 <app-toast></app-toast>
 <ion-content class="custom-modal-content">
 
+  <h2>Items Skins</h2>
   <ion-card>
     <ion-card-header>
       <ion-card-title>Tic-Tac-Toe</ion-card-title>
@@ -43,6 +44,49 @@
         </ion-row>
         <ion-row>
           <ion-col size="3" *ngFor="let price of shopP4prices; let i = index" class="ion-text-center">
+            {{ price }} $
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <h2>Backgrounds Colors</h2>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Tic-Tac-Toe</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" *ngFor="let bgcolor of shopTTTbgcolors; let i = index" class="ion-no-padding" style="text-align: center">
+            <ion-button (click)="selectTTTbgcolor(i)" [ngStyle]="{'--background': bgcolor}"></ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="3" *ngFor="let price of shopTTTbgcolorsPrices; let i = index" class="ion-text-center" style="text-align: center">
+            {{ price }} $
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <h2>Decorations Skins</h2>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Tic-Tac-Toe</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" *ngFor="let bgskin of shopTTTbgskins; let i = index" class="ion-no-padding" style="text-align: center">
+            <ion-button class="bgskinButton" (click)="selectTTTbgskin(i)" [ngStyle]="{'background-image': 'url(' + bgskin + ')'}"></ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="3" *ngFor="let price of shopTTTbgskinsPrices; let i = index" class="ion-text-center" style="text-align: center">
             {{ price }} $
           </ion-col>
         </ion-row>
