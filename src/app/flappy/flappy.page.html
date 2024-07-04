@@ -21,7 +21,7 @@
 <ion-content>
   <div class="game-container" (click)="handleClick()">
     <div class="bird" [ngStyle]="{'top.px': birdY}">
-      <img src="./assets/flappy-bird.png">
+      <img src="./assets/flappy-bird-1.png">
     </div>
     <div *ngFor="let pipe of pipes" class="pipe" [ngStyle]="{'left.px': pipe.x, 'height.px': pipe.height, 'top.px': pipe.y}"></div>
     <div class="score">{{ score }}</div>
