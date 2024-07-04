@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ModalController} from "@ionic/angular";
 import {PointsService} from "./points.service";
+import {ToastService} from "./toast.service";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class ShopService {
   P4symbol: string;
   P4key = 'P4symbol';
 
-  constructor(private pointsService: PointsService) {
+  constructor(private pointsService: PointsService, private toastService: ToastService) {
     this.TTTsymbol = localStorage.getItem(this.TTTkey) || this.shopTTTsymbols[0];
     this.TTTbgcolor = localStorage.getItem(this.TTTbgcolorKey) || this.shopTTTbgcolors[0];
     this.TTTbgskin = localStorage.getItem(this.TTTbgskinKey) || this.shopTTTbgskins[0];
@@ -36,9 +37,11 @@ export class ShopService {
 
   selectTTTSymbol(index: number) {
     if (this.pointsService.playerPoints < this.shopTTTprices[index]) {
+      this.toastService.show("Points manque pour pouvoir acheter ce cosmétique", 'error', this.shopTTTprices[index]-this.pointsService.playerPoints);
       console.log('not enough points')
       return;
     } else {
+      this.toastService.show("Nouveau cosmétique appliqué : " + this.shopTTTsymbols[index], 'info');
       console.log('NEW SYMBOL', this.shopTTTsymbols[index])
       this.pointsService.removePoints(this.shopTTTprices[index]);
       this.TTTsymbol = this.shopTTTsymbols[index];
@@ -48,9 +51,11 @@ export class ShopService {
 
   selectTTTbgcolor(index: number) {
     if (this.pointsService.playerPoints < this.shopTTTbgcolorsPrices[index]) {
+      this.toastService.show("Points manque pour pouvoir acheter ce background", 'error', this.shopTTTbgcolorsPrices[index]-this.pointsService.playerPoints);
       console.log('not enough points')
       return;
     } else {
+      this.toastService.show("Nouveau background appliqué : " + this.shopTTTbgcolors[index], 'info');
       console.log('NEW BG COLOR', this.shopTTTbgcolors[index])
       this.pointsService.removePoints(this.shopTTTbgcolorsPrices[index]);
       this.TTTbgcolor = this.shopTTTbgcolors[index];
@@ -60,9 +65,11 @@ export class ShopService {
 
   selectTTTbgskin(index: number) {
     if (this.pointsService.playerPoints < this.shopTTTbgskinsPrices[index]) {
+      this.toastService.show("Points manque pour pouvoir acheter ce skin", 'error', this.shopTTTbgskinsPrices[index]-this.pointsService.playerPoints);
       console.log('not enough points')
       return;
     } else {
+      this.toastService.show("Nouveau skin appliqué : " + this.shopTTTbgskins[index], 'info');
       console.log('NEW BG SKIN', this.shopTTTbgskins[index])
       this.pointsService.removePoints(this.shopTTTbgskinsPrices[index]);
       this.TTTbgskin = this.shopTTTbgskins[index];
@@ -72,9 +79,11 @@ export class ShopService {
 
   selectP4Symbol(index: number) {
     if (this.pointsService.playerPoints < this.shopP4prices[index]) {
+      this.toastService.show("Points manque pour pouvoir acheter ce symbol", 'error', this.shopP4prices[index]-this.pointsService.playerPoints);
       console.log('not enough points')
       return;
     } else {
+      this.toastService.show("Nouveau symbol appliqué : " +  this.shopP4symbols[index], 'info');
       console.log('NEW SYMBOL', this.shopP4symbols[index])
       this.pointsService.removePoints(this.shopP4prices[index]);
       this.P4symbol = this.shopP4symbols[index];
