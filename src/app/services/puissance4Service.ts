@@ -38,18 +38,18 @@ export class Puissance4Service {
             this.gameEnded = true;
             console.log(`${this.currentPlayer} a gagné !`);
             if (this.difficulty != '') {
-              this.popupService.showGameResultPopup(this.currentPlayer === '🔴' ? "player" : "computer", (difficulty) => {
+              this.popupService.showGameResultPopup(this.currentPlayer === '🔴' ? "player" : "computer", this.difficulty, (difficulty) => {
                 this.startGame("Joueur", difficulty);
               })
             } else {
-              this.popupService.showGameResultPopup(this.currentPlayer === '🔴' ? "player1" : "player2", (difficulty) => {
+              this.popupService.showGameResultPopup(this.currentPlayer === '🔴' ? "player1" : "player2", this.difficulty, (difficulty) => {
                 this.startGame("Joueur 1", difficulty);
               })
             }
           } else if (this.isDraw()) {
             console.log("draw");
             this.gameEnded = true;
-            this.popupService.showGameResultPopup("draw", () => {
+            this.popupService.showGameResultPopup("draw", this.difficulty, () => {
             })
           } else {
             this.currentPlayer = this.currentPlayer === '🔴' ? '🟡' : '🔴';
@@ -147,6 +147,9 @@ export class Puissance4Service {
       let move: { row: number, col: number } | null;
       switch (this.difficulty) {
         case 'facile':
+          move = this.getRandomMove();
+          break;
+        case 'medium':
           move = this.getRandomMove();
           break;
         case 'expert':

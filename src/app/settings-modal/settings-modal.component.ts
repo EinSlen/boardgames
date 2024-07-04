@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -9,6 +10,7 @@ import {
   IonIcon, IonTitle, IonToolbar
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular';
+import {PointsService} from "../services/points.service";
 
 
 
@@ -17,11 +19,11 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './settings-modal.component.html',
   styleUrls: ['./settings-modal.component.scss'],
   standalone: true,
-  imports: [IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonContent, IonHeader, IonToolbar, IonTitle],
+  imports: [IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonContent, IonHeader, IonToolbar, IonTitle, IonButton],
 })
 export class SettingsModalComponent  implements OnInit {
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController, private pointsService: PointsService) {}
 
   closeModal() {
     this.modalCtrl.dismiss();
@@ -30,5 +32,8 @@ export class SettingsModalComponent  implements OnInit {
 
   ngOnInit() {}
 
+  resetPoints() {
+    this.pointsService.resetPoints();
+  }
 }
 
