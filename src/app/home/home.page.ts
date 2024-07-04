@@ -26,6 +26,7 @@ export class HomePage implements OnInit {
   currentSlide = 0;
   slides = [
     { img: '../../assets/morpion.avif', title: 'TIC-TAC-TOE', route: "/morpion" },
+    { img: '../../assets/OIP.jpg', title: 'PONG GAME', route: "/pong" },
     { img: '../../assets/four-in-a-row-logo.png', title: 'Puissance 4', route: "/puissance4" },
     { img: '../../assets/morpion.avif', title: 'Slide 3', route: "" },
   ];
