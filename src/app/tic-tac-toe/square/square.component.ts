@@ -1,13 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgClass} from "@angular/common";
+import {NgClass, NgStyle} from "@angular/common";
 import {TicTacToeService} from "../../services/tic-tac-toe-Service";
+import {ShopModalComponent} from "../../home/shop-modal/shop-modal.component";
+import {ShopService} from "../../services/shop.service";
 
 @Component({
   selector: 'app-square',
   templateUrl: './square.component.html',
   styleUrls: ['./square.component.scss'],
   imports: [
-    NgClass
+    NgClass,
+    NgStyle
   ],
   standalone: true
 })
@@ -15,7 +18,11 @@ export class SquareComponent  implements OnInit {
   @Input() value: string = '';
   @Input() row: number = 0;
   @Input() col: number = 0;
-  constructor(public gameService: TicTacToeService) { }
+  constructor(public gameService: TicTacToeService, private shopService: ShopService) {
+  }
+
+  public background_color = this.shopService.TTTbgcolor;
+  public background_skin = this.shopService.TTTbgskin;
 
   ngOnInit() {}
 
