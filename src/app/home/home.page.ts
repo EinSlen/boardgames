@@ -54,11 +54,13 @@ export class HomePage implements OnInit {
       case 'settings':
         modal = await this.modalController.create({
           component: SettingsModalComponent,
+          cssClass: 'settings-modal',
         });
         break;
       case 'shop':
         modal = await this.modalController.create({
           component: ShopModalComponent,
+          cssClass: 'shop-modal',
         });
         break;
     }

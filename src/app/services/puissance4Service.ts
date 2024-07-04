@@ -1,26 +1,36 @@
 import { Injectable } from '@angular/core';
 import { PopupService } from './popup.service';
 import {ToastService} from "./toast.service";
+import {ShopModalComponent} from "../home/shop-modal/shop-modal.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class Puissance4Service {
 
-  currentPlayer: string = '🔴';
+  constructor(private popupService: PopupService) {
+
+  }
+
+  humanPlayer: string = '🔴';
+  currentPlayer: string = this.humanPlayer;
   board: string[][] = [];
   gameEnded: boolean = false;
   difficulty: string = 'facile';
   thinking: boolean = false;
 
-  constructor(private popupService: PopupService) { }
+  set setHumanPlayer(player: string) {
+    this.humanPlayer = player
+    console.log(this.humanPlayer)
+    localStorage.setItem('P4symbol', player);
+  }
 
   get getdifficulty() {
     return this.difficulty
   }
 
   startGame(startingPlayer: string, difficulty: string) {
-    this.currentPlayer = difficulty != '' ? startingPlayer === 'Joueur' ? '🔴' : '🟡' : startingPlayer === 'Joueur 1' ? '🔴' : '🟡';
+    this.currentPlayer = difficulty != '' ? startingPlayer === 'Joueur' ? this.humanPlayer : '🟡' : startingPlayer === 'Joueur 1' ? this.humanPlayer : '🟡';
     this.board = Array(6).fill(0).map(() => Array(7).fill(''));
     this.gameEnded = false;
     this.difficulty = difficulty;
@@ -39,11 +49,11 @@ export class Puissance4Service {
             this.gameEnded = true;
             console.log(`${this.currentPlayer} a gagné !`);
             if (this.difficulty != '') {
-              this.popupService.showGameResultPopup(this.currentPlayer === '🔴' ? "player" : "computer", this.difficulty, (difficulty) => {
+              this.popupService.showGameResultPopup(this.currentPlayer === this.humanPlayer ? "player" : "computer", this.difficulty, (difficulty) => {
                 this.startGame("Joueur", difficulty);
               })
             } else {
-              this.popupService.showGameResultPopup(this.currentPlayer === '🔴' ? "player1" : "player2", this.difficulty, (difficulty) => {
+              this.popupService.showGameResultPopup(this.currentPlayer === this.humanPlayer ? "player1" : "player2", this.difficulty, (difficulty) => {
                 this.startGame("Joueur 1", difficulty);
               })
             }
@@ -53,7 +63,7 @@ export class Puissance4Service {
             this.popupService.showGameResultPopup("draw", this.difficulty, () => {
             })
           } else {
-            this.currentPlayer = this.currentPlayer === '🔴' ? '🟡' : '🔴';
+            this.currentPlayer = this.currentPlayer === this.humanPlayer ? '🟡' : this.humanPlayer;
             if (this.difficulty != '' && this.currentPlayer === '🟡') {
               this.aiMove();
             }
@@ -186,7 +196,7 @@ export class Puissance4Service {
   }
 
   getBestMove(): { row: number, col: number } {
-    const opponentWinningMove = this.checkOpponentWinningMove('🔴');
+    const opponentWinningMove = this.checkOpponentWinningMove(this.humanPlayer);
     if (opponentWinningMove) {
       console.log('Bloquer le coup gagnant de l\'adversaire : ', opponentWinningMove);
       return opponentWinningMove;
@@ -194,7 +204,7 @@ export class Puissance4Service {
 
     const move = this.getRandomMove();
     this.board[move.row][move.col] = '🟡';
-    if (this.checkOpponentWinningMove('🔴')) {
+    if (this.checkOpponentWinningMove(this.humanPlayer)) {
       console.log('Eviter le coup gagnant de l\'adversaire : ', move);
       this.board[move.row][move.col] = '';
       this.getBestMove();

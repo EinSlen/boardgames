@@ -12,6 +12,7 @@ import {
   IonIcon, IonLabel, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar
 } from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
+import {Puissance4Service} from "../../services/puissance4Service";
 
 @Component({
   selector: 'app-shop-modal',
@@ -22,13 +23,18 @@ import {NgForOf} from "@angular/common";
 })
 export class ShopModalComponent  implements OnInit {
   shopTTTsymbols = ['X','$','§','?'];
-  shopTTTprices = [0, 20, 30, 50];
-  TTTsymbol = this.shopTTTsymbols[0];
+  shopTTTprices = [0, 10, 20, 30];
+  TTTsymbol: string;
+  TTTkey = 'TTTsymbol';
   shopP4symbols = ['🔴','❤️','💜','🎱'];
-  shopP4prices = [0, 20, 30, 50];
-  P4symbol = this.shopP4symbols[0];
+  shopP4prices = [0, 10, 20, 30];
+  P4symbol: string;
+  P4key = 'P4symbol';
 
-  constructor(private modalCtrl: ModalController, private pointsService: PointsService) { }
+  constructor(private modalCtrl: ModalController, private pointsService: PointsService, private puissance4Service: Puissance4Service) {
+    this.TTTsymbol = this.shopTTTsymbols[0];
+    this.P4symbol = this.shopP4symbols[0];
+  }
 
   ngOnInit() {}
 
@@ -38,19 +44,42 @@ export class ShopModalComponent  implements OnInit {
 
   selectTTTSymbol(index: number) {
     if (this.pointsService.playerPoints < this.shopTTTprices[index]) {
+      console.log('not enough points')
       return;
     } else {
+      console.log('NEW SYMBOL', this.shopTTTsymbols[index])
       this.pointsService.removePoints(this.shopTTTprices[index]);
       this.TTTsymbol = this.shopTTTsymbols[index];
+      this.setTTTsymbol(this.TTTsymbol)
     }
   }
 
   selectP4Symbol(index: number) {
     if (this.pointsService.playerPoints < this.shopP4prices[index]) {
+      console.log('not enough points')
       return;
     } else {
+      console.log('NEW SYMBOL', this.shopP4symbols[index])
       this.pointsService.removePoints(this.shopP4prices[index]);
       this.P4symbol = this.shopP4symbols[index];
+      this.setP4symbol(this.P4symbol)
     }
+  }
+
+  getTTTsymbol(){
+    return localStorage.getItem(this.TTTkey) || this.TTTsymbol;
+  }
+
+  getP4symbol(){
+    return localStorage.getItem(this.P4key) || this.P4symbol;
+  }
+
+  setTTTsymbol(symbol: string){
+    localStorage.setItem(this.TTTkey, symbol);
+  }
+
+  setP4symbol(symbol: string){
+    localStorage.setItem(this.P4key, symbol);
+    this.puissance4Service.setHumanPlayer = symbol;
   }
 }
