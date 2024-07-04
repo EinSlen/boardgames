@@ -29,11 +29,11 @@ export class Puissance4Service {
     }
   }
 
-  placeCoin(col: number) {
+  async placeCoin(col: number) {
     if (!this.gameEnded) {
       for (let row = this.board.length - 1; row >= 0; row--) {
         if (!this.board[row][col]) {
-          this.board[row][col] = this.currentPlayer;
+          await this.throwCoin(row, col, this.currentPlayer)
           if (this.checkWinner(row, col)) {
             this.gameEnded = true;
             console.log(`${this.currentPlayer} a gagné !`);
@@ -42,17 +42,18 @@ export class Puissance4Service {
                 this.startGame("Joueur", difficulty);
               })
             } else {
-              this.popupService.showGameResultPopup( this.currentPlayer === '🔴' ? "player1" : "player2", (difficulty) => {
+              this.popupService.showGameResultPopup(this.currentPlayer === '🔴' ? "player1" : "player2", (difficulty) => {
                 this.startGame("Joueur 1", difficulty);
               })
             }
           } else if (this.isDraw()) {
             console.log("draw");
             this.gameEnded = true;
-            this.popupService.showGameResultPopup( "draw", () => {})
+            this.popupService.showGameResultPopup("draw", () => {
+            })
           } else {
             this.currentPlayer = this.currentPlayer === '🔴' ? '🟡' : '🔴';
-            if (this.difficulty != ''  && this.currentPlayer === '🟡') {
+            if (this.difficulty != '' && this.currentPlayer === '🟡') {
               this.aiMove();
             }
           }
@@ -62,6 +63,15 @@ export class Puissance4Service {
     }
   }
 
+  async throwCoin(row: number, col: number, player: string) {
+    for (let i = 0; i <= row; i++) {
+      this.board[i][col] = player;
+      if (i > 0) {
+        this.board[i-1][col] = '';
+      }
+      await this.wait(60);
+    }
+  }
 
   checkWinner(row: number, col: number): boolean {
     // Vérifie les lignes horizontales
@@ -172,5 +182,9 @@ export class Puissance4Service {
       }
     }
     return { row: -1, col: -1 };
+  }
+
+  wait(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }

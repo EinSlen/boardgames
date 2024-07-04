@@ -21,7 +21,7 @@ import {Puissance4Service} from "../../services/puissance4Service";
   standalone: true
 })
 export class GameboardComponent implements OnInit {
-
+  canPlace: boolean = true;
   constructor(public gameService: Puissance4Service) { }
 
   ngOnInit() {
@@ -31,7 +31,13 @@ export class GameboardComponent implements OnInit {
 
   selectColumn(col: number) {
     // Sélectionner une colonne
-    this.gameService.placeCoin(col);
+    if(this.canPlace) {
+      this.canPlace = false;
+      this.gameService.placeCoin(col);
+      setTimeout(() => {
+        this.canPlace = true;
+      }, 1000);
+    }
   }
 
 }
