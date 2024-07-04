@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
   slides = [
     { img: '../../assets/morpion.avif', title: 'TIC-TAC-TOE', route: "/morpion" },
     { img: '../../assets/four-in-a-row-logo.png', title: 'Puissance 4', route: "/puissance4" },
-    { img: '../../assets/morpion.avif', title: 'Slide 3', route: "" },
+    { img: '../../assets/minesweeper-logo.png', title: 'Démineur', route: "/demineur" },
   ];
   private slideInterval: any;
 
