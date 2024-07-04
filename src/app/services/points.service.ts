@@ -16,7 +16,7 @@ export class PointsService {
 
   getPoints(): number {
     const item = localStorage.getItem(this.pointsKey);
-    return item ? parseInt(item, 10) : 0;
+    return item ? parseInt(item) : 0;
   }
 
   getHighScore(): number {
@@ -49,5 +49,20 @@ export class PointsService {
       this.highScore = this.playerPoints;
       localStorage.setItem(this.highScoreKey, this.highScore.toString());
     }
+  }
+
+  getProgressToNextLevel(): number {
+    const level = Math.floor(this.playerPoints / 100);
+    const nextLevelPoints = (level + 1) * 100;
+    return (this.playerPoints / nextLevelPoints) * 100;
+  }
+
+  getCurrentLevelImage(): string {
+    const level = Math.floor(this.playerPoints / 100);
+    return `assets/ranks/level-${level}.webp`;
+  }
+
+  getCurrentLevel(): number {
+    return Math.floor(this.playerPoints / 100);
   }
 }
