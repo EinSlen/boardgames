@@ -29,6 +29,7 @@ import {MinesweeperService} from "../../services/minesweeper-sevice.service";
 export class MinesweeperPage implements OnInit {
   difficulty: Difficulty = Difficulty.Facile;
   fini: boolean = false;
+  selectedDifficulty: Difficulty = Difficulty.Facile;  // Ajout de cette propriété
 
   constructor(
     private navCtrl: NavController,
@@ -48,6 +49,7 @@ export class MinesweeperPage implements OnInit {
   }
 
   startGame(difficulty: Difficulty) {
+    this.selectedDifficulty = difficulty;  // Mettre à jour la difficulté sélectionnée
     this.minesweeperService.startGame(difficulty);
     this.fini = false;
   }
@@ -61,10 +63,13 @@ export class MinesweeperPage implements OnInit {
       this.fini = true;
       this.popupService.showGameResultPopup("bomb", this.difficulty, (difficulty) => {
         if (difficulty == "facile") {
+          this.selectedDifficulty = Difficulty.Facile;
           this.startGame(Difficulty.Facile);
         } else if (difficulty == "medium") {
+          this.selectedDifficulty = Difficulty.Moyen;
           this.startGame(Difficulty.Moyen);
         } else {
+          this.selectedDifficulty = Difficulty.Difficile;
           this.startGame(Difficulty.Difficile);
         }
       });
@@ -72,10 +77,13 @@ export class MinesweeperPage implements OnInit {
       this.fini = true;
       this.popupService.showGameResultPopup("player", '', (difficulty: any) => {
         if (difficulty == "facile") {
+          this.selectedDifficulty = Difficulty.Facile;
           this.startGame(Difficulty.Facile);
         } else if (difficulty == "medium") {
+          this.selectedDifficulty = Difficulty.Moyen;
           this.startGame(Difficulty.Moyen);
         } else {
+          this.selectedDifficulty = Difficulty.Difficile;
           this.startGame(Difficulty.Difficile);
         }
       });
@@ -111,5 +119,10 @@ export class MinesweeperPage implements OnInit {
 
   get settings() {
     return this.minesweeperService.settings;
+  }
+
+  onDifficultySelected(difficulty: Difficulty) {
+    this.difficulty = difficulty;
+    this.startGame(difficulty);
   }
 }

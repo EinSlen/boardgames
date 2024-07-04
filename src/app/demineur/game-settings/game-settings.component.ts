@@ -1,5 +1,8 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, Input} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
+import {NgClass, NgForOf} from "@angular/common";
+import {addIcons} from "ionicons";
+import {alertCircleOutline, beer, hammer, happyOutline, skull, skullOutline} from "ionicons/icons";
 
 export enum Difficulty {
   Facile = 'facile',
@@ -24,17 +27,33 @@ export const SETTINGS = {
   templateUrl: './game-settings.component.html',
   styleUrls: ['./game-settings.component.scss'],
   imports: [
-    IonicModule
+    IonicModule,
+    NgClass,
+    NgForOf,
   ],
   standalone: true
 })
-export class GameSettingsComponent{
+export class GameSettingsComponent {
+  @Input() selectedDifficulty: Difficulty = Difficulty.Facile;
   @Output() difficultySelected = new EventEmitter<Difficulty>();
 
   Difficulty = Difficulty;
 
+  constructor() {
+    addIcons({
+      'beer': happyOutline,
+      'hammer': alertCircleOutline,
+      'skull': skullOutline
+      });
+  }
+
   selectDifficulty(difficulty: Difficulty) {
+    this.selectedDifficulty = difficulty;
     this.difficultySelected.emit(difficulty);
   }
 
+  protected readonly beer = beer;
+  protected readonly hammer = hammer;
+  protected readonly skull = skull;
+  protected readonly happyOutline = happyOutline;
 }
