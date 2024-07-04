@@ -11,14 +11,9 @@ export class HangmanGameService{
   secondRow: string[] = [];
   thirdRow : string[] = [];
 
-  numFirstRow : number[]  = [];
-  numSecondRow : number[] = [];
-  numThirdRow : number[] = [];
-  numLastRow : number[] = [];
-
   word : string = ""
   hiddenWord : string[] = []
-  tries : number = 8;
+  tries : number = 9;
 
   constructor() {
     this.generateButtons();
@@ -101,21 +96,6 @@ export class HangmanGameService{
       }
       else {
         this.thirdRow.push(alphabet[i])
-      }
-    }
-
-    for (let i = 0; i < 10; i++){
-      if (i === 0){
-        this.numLastRow.push(i);
-      }
-      else if (i <=3){
-        this.numFirstRow.push(i);
-      }
-      else if (i <= 6){
-        this.numSecondRow.push(i);
-      }
-      else if (i <= 9){
-        this.numThirdRow.push(i);
       }
     }
   }

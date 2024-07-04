@@ -45,29 +45,24 @@
     </ion-row>
   </ion-grid>
 
-  <!--Numbers-->
-  <ion-grid class="ion-text-center">
-    <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let n of service.numFirstRow" (click)="checkClickedButton($event)">{{n}}</ion-button>
-    </ion-row>
-
-    <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let n of service.numSecondRow" (click)="checkClickedButton($event)">{{n}}</ion-button>
-    </ion-row>
-
-    <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let n of service.numThirdRow" (click)="checkClickedButton($event)">{{n}}</ion-button>
-    </ion-row>
-
-    <ion-row class="row">
-      <ion-button class="small-button" color="primary" *ngFor="let n of service.numLastRow" (click)="checkClickedButton($event)">{{n}}</ion-button>
-    </ion-row>
-  </ion-grid>
-
 
   <ion-grid class="ion-text-center">
   <ion-text>Essaies : {{service.tries}}</ion-text>
   </ion-grid>
+
+  <!-- Pendu -->
+  <div class="pendu-container ion-text-center">
+    <img src="../../../assets/hangman-icon/image-penduGame-0.svg" *ngIf="service.tries === 9" />
+    <img src="../../../assets/hangman-icon/image-penduGame-1.svg" *ngIf="service.tries === 8" />
+    <img src="../../../assets/hangman-icon/image-penduGame-2.svg" *ngIf="service.tries === 7" />
+    <img src="../../../assets/hangman-icon/image-penduGame-3.svg" *ngIf="service.tries === 6" />
+    <img src="../../../assets/hangman-icon/image-penduGame-4.svg" *ngIf="service.tries === 5" />
+    <img src="../../../assets/hangman-icon/image-penduGame-5.svg" *ngIf="service.tries === 4" />
+    <img src="../../../assets/hangman-icon/image-penduGame-6.svg" *ngIf="service.tries === 3" />
+    <img src="../../../assets/hangman-icon/image-penduGame-7.svg" *ngIf="service.tries === 2" />
+    <img src="../../../assets/hangman-icon/image-penduGame-8.svg" *ngIf="service.tries === 1" />
+    <img src="../../../assets/hangman-icon/image-penduGame-9.svg" *ngIf="service.tries === 0" />
+  </div>
 
   <ion-button expand="full" (click)="restartGame()">Recommencer</ion-button>
 
