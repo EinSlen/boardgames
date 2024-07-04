@@ -33,19 +33,47 @@ export class PopupService {
   async showGameResultPopup(winner: string, restartCallback: (difficulty: string) => void) {
     const emoji = winner.includes('player') ? '🎉' :
       winner === 'computer' ? '💩' :
-        '❌';
+        winner === "bomb" ? '💣' : '❌';
 
     const alert = await this.alertController.create({
       header: winner === 'player' ? 'Bien joué, Joueur ! Vous avez gagné.' :
         winner === 'computer' ? 'Désolé, vous avez perdu contre l\'ordinateur.' : winner === 'player1' ? 'Bien joué, Joueur 1 ! Vous avez gagné.'
           : winner === 'player2' ? 'Bien joué, Joueur 2 ! Vous avez gagné.'  :
-          'Match nul.',
+            winner === 'bomb' ? 'Désolé, vous avez perdu' : 'Match nul.',
       message: `${emoji}`,
       buttons: [
         {
           text: 'RECOMMENCER',
           handler: () => {
             this.promptDifficultySelection(restartCallback);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+    if (winner.includes('player')) {
+      this.launchConfetti();
+    }
+  }
+
+  async showGameResultPong(winner: string, restartCallback: (difficulty: string) => void) {
+    const emoji = winner.includes('player') ? '🎉' :
+      winner === 'computer' ? '💩' :
+        '❌';
+
+    const alert = await this.alertController.create({
+      header: winner === 'player' ? 'Bien joué, Joueur ! Vous avez gagné.' :
+        winner === 'computer' ? 'Désolé, vous avez perdu contre l\'ordinateur.' : winner === 'player1' ? 'Bien joué, Joueur 1 ! Vous avez gagné.'
+          : winner === 'player2' ? 'Bien joué, Joueur 2 ! Vous avez gagné.'  :
+            'Match nul.',
+      message: `${emoji}`,
+      buttons: [
+        {
+          text: 'RECOMMENCER',
+          handler: (data) => {
+            restartCallback(data)
           }
         }
       ]
