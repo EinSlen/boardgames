@@ -13,9 +13,10 @@ import {RouterLink} from "@angular/router";
 import {SettingsModalComponent} from "./settings-modal/settings-modal.component";
 import { ModalController } from '@ionic/angular';
 import {addIcons} from "ionicons";
-import {cartOutline, closeCircleOutline, settingsOutline} from "ionicons/icons";
+import {cartOutline, closeCircleOutline, settingsOutline, shieldHalfOutline, shieldOutline} from "ionicons/icons";
 import {PointsService} from "../services/points.service";
 import {ShopModalComponent} from "./shop-modal/shop-modal.component";
+import {RankModalComponent} from "./rank-modal/rank-modal.component";
 
 @Component({
   selector: 'app-home',
@@ -41,6 +42,7 @@ export class HomePage implements OnInit {
       'settings-outline': settingsOutline,
       'close-circle-outline' : closeCircleOutline,
       'cart-outline': cartOutline,
+      'shield-outline': shieldHalfOutline
     });
   }
 
@@ -59,6 +61,11 @@ export class HomePage implements OnInit {
       case 'shop':
         modal = await this.modalController.create({
           component: ShopModalComponent,
+        });
+        break;
+      case 'rank':
+        modal = await this.modalController.create({
+          component: RankModalComponent,
         });
         break;
     }
