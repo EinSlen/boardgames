@@ -60,18 +60,18 @@ export class PopupService {
       switch (difficulty) {
         case 'facile':
           this.pointsService.addPoints(10);
-          this.toastService.show("10 Points ont été ajoutées", 'success');
+          this.toastService.show("Points ont été ajoutées", 'success', 10);
           break;
         case 'medium':
-          this.toastService.show("20 Points ont été ajoutées", 'success');
+          this.toastService.show("Points ont été ajoutées", 'success', 20);
           this.pointsService.addPoints(20);
           break;
         case 'expert':
-          this.toastService.show("30 Points ont été ajoutées", 'success');
+          this.toastService.show("Points ont été ajoutées", 'success', 30);
           this.pointsService.addPoints(30);
           break;
         default:
-          this.toastService.show("10 Points ont été ajoutées", 'success');
+          this.toastService.show("Points ont été ajoutées", 'success');
           this.pointsService.addPoints(10);
           break;
       }
@@ -103,7 +103,7 @@ export class PopupService {
 
     if (winner.includes('player')) {
       this.launchConfetti();
-      this.toastService.show("10 Points ont été ajoutées", 'success');
+      this.toastService.show("Points ont été ajoutées", 'success');
     }
   }
   private async promptGameModeSelection(restartCallback: (mode: string, difficulty?: string) => void) {

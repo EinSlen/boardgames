@@ -1,20 +1,15 @@
-<!-- src/app/toast/toast.component.html -->
 <div class="toast-container">
   <div *ngFor="let toast of toasts" class="toast" [ngClass]="toast.type">
-    @if(toast.type === 'error' || toast.type === 'warning') {
-    <svg style="transform: translateY(5px)" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2.20164 18.4695L10.1643 4.00506C10.9021 2.66498 13.0979 2.66498 13.8357 4.00506L21.7984 18.4695C22.4443 19.6428 21.4598 21 19.9627 21H4.0373C2.54022 21 1.55571 19.6428 2.20164 18.4695Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M12 9V13" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M12 17.0195V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <svg style="transform: translateY(-2px)" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path *ngIf="toast.type === 'error' || toast.type === 'warning'" d="M2.20164 18.4695L10.1643 4.00506C10.9021 2.66498 13.0979 2.66498 13.8357 4.00506L21.7984 18.4695C22.4443 19.6428 21.4598 21 19.9627 21H4.0373C2.54022 21 1.55571 19.6428 2.20164 18.4695Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path *ngIf="toast.type === 'error' || toast.type === 'warning'" d="M12 9V13" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path *ngIf="toast.type === 'error' || toast.type === 'warning'" d="M12 17.0195V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path *ngIf="toast.type !== 'error' && toast.type !== 'warning'" d="M12 8V12" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path *ngIf="toast.type !== 'error' && toast.type !== 'warning'" d="M12 16.0195V16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle *ngIf="toast.type !== 'error' && toast.type !== 'warning'" cx="12" cy="12" r="10" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-    } @else {
-    <svg style="transform: translateY(5px)" width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 8V12" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M12 16.0195V16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="12" cy="12" r="10" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    }
-    {{ toast.message }}
+    <div class="toast-message">
+      <span class="toast-number">{{ toast.number }}</span>{{ toast.message }}
+    </div>
   </div>
 </div>
-

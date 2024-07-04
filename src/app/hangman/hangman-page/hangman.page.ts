@@ -75,7 +75,7 @@ export class HangmanPage implements OnInit{
       ]
     })
     this.pointsService.addPoints(10);
-    this.toastService.show("10 Points ont été ajoutées", 'success');
+    this.toastService.show("Points ont été ajoutées", 'success');
     await alert.present();
     this.popupService.launchConfetti()
   }
