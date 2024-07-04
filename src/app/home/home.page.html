@@ -1,7 +1,8 @@
+<div>
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-grid>
-      <ion-row>
+      <ion-row class="blue-background">
         <ion-col size="10">
           <ion-title>BoardGames</ion-title>
         </ion-col>
@@ -12,35 +13,40 @@
     </ion-grid>
   </ion-toolbar>
 </ion-header>
+</div>
 
 <ion-content>
   <swiper-container #swiper>
 
     <swiper-slide class="ion-text-center carousel" routerLink="{{slide.route}}" *ngFor="let slide of slides">
-      <div class="caroussel-frame">
-      <img class="image-game" src="{{slide.img}}" alt="Slide Image">
-      <h2>{{slide.title}}</h2>
-      </div>
-      <p class="click-to-play">CLICK TO PLAY</p>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            {{slide.title}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+<!--          <div class="caroussel-frame">-->
+            <img class="image-game" src="{{slide.img}}" alt="Slide Image">
+<!--            <h2>{{slide.title}}</h2>-->
+<!--          </div>-->
+          <p class="click-to-play">CLICK TO PLAY</p>
+        </ion-card-content>
+
+      </ion-card>
     </swiper-slide>
 
   </swiper-container>
-<!--  <div class="carousel-container" (swipe)="onSwipe($event)">-->
-<!--    <div class="carousel-wrapper" [style.transform]="'translateX(' + (-currentSlide * 100) + '%)'">-->
-<!--      <div routerLink="{{slide.route}}" class="carousel-slide" *ngFor="let slide of slides">-->
-<!--        <img src="{{slide.img}}" alt="Slide Image">-->
-<!--        <h2>{{ slide.title }}</h2>-->
-<!--        <p class="click-to-play">CLICK TO PLAY</p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="carousel-controls">-->
-<!--      <button (click)="prevSlide()">&#10094;</button>-->
-<!--      <button (click)="nextSlide()">&#10095;</button>-->
-<!--    </div>-->
-<!--  </div>-->
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openModal()">
+    <ion-fab-button (click)="openModal('settings')">
       <ion-icon name="settings-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" class="ion-margin">
+    <ion-fab-button (click)="openModal('shop')">
+      <ion-icon name="cart-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {AlertController} from "@ionic/angular";
 import * as confetti from 'canvas-confetti';
+import {ToastService} from "./toast.service";
 import {PointsService} from "./points.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PopupService {
-  constructor(private alertController: AlertController, private pointsService: PointsService) {}
+  constructor(private alertController: AlertController, private toastService: ToastService, private pointsService: PointsService) {}
 
   async showStartGamePopup(): Promise<string> {
     return new Promise<string>(async (resolve) => {
@@ -59,14 +60,18 @@ export class PopupService {
       switch (difficulty) {
         case 'facile':
           this.pointsService.addPoints(10);
+          this.toastService.show("Points ont été ajoutées", 'success', 10);
           break;
         case 'medium':
+          this.toastService.show("Points ont été ajoutées", 'success', 20);
           this.pointsService.addPoints(20);
           break;
         case 'expert':
+          this.toastService.show("Points ont été ajoutées", 'success', 30);
           this.pointsService.addPoints(30);
           break;
         default:
+          this.toastService.show("Points ont été ajoutées", 'success');
           this.pointsService.addPoints(10);
           break;
       }
@@ -98,6 +103,7 @@ export class PopupService {
 
     if (winner.includes('player')) {
       this.launchConfetti();
+      this.toastService.show("Points ont été ajoutées", 'success');
     }
   }
   private async promptGameModeSelection(restartCallback: (mode: string, difficulty?: string) => void) {

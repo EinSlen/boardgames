@@ -10,7 +10,7 @@ import {
   IonIcon, IonTitle, IonToolbar
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular';
-import {PointsService} from "../services/points.service";
+import {PointsService} from "../../services/points.service";
 
 
 

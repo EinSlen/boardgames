@@ -6,22 +6,33 @@ import {
   IonContent,
   IonFab,
   IonFabButton,
-  IonIcon, IonRouterLink, IonButton, IonLabel, IonGrid, IonCol, IonRow,
+  IonIcon,
+  IonRouterLink,
+  IonButton,
+  IonLabel,
+  IonGrid,
+  IonCol,
+  IonRow,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
 } from '@ionic/angular/standalone';
 import {NgForOf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
-import {SettingsModalComponent} from "../settings-modal/settings-modal.component";
+import {SettingsModalComponent} from "./settings-modal/settings-modal.component";
 import { ModalController } from '@ionic/angular';
 import {addIcons} from "ionicons";
-import {closeCircleOutline, settingsOutline} from "ionicons/icons";
+import {cartOutline, closeCircleOutline, settingsOutline} from "ionicons/icons";
 import {PointsService} from "../services/points.service";
+import {ShopModalComponent} from "./shop-modal/shop-modal.component";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon, NgOptimizedImage, NgForOf, IonRouterLink, IonButton, RouterLink, IonLabel, IonGrid, IonCol, IonRow],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon, NgOptimizedImage, NgForOf, IonRouterLink, IonButton, RouterLink, IonLabel, IonGrid, IonCol, IonRow, IonCard, IonCardContent, IonCardHeader, IonCardTitle],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
 })
@@ -35,22 +46,34 @@ export class HomePage implements OnInit {
     { img: '../../assets/hangman-icon/image-penduGame-9.svg', title: 'Jeu du pendu', route: '/hangman-page' },
   ];
 
-  constructor(private modalController: ModalController, private pointsService: PointsService) {addIcons({
-    'settings-outline': settingsOutline,
-    'close-circle-outline' : closeCircleOutline,
-  });}
+  constructor(private modalController: ModalController, private pointsService: PointsService) {
+    addIcons({
+      'settings-outline': settingsOutline,
+      'close-circle-outline' : closeCircleOutline,
+      'cart-outline': cartOutline,
+    });
+  }
 
   ngOnInit() {}
 
-  async openModal() {
-    const modal = await this.modalController.create({
-      component: SettingsModalComponent,
-      cssClass: 'my-custom-modal-css',
-      componentProps: {
-        value: 123
-      }
-    });
-    modal.present();
+  async openModal(modalName: string) {
+    let modal;
+    switch (modalName) {
+      case 'settings':
+        modal = await this.modalController.create({
+          component: SettingsModalComponent,
+        });
+        break;
+      case 'shop':
+        modal = await this.modalController.create({
+          component: ShopModalComponent,
+        });
+        break;
+    }
+
+    if (modal){
+      modal.present();
+    }
   }
 
   prevSlide() {
