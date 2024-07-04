@@ -88,6 +88,27 @@
       </ion-row>
     </ion-grid>
 
+    <ion-grid *ngSwitchCase="'hangman'">
+      <h2>Règles du jeu du Pendu</h2>
+      <p>Le jeu du Pendu est un jeu de lettres classique qui peut être joué par deux joueurs ou plus. Le but du jeu est de deviner un mot en trouvant les lettres qui le composent. Voici les règles détaillées du jeu :</p>
+      <ol>
+        <li>Un joueur choisit un mot et écrit le nombre de lettres sur une feuille de papier ou un tableau. Les autres joueurs ne doivent pas voir le mot.</li>
+        <br>
+        <li>Les autres joueurs doivent deviner les lettres qui composent le mot. Pour cela, ils proposent une lettre à tour de rôle.</li>
+        <br>
+        <li>Si la lettre proposée se trouve dans le mot, le joueur qui a choisi le mot l'écrit à la bonne place sur la feuille ou le tableau.</li>
+        <br>
+        <li>Si la lettre proposée ne se trouve pas dans le mot, le joueur qui a choisi le mot dessine une partie du corps d'un bonhomme pendu sur la feuille ou le tableau. Le bonhomme pendu est généralement composé de 7 parties : la tête, le corps, les deux bras et les deux jambes.</li>
+        <br>
+        <li>Les joueurs continuent de proposer des lettres jusqu'à ce que le mot soit deviné ou que le bonhomme pendu soit complet.</li>
+        <br>
+        <li>Si le mot est deviné avant que le bonhomme pendu ne soit complet, les joueurs qui ont deviné le mot gagnent la partie.</li>
+        <br>
+        <li>Si le bonhomme pendu est complet avant que le mot soit deviné, le joueur qui a choisi le mot gagne la partie.</li>
+      </ol>
+      <p>Le jeu du Pendu est un excellent moyen de travailler son vocabulaire et sa mémoire tout en s'amusant !</p>
+    </ion-grid>
+
     <ion-grid *ngSwitchDefault>
       <ion-row>
         <ion-col size="12">

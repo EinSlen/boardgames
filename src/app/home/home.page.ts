@@ -30,6 +30,8 @@ export class HomePage implements OnInit {
     { img: '../../assets/OIP.jpg', title: 'PONG GAME', route: "/pong" },
     { img: '../../assets/four-in-a-row-logo.png', title: 'Puissance 4', route: "/puissance4" },
     { img: '../../assets/minesweeper-logo.png', title: 'Démineur', route: "/demineur" },
+    { img: '../../assets/hangman-icon/image-penduGame-9.svg', title: 'Jeu du pendu', route: "/hangman-page" },
+
   ];
   private slideInterval: any;
 
