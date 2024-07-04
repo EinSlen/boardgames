@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {AlertController} from "@ionic/angular";
 import * as confetti from 'canvas-confetti';
+import {PointsService} from "./points.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PopupService {
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController, private pointsService: PointsService) {}
 
   async showStartGamePopup(): Promise<string> {
     return new Promise<string>(async (resolve) => {
@@ -30,7 +31,7 @@ export class PopupService {
     });
   }
 
-  async showGameResultPopup(winner: string, restartCallback: (difficulty: string) => void) {
+  async showGameResultPopup(winner: string, difficulty: string, restartCallback: (difficulty: string) => void) {
     const emoji = winner.includes('player') ? '🎉' :
       winner === 'computer' ? '💩' :
         winner === "bomb" ? '💣' : '❌';
@@ -55,6 +56,20 @@ export class PopupService {
 
     if (winner.includes('player')) {
       this.launchConfetti();
+      switch (difficulty) {
+        case 'facile':
+          this.pointsService.addPoints(10);
+          break;
+        case 'medium':
+          this.pointsService.addPoints(20);
+          break;
+        case 'expert':
+          this.pointsService.addPoints(30);
+          break;
+        default:
+          this.pointsService.addPoints(10);
+          break;
+      }
     }
   }
 

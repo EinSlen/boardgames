@@ -6,7 +6,7 @@ import {
   IonContent,
   IonFab,
   IonFabButton,
-  IonIcon, IonRouterLink, IonButton,
+  IonIcon, IonRouterLink, IonButton, IonLabel, IonGrid, IonCol, IonRow,
 } from '@ionic/angular/standalone';
 import {NgForOf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
@@ -14,13 +14,14 @@ import {SettingsModalComponent} from "../settings-modal/settings-modal.component
 import { ModalController } from '@ionic/angular';
 import {addIcons} from "ionicons";
 import {closeCircleOutline, settingsOutline} from "ionicons/icons";
+import {PointsService} from "../services/points.service";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon, NgOptimizedImage, NgForOf, IonRouterLink, IonButton, RouterLink],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon, NgOptimizedImage, NgForOf, IonRouterLink, IonButton, RouterLink, IonLabel, IonGrid, IonCol, IonRow],
 })
 export class HomePage implements OnInit {
   currentSlide = 0;
@@ -34,7 +35,7 @@ export class HomePage implements OnInit {
   ];
   private slideInterval: any;
 
-  constructor(private modalController: ModalController) {
+  constructor(private modalController: ModalController, private pointsService: PointsService) {
     addIcons({
       'settings-outline': settingsOutline,
       'close-circle-outline' : closeCircleOutline,
@@ -79,5 +80,9 @@ export class HomePage implements OnInit {
   resetSlideShow() {
     this.stopSlideShow();
     this.startSlideShow();
+  }
+
+  get playerPoints(): number {
+    return this.pointsService.getPoints();
   }
 }
