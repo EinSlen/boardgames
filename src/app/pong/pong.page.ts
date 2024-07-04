@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} f
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonButton,
+  IonButton, IonButtons,
   IonContent,
   IonFab,
   IonFabButton,
@@ -13,7 +13,7 @@ import {
 } from '@ionic/angular/standalone';
 import {LoaderComponent} from "../loader/loader.component";
 import {DidactModalComponent} from "../didact-modal/didact-modal.component";
-import {ModalController} from "@ionic/angular";
+import {ModalController, NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
 import {
   alertCircleOutline,
@@ -30,7 +30,7 @@ import {PopupService} from "../services/popup.service";
   templateUrl: './pong.page.html',
   styleUrls: ['./pong.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonButton, IonFab, IonFabButton, IonIcon]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonButton, IonFab, IonFabButton, IonIcon, IonButtons]
 })
 export class PongPage implements AfterViewInit {
   ball: HTMLElement | null = null;
@@ -67,10 +67,11 @@ export class PongPage implements AfterViewInit {
 
   gameStarted = false; // Nouvelle propriété pour suivre l'état du jeu
 
-  constructor(private modalController: ModalController, private popupService: PopupService) {
+  constructor(private modalController: ModalController, private popupService: PopupService, private navCtrl: NavController) {
     addIcons({
       'close-circle-outline': closeCircleOutline,
       'help-circle-outline': helpCircleOutline,
+      'arrow-back-circle-outline' : arrowBackCircleOutline,
     });
   }
 
@@ -146,6 +147,11 @@ export class PongPage implements AfterViewInit {
       this.update();
       this.checkWin();
     }, 10);
+  }
+
+  goBack() {
+    this.navCtrl.back();
+    this.stopGame();
   }
 
   checkWin() {
