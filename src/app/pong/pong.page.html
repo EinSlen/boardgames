@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Pong Game
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+<ion-content [fullscreen]="true">
+  <div class="game-container">
+    <div class="ball"></div>
+    <div class="paddle player"></div>
+    <div class="paddle ai"></div>
+  </div>
+  <div class="scores">
+    <span class="ai-score">{{ aiScore }}</span> - <span class="player-score">{{ playerScore }}</span>
+  </div>
+  <ion-button *ngIf="!gameStarted" class="start-button" (click)="startCountdown()">Start</ion-button>
+  <ion-button *ngIf="gameStarted" class="stop-button" (click)="stopGame()">Stop</ion-button>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="padding-bottom: 30px">
+    <ion-fab-button (click)="openDidactModal()">
+      <ion-icon name="help-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div class="countdown-container">
+    <div class="countdown" [ngClass]="countdownClass">
+      {{ countdown > 0 ? countdown : (countdown === 0 ? 'GO' : '') }}
+    </div>
+  </div>
+</ion-content>

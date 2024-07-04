@@ -57,6 +57,34 @@ export class PopupService {
       this.launchConfetti();
     }
   }
+
+  async showGameResultPong(winner: string, restartCallback: (difficulty: string) => void) {
+    const emoji = winner.includes('player') ? '🎉' :
+      winner === 'computer' ? '💩' :
+        '❌';
+
+    const alert = await this.alertController.create({
+      header: winner === 'player' ? 'Bien joué, Joueur ! Vous avez gagné.' :
+        winner === 'computer' ? 'Désolé, vous avez perdu contre l\'ordinateur.' : winner === 'player1' ? 'Bien joué, Joueur 1 ! Vous avez gagné.'
+          : winner === 'player2' ? 'Bien joué, Joueur 2 ! Vous avez gagné.'  :
+            'Match nul.',
+      message: `${emoji}`,
+      buttons: [
+        {
+          text: 'RECOMMENCER',
+          handler: (data) => {
+            restartCallback(data)
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+    if (winner.includes('player')) {
+      this.launchConfetti();
+    }
+  }
   private async promptGameModeSelection(restartCallback: (mode: string, difficulty?: string) => void) {
     const modeAlert = await this.alertController.create({
       header: 'Choisissez le mode de jeu',

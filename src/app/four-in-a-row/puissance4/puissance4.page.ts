@@ -20,7 +20,15 @@ import {LoaderComponent} from "../../loader/loader.component";
 import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
 import {ModalController, NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
-import {closeCircleOutline, helpCircleOutline, arrowBackCircleOutline, trendingDownOutline, removeOutline, trendingUpOutline} from "ionicons/icons";
+import {
+  closeCircleOutline,
+  helpCircleOutline,
+  arrowBackCircleOutline,
+  trendingDownOutline,
+  removeOutline,
+  trendingUpOutline,
+  happyOutline, alertCircleOutline, skullOutline
+} from "ionicons/icons";
 
 @Component({
   selector: 'app-puissance4',
@@ -35,7 +43,6 @@ export class Puissance4Page implements OnInit {
   selectedDifficulty: string = 'facile';
   difficulties: { label: string; value: string; icon: string, color: string }[] = [
     { label: 'Facile', value: 'facile', icon: 'beer', color: 'success' },
-    { label: 'Medium', value: 'medium', icon: 'hammer', color: 'warning' },
     { label: 'Expert', value: 'expert', icon: 'skull', color: 'danger' },
   ];
 
@@ -44,9 +51,9 @@ export class Puissance4Page implements OnInit {
       'close-circle-outline' : closeCircleOutline,
       'help-circle-outline' : helpCircleOutline,
       'arrow-back-circle-outline' : arrowBackCircleOutline,
-      'beer': trendingDownOutline,
-      'hammer': removeOutline,
-      'skull': trendingUpOutline
+      'beer': happyOutline,
+      'hammer': alertCircleOutline,
+      'skull': skullOutline
     });
   }
 
@@ -65,7 +72,7 @@ export class Puissance4Page implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.isLoading = false;
-    }, 3000);
+    }, 1000);
   }
 
   async openDidactModal(gameName: string) {
@@ -90,8 +97,6 @@ export class Puissance4Page implements OnInit {
     switch (this.selectedDifficulty) {
       case 'facile':
         return 'difficulty-facile';
-      case 'medium':
-        return 'difficulty-medium';
       case 'expert':
         return 'difficulty-expert';
       default:

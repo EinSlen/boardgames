@@ -23,4 +23,8 @@ export const routes: Routes = [
     path: 'demineur',
     loadComponent: () => import('./demineur/minesweeper/minesweeper.page').then(m => m.MinesweeperPage)
   },
+  {
+    path: 'pong',
+    loadComponent: () => import('./pong/pong.page').then( m => m.PongPage)
+  },
 ];
