@@ -57,7 +57,7 @@ export class RankModalComponent  implements OnInit {
     this.currentLevel = this.calculateLevel();
     if (this.currentLevel > previousLevel) {
       console.log(`Level Up! You are now at Level ${this.currentLevel}`);
-      this.toastService.show("Vous venez de passé(e) au niveau : " + this.currentLevel, "warning")
+      this.toastService.show("Vous venez de passer au niveau : " + this.currentLevel, "warning")
     }
   }
 

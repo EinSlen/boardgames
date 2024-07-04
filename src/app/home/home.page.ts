@@ -104,4 +104,8 @@ export class HomePage implements OnInit {
   get playerPoints(): number {
     return this.pointsService.getPoints();
   }
+
+  get playerHighscore(): number {
+    return this.pointsService.getHighScore();
+  }
 }
