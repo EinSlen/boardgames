@@ -212,6 +212,24 @@ export class PongPage implements AfterViewInit {
         this.playerPaddle.style.left = `${this.playerPaddleX}px`;
       }
     });
+
+    document.addEventListener('touchmove', (event) => {
+      event.preventDefault(); // Empêche le défilement par défaut sur l'écran tactile
+
+      if (!this.container) return;
+
+      const containerRect = this.container.getBoundingClientRect();
+      const touchX = event.touches[0].clientX - containerRect.left;
+
+      this.playerPaddleX = Math.min(
+        Math.max(touchX - this.playerPaddleWidth / 2, 0),
+        this.container.clientWidth - this.playerPaddleWidth
+      );
+
+      if (this.playerPaddle) {
+        this.playerPaddle.style.left = `${this.playerPaddleX}px`;
+      }
+    });
   }
 
   updateScore() {
