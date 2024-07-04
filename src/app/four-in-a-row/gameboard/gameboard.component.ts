@@ -29,14 +29,12 @@ export class GameboardComponent implements OnInit {
     this.gameService.startGame('player', 'facile');
   }
 
-  selectColumn(col: number) {
+  async selectColumn(col: number) {
     // Sélectionner une colonne
-    if(this.canPlace) {
+    if (this.canPlace) {
       this.canPlace = false;
-      this.gameService.placeCoin(col);
-      setTimeout(() => {
-        this.canPlace = true;
-      }, 1000);
+      await this.gameService.placeCoin(col);
+      this.canPlace = true;
     }
   }
 
