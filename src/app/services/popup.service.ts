@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {AlertController} from "@ionic/angular";
 import * as confetti from 'canvas-confetti';
+import {ToastService} from "./toast.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PopupService {
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController, private toastService: ToastService) {}
 
   async showStartGamePopup(): Promise<string> {
     return new Promise<string>(async (resolve) => {
