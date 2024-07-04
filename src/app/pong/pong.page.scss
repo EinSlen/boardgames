@@ -29,23 +29,52 @@
   top: 0; /* Positioning AI's paddle at the top */
 }
 
-.score {
+.countdown-container {
   position: absolute;
-  color: #fff;
-  font-size: 24px;
-  font-weight: bold;
-  width: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  font-size: 48px;
+  color: white;
+  transition: color 0.5s ease; /* Smooth transition for color change */
 }
 
-.player-score {
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+.countdown-green {
+  color: green;
 }
 
-.ai-score {
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+.countdown-orange {
+  color: orange;
+}
+
+.countdown-red {
+  color: red;
+}
+
+.scores {
+  position: absolute;
+  text-align: left; /* Aligning scores to the left */
+  color: #000000;
+  font-size: 36px;
+  font-weight: bold;
+  bottom: 80px; /* Positioning the score container at the bottom */
+  left: 120px; /* Adjusting left spacing */
+}
+
+.player-score, .ai-score {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+.start-button {
+  display: block;
+  margin: 50px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 150px;
 }

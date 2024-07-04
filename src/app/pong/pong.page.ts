@@ -1,14 +1,34 @@
 import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import {
+  IonButton,
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonHeader,
+  IonIcon,
+  IonTitle,
+  IonToolbar
+} from '@ionic/angular/standalone';
+import {LoaderComponent} from "../loader/loader.component";
+import {DidactModalComponent} from "../didact-modal/didact-modal.component";
+import {ModalController} from "@ionic/angular";
+import {addIcons} from "ionicons";
+import {
+  alertCircleOutline,
+  arrowBackCircleOutline,
+  closeCircleOutline,
+  happyOutline,
+  helpCircleOutline, skullOutline
+} from "ionicons/icons";
 
 @Component({
   selector: 'app-pong',
   templateUrl: './pong.page.html',
   styleUrls: ['./pong.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonButton, IonFab, IonFabButton, IonIcon]
 })
 export class PongPage implements AfterViewInit {
   ball: HTMLElement | null = null;
@@ -37,7 +57,21 @@ export class PongPage implements AfterViewInit {
 
   intervalId: any;
 
+  countdown = 0;
+  countdownIntervalId: any;
+  countdownClass = 'countdown-green';
+
+  speed = 0.01;
+
+  constructor(private modalController: ModalController) {
+    addIcons({
+      'close-circle-outline' : closeCircleOutline,
+      'help-circle-outline' : helpCircleOutline,
+    });
+  }
+
   ngAfterViewInit() {
+    this.countdown = -1;
     this.ball = document.querySelector('.ball');
     this.playerPaddle = document.querySelector('.paddle.player');
     this.aiPaddle = document.querySelector('.paddle.ai');
@@ -46,12 +80,47 @@ export class PongPage implements AfterViewInit {
     this.aiScoreElement = document.querySelector('.ai-score');
 
     if (this.ball && this.playerPaddle && this.aiPaddle && this.container) {
-      this.startGame();
       this.setupMouseControls();
     }
   }
 
+  async openDidactModal() {
+    const modal = await this.modalController.create({
+      component: DidactModalComponent,
+      componentProps: {
+        gameName: 'pong'
+      }
+    });
+    modal.present();
+  }
+
+  startCountdown() {
+    this.countdown = 3;
+    this.countdownClass = 'countdown-green';
+    this.countdownIntervalId = setInterval(() => {
+      this.countdown--;
+      if (this.countdown === 2) {
+        this.countdownClass = 'countdown-orange';
+      } else if (this.countdown === 1) {
+        this.countdownClass = 'countdown-red';
+      } else if (this.countdown === 0) {
+        this.countdownClass = '';
+        clearInterval(this.countdownIntervalId);
+        this.startGame();
+        setTimeout(() => {
+          this.countdownClass = '';
+          this.countdown--;
+        }, 500);
+      }
+    }, 1000);
+  }
+
   startGame() {
+    this.resetBall();
+    this.speed = 0.01;
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
     this.intervalId = setInterval(() => {
       this.update();
     }, 10);
@@ -146,6 +215,7 @@ export class PongPage implements AfterViewInit {
   }
 
   updateScore() {
+    this.speed += this.speed
     if (this.playerScoreElement) {
       this.playerScoreElement.textContent = this.playerScore.toString();
     }
