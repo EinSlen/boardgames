@@ -22,6 +22,8 @@ import {
   happyOutline,
   helpCircleOutline, skullOutline
 } from "ionicons/icons";
+import * as confetti from "canvas-confetti";
+import {PopupService} from "../services/popup.service";
 
 @Component({
   selector: 'app-pong',
@@ -63,10 +65,12 @@ export class PongPage implements AfterViewInit {
 
   speed = 0.01;
 
-  constructor(private modalController: ModalController) {
+  gameStarted = false; // Nouvelle propriété pour suivre l'état du jeu
+
+  constructor(private modalController: ModalController, private popupService: PopupService) {
     addIcons({
-      'close-circle-outline' : closeCircleOutline,
-      'help-circle-outline' : helpCircleOutline,
+      'close-circle-outline': closeCircleOutline,
+      'help-circle-outline': helpCircleOutline,
     });
   }
 
@@ -88,13 +92,14 @@ export class PongPage implements AfterViewInit {
     const modal = await this.modalController.create({
       component: DidactModalComponent,
       componentProps: {
-        gameName: 'pong'
-      }
+        gameName: 'pong',
+      },
     });
     modal.present();
   }
 
   startCountdown() {
+    this.gameStarted = true; // Marquer que le jeu a démarré
     this.countdown = 3;
     this.countdownClass = 'countdown-green';
     this.countdownIntervalId = setInterval(() => {
@@ -115,15 +120,45 @@ export class PongPage implements AfterViewInit {
     }, 1000);
   }
 
+  stopGame() {
+    if(this.countdown < 0) {
+      this.gameStarted = false; // Marquer que le jeu est arrêté
+      clearInterval(this.intervalId); // Arrêter l'intervalle de mise à jour du jeu si nécessaire
+      // Réinitialiser le jeu si nécessaire...
+    }
+  }
+
   startGame() {
     this.resetBall();
     this.speed = 0.01;
+    this.aiScore = 0;
+    this.playerScore = 0;
+    if(this.playerScoreElement) {
+      this.playerScoreElement.textContent = '0';
+    }
+    if(this.aiScoreElement) {
+      this.aiScoreElement.textContent = '0';
+    }
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
     this.intervalId = setInterval(() => {
       this.update();
+      this.checkWin();
     }, 10);
+  }
+
+  checkWin() {
+    const maxScore = 2; // Score maximum pour gagner
+    if (this.playerScore >= maxScore || this.aiScore >= maxScore) {
+      clearInterval(this.intervalId);
+      this.gameStarted = false; // Arrêter le jeu lorsque quelqu'un gagne
+    }
+    if (this.playerScore >= maxScore) {
+      this.showGameOverModal('player');
+    } else if (this.aiScore >= maxScore) {
+      this.showGameOverModal('computer');
+    }
   }
 
   update() {
@@ -233,12 +268,21 @@ export class PongPage implements AfterViewInit {
   }
 
   updateScore() {
-    this.speed += this.speed
+    this.speed += this.speed;
     if (this.playerScoreElement) {
       this.playerScoreElement.textContent = this.playerScore.toString();
     }
     if (this.aiScoreElement) {
       this.aiScoreElement.textContent = this.aiScore.toString();
     }
+  }
+
+  private showGameOverModal(player: string) {
+    console.log('Game Over. ' + player + ' wins!');
+    this.popupService.showGameResultPong(player, () => {
+      this.startCountdown();
+      this.aiScore = 0;
+      this.playerScore = 0;
+    })
   }
 }

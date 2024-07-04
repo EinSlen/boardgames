@@ -13,9 +13,10 @@
     <div class="paddle ai"></div>
   </div>
   <div class="scores">
-    <span class="ai-score">0</span> - <span class="player-score">0</span>
+    <span class="ai-score">{{ aiScore }}</span> - <span class="player-score">{{ playerScore }}</span>
   </div>
-  <ion-button class="start-button" (click)="startCountdown()">Start</ion-button>
+  <ion-button *ngIf="!gameStarted" class="start-button" (click)="startCountdown()">Start</ion-button>
+  <ion-button *ngIf="gameStarted" class="stop-button" (click)="stopGame()">Stop</ion-button>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="padding-bottom: 30px">
     <ion-fab-button (click)="openDidactModal()">
       <ion-icon name="help-circle-outline"></ion-icon>

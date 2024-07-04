@@ -70,7 +70,8 @@
   margin: 0 20px;
 }
 
-.start-button {
+.start-button,
+.stop-button{
   display: block;
   margin: 50px auto;
   padding: 10px 20px;
@@ -78,3 +79,10 @@
   cursor: pointer;
   width: 150px;
 }
+
+.stop-button {
+  --background: red;
+  --color: white;
+  --border-radius: 8px;
+}
+
