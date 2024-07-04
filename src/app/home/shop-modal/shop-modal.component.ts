@@ -12,13 +12,14 @@ import {
 } from "@ionic/angular/standalone";
 import {NgForOf, NgStyle} from "@angular/common";
 import {ShopService} from "../../services/shop.service";
+import {ToastComponent} from "../../toast/toast.component";
 
 @Component({
   selector: 'app-shop-modal',
   templateUrl: './shop-modal.component.html',
   styleUrls: ['./shop-modal.component.scss'],
   standalone: true,
-  imports: [IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonContent, IonHeader, IonToolbar, IonTitle, IonButton, IonSelect, IonSelectOption, IonGrid, IonCol, IonRow, NgForOf, IonLabel, NgStyle],
+  imports: [IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonContent, IonHeader, IonToolbar, IonTitle, IonButton, IonSelect, IonSelectOption, IonGrid, IonCol, IonRow, NgForOf, IonLabel, NgStyle, ToastComponent],
 })
 export class ShopModalComponent  implements OnInit {
 
