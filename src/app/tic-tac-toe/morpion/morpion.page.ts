@@ -21,6 +21,7 @@ import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
 import {ModalController, NavController} from "@ionic/angular";
 import {addIcons} from "ionicons";
 import {closeCircleOutline, helpCircleOutline, arrowBackCircleOutline, happyOutline, alertCircleOutline, skullOutline} from "ionicons/icons";
+import {ToastComponent} from "../../toast/toast.component";
 
 @Component({
   selector: 'app-morpion',
@@ -28,7 +29,7 @@ import {closeCircleOutline, helpCircleOutline, arrowBackCircleOutline, happyOutl
   styleUrls: ['./morpion.page.scss'],
   standalone: true,
   providers: [TicTacToeService],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton, IonButtons]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton, IonButtons, ToastComponent]
 })
 export class MorpionPage implements OnInit {
   isLoading: boolean = true;

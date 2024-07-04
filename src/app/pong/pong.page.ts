@@ -24,13 +24,14 @@ import {
 } from "ionicons/icons";
 import * as confetti from "canvas-confetti";
 import {PopupService} from "../services/popup.service";
+import {ToastComponent} from "../toast/toast.component";
 
 @Component({
   selector: 'app-pong',
   templateUrl: './pong.page.html',
   styleUrls: ['./pong.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonButton, IonFab, IonFabButton, IonIcon, IonButtons]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonButton, IonFab, IonFabButton, IonIcon, IonButtons, ToastComponent]
 })
 export class PongPage implements AfterViewInit {
   ball: HTMLElement | null = null;
