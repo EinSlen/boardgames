@@ -4,23 +4,34 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PointsService {
-  playerPoints: number = 0;
+  playerPoints: number;
+  key = 'playerPoints';
 
-  constructor() { }
+  constructor() {
+    this.playerPoints = this.getPoints();
+  }
 
   getPoints(): number {
-    return this.playerPoints;
+    const item = localStorage.getItem(this.key);
+    return item ? parseInt(item) : 0;
   }
 
   addPoints(points: number) {
     this.playerPoints += points;
+    this.setPoints();
   }
 
   removePoints(points: number) {
     this.playerPoints -= points;
+    this.setPoints();
   }
 
   resetPoints() {
     this.playerPoints = 0;
+    this.setPoints();
+  }
+
+  private setPoints() {
+    localStorage.setItem(this.key, this.playerPoints.toString());
   }
 }

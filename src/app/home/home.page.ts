@@ -10,11 +10,12 @@ import {
 } from '@ionic/angular/standalone';
 import {NgForOf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
-import {SettingsModalComponent} from "../settings-modal/settings-modal.component";
+import {SettingsModalComponent} from "./settings-modal/settings-modal.component";
 import { ModalController } from '@ionic/angular';
 import {addIcons} from "ionicons";
-import {closeCircleOutline, settingsOutline} from "ionicons/icons";
+import {cartOutline, closeCircleOutline, settingsOutline} from "ionicons/icons";
 import {PointsService} from "../services/points.service";
+import {ShopModalComponent} from "./shop-modal/shop-modal.component";
 
 @Component({
   selector: 'app-home',
@@ -39,6 +40,7 @@ export class HomePage implements OnInit {
     addIcons({
       'settings-outline': settingsOutline,
       'close-circle-outline' : closeCircleOutline,
+      'cart-outline': cartOutline,
     });
   }
 
@@ -46,15 +48,24 @@ export class HomePage implements OnInit {
     this.startSlideShow();
   }
 
-  async openModal() {
-    const modal = await this.modalController.create({
-      component: SettingsModalComponent,
-      cssClass: 'my-custom-modal-css',
-      componentProps: {
-        value: 123
-      }
-    });
-    modal.present();
+  async openModal(modalName: string) {
+    let modal;
+    switch (modalName) {
+      case 'settings':
+        modal = await this.modalController.create({
+          component: SettingsModalComponent,
+        });
+        break;
+      case 'shop':
+        modal = await this.modalController.create({
+          component: ShopModalComponent,
+        });
+        break;
+    }
+
+    if (modal){
+      modal.present();
+    }
   }
 
   startSlideShow() {

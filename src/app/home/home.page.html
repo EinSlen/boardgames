@@ -28,9 +28,16 @@
       <button (click)="nextSlide()">&#10095;</button>
     </div>
   </div>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openModal()">
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="ion-margin">
+    <ion-fab-button (click)="openModal('settings')">
       <ion-icon name="settings-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" class="ion-margin">
+    <ion-fab-button (click)="openModal('shop')">
+      <ion-icon name="cart-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
