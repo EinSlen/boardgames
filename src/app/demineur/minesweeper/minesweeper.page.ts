@@ -59,7 +59,7 @@ export class MinesweeperPage implements OnInit {
     const result = this.minesweeperService.revealCell(row, col);
     if (result === 'gameOver') {
       this.fini = true;
-      this.popupService.showGameResultPopup("bomb", (difficulty) => {
+      this.popupService.showGameResultPopup("bomb", this.difficulty, (difficulty) => {
         if (difficulty == "facile") {
           this.startGame(Difficulty.Facile);
         } else if (difficulty == "medium") {
@@ -70,7 +70,7 @@ export class MinesweeperPage implements OnInit {
       });
     } else if (result === 'win') {
       this.fini = true;
-      this.popupService.showGameResultPopup("player", (difficulty) => {
+      this.popupService.showGameResultPopup("player", '', (difficulty: any) => {
         if (difficulty == "facile") {
           this.startGame(Difficulty.Facile);
         } else if (difficulty == "medium") {
