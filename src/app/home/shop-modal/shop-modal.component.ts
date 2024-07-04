@@ -13,13 +13,15 @@ import {
 } from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
 import {Puissance4Service} from "../../services/puissance4Service";
+import {ToastComponent} from "../../toast/toast.component";
+import {ToastService} from "../../services/toast.service";
 
 @Component({
   selector: 'app-shop-modal',
   templateUrl: './shop-modal.component.html',
   styleUrls: ['./shop-modal.component.scss'],
   standalone: true,
-  imports: [IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonContent, IonHeader, IonToolbar, IonTitle, IonButton, IonSelect, IonSelectOption, IonGrid, IonCol, IonRow, NgForOf, IonLabel],
+  imports: [IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonContent, IonHeader, IonToolbar, IonTitle, IonButton, IonSelect, IonSelectOption, IonGrid, IonCol, IonRow, NgForOf, IonLabel, ToastComponent],
 })
 export class ShopModalComponent  implements OnInit {
   shopTTTsymbols = ['X','$','§','?'];
@@ -31,7 +33,7 @@ export class ShopModalComponent  implements OnInit {
   P4symbol: string;
   P4key = 'P4symbol';
 
-  constructor(private modalCtrl: ModalController, private pointsService: PointsService, private puissance4Service: Puissance4Service) {
+  constructor(private modalCtrl: ModalController, private pointsService: PointsService, private puissance4Service: Puissance4Service, private toastService: ToastService) {
     this.TTTsymbol = this.shopTTTsymbols[0];
     this.P4symbol = this.shopP4symbols[0];
   }
@@ -44,10 +46,12 @@ export class ShopModalComponent  implements OnInit {
 
   selectTTTSymbol(index: number) {
     if (this.pointsService.playerPoints < this.shopTTTprices[index]) {
+      this.toastService.show("Points manque pour pouvoir acheter ce cosmétique", 'error', this.shopTTTprices[index]-this.pointsService.playerPoints);
       console.log('not enough points')
       return;
     } else {
       console.log('NEW SYMBOL', this.shopTTTsymbols[index])
+      this.toastService.show("Nouveau cosmétique appliqué : " + this.shopTTTsymbols[index], 'info');
       this.pointsService.removePoints(this.shopTTTprices[index]);
       this.TTTsymbol = this.shopTTTsymbols[index];
       this.setTTTsymbol(this.TTTsymbol)
@@ -56,10 +60,12 @@ export class ShopModalComponent  implements OnInit {
 
   selectP4Symbol(index: number) {
     if (this.pointsService.playerPoints < this.shopP4prices[index]) {
+      this.toastService.show("Points manque pour pouvoir acheter ce cosmétique", 'error', this.shopP4prices[index]-this.pointsService.playerPoints);
       console.log('not enough points')
       return;
     } else {
       console.log('NEW SYMBOL', this.shopP4symbols[index])
+      this.toastService.show("Nouveau cosmétique appliqué : " +  this.shopP4symbols[index], 'info');
       this.pointsService.removePoints(this.shopP4prices[index]);
       this.P4symbol = this.shopP4symbols[index];
       this.setP4symbol(this.P4symbol)
