@@ -31,5 +31,9 @@ export const routes: Routes = [
   {
     path: 'pong',
     loadComponent: () => import('./pong/pong.page').then( m => m.PongPage)
+  },  {
+    path: 'flappy',
+    loadComponent: () => import('./flappy/flappy.page').then( m => m.FlappyPage)
   },
+
 ];
