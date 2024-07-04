@@ -21,8 +21,8 @@ export const routes: Routes = [
   },
 
   {
-    path: 'four-in-a-row',
-    loadComponent: () => import('./four-in-a-row/four-in-a-row-game/four-in-a-row-game.page').then(m => m.FourInARowGamePage)
+    path: 'puissance4',
+    loadComponent: () => import('./four-in-a-row/puissance4/puissance4.page').then( m => m.Puissance4Page)
   },
 
 ];

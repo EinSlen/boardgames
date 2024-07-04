@@ -1,26 +1,87 @@
 <ion-content class="ion-padding">
   <br>
   <br>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <h2 class="ion-text-center">Comment jouer au Tic Tac Toe</h2>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <p>Le Tic Tac Toe est un jeu joué sur une grille de 3x3 cases.</p>
-        <p>Deux joueurs jouent à tour de rôle en plaçant leur symbole (X ou O) dans une case vide.</p>
-        <p>Le premier joueur à aligner 3 de ses symboles horizontalement, verticalement ou en diagonale gagne la partie.</p>
-        <p>Si toutes les cases sont remplies et qu'aucun joueur n'a gagné, la partie est déclarée nulle.</p>
-        <p>Le joueur qui place le symbole X commence la partie.</p>
-        <p>Pour placer un symbole, cliquez simplement sur la case où vous voulez le placer.</p>
-        <p>Une fois qu'un symbole est placé, il ne peut pas être déplacé.</p>
-        <p>Le jeu se poursuit jusqu'à ce qu'un joueur gagne ou que toutes les cases soient remplies.</p>
-        <p>Amusez-vous bien !</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div [ngSwitch]="gameName">
+    <ion-grid *ngSwitchCase="'morpion'">
+      <ion-row>
+        <ion-col size="12">
+          <h2 class="ion-text-center">Comment jouer au Tic Tac Toe</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <p>Le Tic Tac Toe est un jeu joué sur une grille de 3x3 cases.</p>
+          <p>Deux joueurs jouent à tour de rôle en plaçant leur symbole (X ou O) dans une case vide.</p>
+          <p>Le premier joueur à aligner 3 de ses symboles horizontalement, verticalement ou en diagonale gagne la partie.</p>
+          <p>Si toutes les cases sont remplies et qu'aucun joueur n'a gagné, la partie est déclarée nulle.</p>
+          <p>Le joueur qui place le symbole X commence la partie.</p>
+          <p>Pour placer un symbole, cliquez simplement sur la case où vous voulez le placer.</p>
+          <p>Une fois qu'un symbole est placé, il ne peut pas être déplacé.</p>
+          <p>Le jeu se poursuit jusqu'à ce qu'un joueur gagne ou que toutes les cases soient remplies.</p>
+          <br>
+          <p>Amusez-vous bien !</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'puissance4'">
+      <ion-row>
+        <ion-col size="12">
+          <h2 class="ion-text-center">Comment jouer au Puissance 4</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <p>Deux joueurs placent à tour de rôle leur jeton de couleur (rouge ou jaune) dans une colonne de leur choix.</p>
+          <p>Le jeton descend jusqu'à la position la plus basse disponible dans cette colonne.</p>
+          <p><strong>Le premier joueur à aligner 4 de ses jetons horizontalement, verticalement ou en diagonale gagne la partie.</strong></p>
+          <p>Si toutes les colonnes sont remplies et qu'aucun joueur n'a gagné, la partie est déclarée nulle.</p>
+          <p>Pour placer un jeton, cliquez simplement sur la colonne où vous voulez le placer.</p>
+          <p>Une fois qu'un jeton est placé, il ne peut pas être déplacé.</p>
+          <p>Le jeu se poursuit jusqu'à ce qu'un joueur gagne ou que toutes les colonnes soient remplies.</p>
+          <br>
+          <p>Amusez-vous bien !</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'pong'">
+      <ion-row>
+        <ion-col size="12">
+          <h2 class="ion-text-center">Comment jouer à Pong</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <p>Pong est un jeu de tennis de table simulé en 2D.</p>
+          <p>Deux joueurs contrôlent chacun une palette qui peut se déplacer horizontalement le long du bord de l'écran.</p>
+          <p>Le jeu commence avec la balle au centre de l'écran, se déplaçant dans une direction aléatoire.</p>
+          <p>Les joueurs utilisent leurs palettes pour renvoyer la balle de l'autre côté du terrain.</p>
+          <p>Si un joueur manque la balle, l'autre joueur marque un point.</p>
+          <p>Le jeu continue jusqu'à ce qu'un joueur atteigne le nombre de points nécessaire pour gagner.</p>
+          <p>Utilisez les touches fléchées haut et bas pour déplacer votre palette.</p>
+          <br>
+          <p>Amusez-vous bien !</p>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+    <ion-grid *ngSwitchDefault>
+      <ion-row>
+        <ion-col size="12">
+          <h2 class="ion-text-center">Comment jouer au ...</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <p>Coming soon...</p>
+          <br>
+          <p>Le manuel n'a pas encore été écrit ;)</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
 
 

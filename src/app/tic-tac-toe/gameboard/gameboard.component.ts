@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GameService} from "../../services/gameService";
+import {TicTacToeService} from "../../services/tic-tac-toe-Service";
 import {SquareComponent} from "../square/square.component";
 import {NgForOf} from "@angular/common";
 import {IonCol, IonFab, IonFabButton, IonGrid, IonIcon, IonRow} from "@ionic/angular/standalone";
@@ -22,7 +22,7 @@ import {IonCol, IonFab, IonFabButton, IonGrid, IonIcon, IonRow} from "@ionic/ang
 })
 export class GameboardComponent  implements OnInit {
 
-  constructor(public gameService: GameService) { }
+  constructor(public gameService: TicTacToeService) { }
 
   ngOnInit() {
     // Initialiser le jeu

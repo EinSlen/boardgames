@@ -13,3 +13,24 @@
 .square:nth-child(n+1) {
   background: #47d4ff;
 }
+
+.win-player {
+  background-color: green !important;
+  color: white;
+  animation: glow 1s infinite alternate;
+}
+
+.win-computer {
+  background-color: red !important;
+  color: white;
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: inset 0 0 5px 5px rgba(255, 255, 255, 0.5);
+  }
+  to {
+    box-shadow: inset 0 0 10px 10px rgba(255, 255, 255, 1);
+  }
+}
