@@ -15,5 +15,8 @@ export const routes: Routes = [
     path: 'morpion',
     loadComponent: () => import('./tic-tac-toe/morpion/morpion.page').then(m => m.MorpionPage)
   },
-
+  {
+    path: 'demineur',
+    loadComponent: () => import('./demineur/minesweeper/minesweeper.page').then(m => m.MinesweeperPage)
+  },
 ];
