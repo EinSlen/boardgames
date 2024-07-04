@@ -1,14 +1,28 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Démineur</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Accueil
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openDidactModal()">
+      <ion-icon name="help-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <app-game-settings (difficultySelected)="startGame($event)"></app-game-settings>
-
+  <div class="remaining-mines">
+    Bombes restantes : {{ remainingMines }}
+  </div>
   <div class="board-container">
-    <div class="board" [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 18px)'">
+    <div class="board" [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 18px)' ">
       <div *ngFor="let row of board; let rowIndex = index">
         <div *ngFor="let cell of row; let colIndex = index" class="cell"
              [ngClass]="{'revealed': cell.revealed, 'mine': cell.mine}"

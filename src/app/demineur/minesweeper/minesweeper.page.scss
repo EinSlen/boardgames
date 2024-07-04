@@ -1,12 +1,15 @@
 .board-container {
   overflow-x: auto; /* Permet le défilement horizontal si nécessaire */
   margin: 20px;
-  height: 90%;
+  height: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .board {
   display: flex;
   gap: 0;
+  align-items: center;
 }
 
 .cell {

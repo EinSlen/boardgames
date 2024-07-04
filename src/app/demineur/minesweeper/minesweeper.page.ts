@@ -1,24 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
-import {Difficulty, GameSettings, GameSettingsComponent, SETTINGS} from "../game-settings/game-settings.component";
+import {
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonFab, IonFabButton,
+  IonHeader,
+  IonIcon,
+  IonTitle,
+  IonToolbar
+} from '@ionic/angular/standalone';
+import {Difficulty, GameSettingsComponent} from "../game-settings/game-settings.component";
+import {ModalController, NavController} from "@ionic/angular";
+import {DidactModalComponent} from "../../didact-modal/didact-modal.component";
+import {addIcons} from "ionicons";
+import {arrowBackCircleOutline, closeCircleOutline, helpCircleOutline} from "ionicons/icons";
+import {PopupService} from "../../services/popup.service";
+import {MinesweeperService} from "../../services/minesweeper-sevice.service";
 
 @Component({
   selector: 'app-minesweeper',
   templateUrl: './minesweeper.page.html',
   styleUrls: ['./minesweeper.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, GameSettingsComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, GameSettingsComponent, IonButton, IonButtons, IonIcon, IonFab, IonFabButton]
 })
 export class MinesweeperPage implements OnInit {
-  board: any[][];
-  settings: GameSettings;
   difficulty: Difficulty = Difficulty.Facile;
+  fini: boolean = false;
 
-  constructor() {
-    this.board = [];
-    this.settings = SETTINGS[this.difficulty];
+  constructor(
+    private navCtrl: NavController,
+    private modalController: ModalController,
+    private popupService: PopupService,
+    private minesweeperService: MinesweeperService
+  ) {
+    addIcons({
+      'close-circle-outline': closeCircleOutline,
+      'help-circle-outline': helpCircleOutline,
+      'arrow-back-circle-outline': arrowBackCircleOutline
+    });
   }
 
   ngOnInit() {
@@ -26,101 +48,68 @@ export class MinesweeperPage implements OnInit {
   }
 
   startGame(difficulty: Difficulty) {
-    this.settings = SETTINGS[difficulty]
-    this.board = this.generateBoard(this.settings);
-  }
-
-  generateBoard(settings: GameSettings): any[][] {
-    const board = Array.from({ length: settings.rows }, () =>
-      Array.from({ length: settings.cols }, () => ({ mine: false, revealed: false, neighborMines: 0, hidden: true }))
-    );
-
-    let minesPlaced = 0;
-    while (minesPlaced < settings.mines) {
-      const row = Math.floor(Math.random() * settings.rows);
-      const col = Math.floor(Math.random() * settings.cols);
-      if (!board[row][col].mine) {
-        board[row][col].mine = true;
-        minesPlaced++;
-      }
-    }
-
-    // Calculer le nombre de bombes voisines pour chaque cellule
-    for (let r = 0; r < settings.rows; r++) {
-      for (let c = 0; c < settings.cols; c++) {
-        if (!board[r][c].mine) {
-          board[r][c].neighborMines = this.countNeighborMines(board, r, c);
-        }
-      }
-    }
-
-    return board;
-  }
-
-  countNeighborMines(board: any[][], row: number, col: number): number {
-    let count = 0;
-    const directions = [
-      [-1, -1], [-1, 0], [-1, 1],
-      [0, -1],           [0, 1],
-      [1, -1], [1, 0], [1, 1]
-    ];
-
-    for (const [dr, dc] of directions) {
-      const nr = row + dr;
-      const nc = col + dc;
-      if (nr >= 0 && nr < board.length && nc >= 0 && nc < board[0].length) {
-        if (board[nr][nc].mine) {
-          count++;
-        }
-      }
-    }
-
-    return count;
+    this.minesweeperService.startGame(difficulty);
+    this.fini = false;
   }
 
   revealCell(row: number, col: number) {
-    const cell = this.board[row][col];
-    if (cell.revealed || cell.flagged) return;
-
-    cell.revealed = true;
-
-    if (cell.mine) {
-      alert('Game Over!');
-      this.startGame(this.difficulty);
-    } else {
-      if (cell.neighborMines === 0) {
-        this.revealNeighbors(row, col);
-      }
+    if (this.fini) {
+      return;
     }
-  }
-
-  revealNeighbors(row: number, col: number) {
-    const directions = [
-      [-1, -1], [-1, 0], [-1, 1],
-      [0, -1],           [0, 1],
-      [1, -1], [1, 0], [1, 1]
-    ];
-
-    for (const [dr, dc] of directions) {
-      const nr = row + dr;
-      const nc = col + dc;
-      if (nr >= 0 && nr < this.settings.rows && nc >= 0 && nc < this.settings.cols) {
-        const neighbor = this.board[nr][nc];
-        if (!neighbor.revealed) {
-          neighbor.revealed = true;
-          if (neighbor.neighborMines === 0) {
-            this.revealNeighbors(nr, nc);
-          }
+    const result = this.minesweeperService.revealCell(row, col);
+    if (result === 'gameOver') {
+      this.fini = true;
+      this.popupService.showGameResultPopup("bomb", (difficulty) => {
+        if (difficulty == "facile") {
+          this.startGame(Difficulty.Facile);
+        } else if (difficulty == "medium") {
+          this.startGame(Difficulty.Moyen);
+        } else {
+          this.startGame(Difficulty.Difficile);
         }
-      }
+      });
+    } else if (result === 'win') {
+      this.fini = true;
+      this.popupService.showGameResultPopup("player", (difficulty) => {
+        if (difficulty == "facile") {
+          this.startGame(Difficulty.Facile);
+        } else if (difficulty == "medium") {
+          this.startGame(Difficulty.Moyen);
+        } else {
+          this.startGame(Difficulty.Difficile);
+        }
+      });
     }
   }
 
   toggleFlag(event: MouseEvent, row: number, col: number) {
     event.preventDefault();
-    const cell = this.board[row][col];
-    if (!cell.revealed) {
-      cell.flagged = !cell.flagged;
-    }
+    this.minesweeperService.toggleFlag(row, col);
+  }
+
+  goBack() {
+    this.navCtrl.back();
+  }
+
+  async openDidactModal() {
+    const modal = await this.modalController.create({
+      component: DidactModalComponent,
+      componentProps: {
+        gameName: 'demineur'
+      }
+    });
+    modal.present();
+  }
+
+  get board() {
+    return this.minesweeperService.board;
+  }
+
+  get remainingMines() {
+    return this.minesweeperService.remainingMines;
+  }
+
+  get settings() {
+    return this.minesweeperService.settings;
   }
 }
