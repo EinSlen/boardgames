@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,  CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -22,29 +22,25 @@ import {PointsService} from "../services/points.service";
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon, NgOptimizedImage, NgForOf, IonRouterLink, IonButton, RouterLink, IonLabel, IonGrid, IonCol, IonRow],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class HomePage implements OnInit {
   currentSlide = 0;
   slides = [
-    { img: '../../assets/morpion.avif', title: 'TIC-TAC-TOE', route: "/morpion" },
-    { img: '../../assets/OIP.jpg', title: 'PONG GAME', route: "/pong" },
-    { img: '../../assets/four-in-a-row-logo.png', title: 'Puissance 4', route: "/puissance4" },
-    { img: '../../assets/minesweeper-logo.png', title: 'Démineur', route: "/demineur" },
-    { img: '../../assets/hangman-icon/image-penduGame-9.svg', title: 'Jeu du pendu', route: "/hangman-page" },
-
+    { img: '../../assets/morpion.avif', title: 'TIC-TAC-TOE', route: '/morpion' },
+    { img: '../../assets/OIP.jpg', title: 'PONG GAME', route: '/pong' },
+    { img: '../../assets/four-in-a-row-logo.png', title: 'Puissance 4', route: '/puissance4' },
+    { img: '../../assets/minesweeper-logo.png', title: 'Démineur', route: '/demineur' },
+    { img: '../../assets/hangman-icon/image-penduGame-9.svg', title: 'Jeu du pendu', route: '/hangman-page' },
   ];
-  private slideInterval: any;
 
-  constructor(private modalController: ModalController, private pointsService: PointsService) {
-    addIcons({
-      'settings-outline': settingsOutline,
-      'close-circle-outline' : closeCircleOutline,
-    });
-  }
+  constructor(private modalController: ModalController, private pointsService: PointsService) {addIcons({
+    'settings-outline': settingsOutline,
+    'close-circle-outline' : closeCircleOutline,
+  });}
 
-  ngOnInit() {
-    this.startSlideShow();
-  }
+  ngOnInit() {}
 
   async openModal() {
     const modal = await this.modalController.create({
@@ -57,29 +53,20 @@ export class HomePage implements OnInit {
     modal.present();
   }
 
-  startSlideShow() {
-    this.slideInterval = setInterval(() => {
-      this.nextSlide();
-    }, 5000);
-  }
-
-  stopSlideShow() {
-    clearInterval(this.slideInterval);
+  prevSlide() {
+    this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
   }
 
   nextSlide() {
     this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-    this.resetSlideShow();
   }
 
-  prevSlide() {
-    this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
-    this.resetSlideShow();
-  }
-
-  resetSlideShow() {
-    this.stopSlideShow();
-    this.startSlideShow();
+  onSwipe(event : any) {
+    if (event.direction === 2) {
+      this.prevSlide();
+    } else if (event.direction === 4) {
+      this.nextSlide();
+    }
   }
 
   get playerPoints(): number {
