@@ -15,6 +15,12 @@
 
   <ion-title class="ion-text-center ion-margin-top">Jeu du pendu</ion-title>
 
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openDidactModal()">
+      <ion-icon name="help-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 <ion-grid class="ion-text-center">
   <ion-text class="hidden-word" *ngFor="let c of service.hiddenWord">{{c}}</ion-text>
 </ion-grid>
