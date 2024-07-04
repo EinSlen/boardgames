@@ -58,6 +58,10 @@ export class FlappyPage implements OnInit {
 
   previousScore = 0;
 
+   windowWidth = window.innerWidth as number;
+   windowHeight = window.innerHeight as number;
+
+
   constructor(private navCtrl: NavController, private modalController: ModalController, private toastService: ToastService, private pointsService: PointsService) {
     addIcons({
       'close-circle-outline' : closeCircleOutline,
