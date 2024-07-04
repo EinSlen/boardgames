@@ -18,13 +18,14 @@ import {addIcons} from "ionicons";
 import {arrowBackCircleOutline, closeCircleOutline, helpCircleOutline} from "ionicons/icons";
 import {PopupService} from "../../services/popup.service";
 import {MinesweeperService} from "../../services/minesweeper-sevice.service";
+import {ToastComponent} from "../../toast/toast.component";
 
 @Component({
   selector: 'app-minesweeper',
   templateUrl: './minesweeper.page.html',
   styleUrls: ['./minesweeper.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, GameSettingsComponent, IonButton, IonButtons, IonIcon, IonFab, IonFabButton]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, GameSettingsComponent, IonButton, IonButtons, IonIcon, IonFab, IonFabButton, ToastComponent]
 })
 export class MinesweeperPage implements OnInit {
   difficulty: Difficulty = Difficulty.Facile;
