@@ -45,6 +45,7 @@ export class HomePage implements OnInit {
     { img: '../../assets/four-in-a-row-logo.png', title: 'Puissance 4', route: '/puissance4' },
     { img: '../../assets/minesweeper-logo.png', title: 'Démineur', route: '/demineur' },
     { img: '../../assets/hangman-icon/image-penduGame-9.svg', title: 'Jeu du pendu', route: '/hangman-page' },
+    { img: '../../assets/flappy-titre.jpg', title: 'Flappy Bird', route: '/flappy' },
   ];
 
   constructor(private modalController: ModalController, private pointsService: PointsService) {

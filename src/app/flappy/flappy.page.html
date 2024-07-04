@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Accueil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab *ngIf="!isGameRunning" vertical="top" horizontal="end" slot="fixed" style="margin-top: 50px">
+  <ion-fab-button (click)="openDidactModal()">
+    <ion-icon name="help-circle-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<app-toast></app-toast>
+<ion-content>
+  <div class="game-container" (click)="handleClick()">
+    <div class="bird" [ngStyle]="{'top.px': birdY}">
+      <img src="./assets/flappy-bird-1.png">
+    </div>
+    <div *ngFor="let pipe of pipes" class="pipe" [ngStyle]="{'left.px': pipe.x, 'height.px': pipe.height, 'top.px': pipe.y}"></div>
+    <div class="score">{{ score }}</div>
+    <div *ngIf="!isGameRunning">
+      <div [ngClass]="{'start': score === 0, 'game-over': score !== 0}">
+        {{ score === 0 ? 'Start' : 'Game Over' }}
+      </div>
+    </div>
+  </div>
+</ion-content>
