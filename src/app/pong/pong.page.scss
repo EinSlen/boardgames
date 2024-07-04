@@ -4,6 +4,7 @@
   height: 80vh;
   background-color: #000;
   overflow: hidden;
+  border: 1px solid black;
 }
 
 .ball {
@@ -61,7 +62,7 @@
   color: #000000;
   font-size: 36px;
   font-weight: bold;
-  bottom: 70px; /* Positioning the score container at the bottom */
+  bottom: 80px; /* Positioning the score container at the bottom */
   left: 120px; /* Adjusting left spacing */
 }
 

@@ -4,23 +4,65 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PointsService {
-  playerPoints: number = 0;
+  playerPoints: number;
+  highScore: number;
+  pointsKey = 'playerPoints';
+  highScoreKey = 'highScore';
 
-  constructor() { }
+  constructor() {
+    this.playerPoints = this.getPoints();
+    this.highScore = this.getHighScore();
+  }
 
   getPoints(): number {
-    return this.playerPoints;
+    const item = localStorage.getItem(this.pointsKey);
+    return item ? parseInt(item) : 0;
+  }
+
+  getHighScore(): number {
+    const item = localStorage.getItem(this.highScoreKey);
+    return item ? parseInt(item, 10) : 0;
   }
 
   addPoints(points: number) {
     this.playerPoints += points;
+    this.setPoints();
+    this.updateHighScore();
   }
 
   removePoints(points: number) {
     this.playerPoints -= points;
+    this.setPoints();
   }
 
   resetPoints() {
     this.playerPoints = 0;
+    this.setPoints();
+  }
+
+  private setPoints() {
+    localStorage.setItem(this.pointsKey, this.playerPoints.toString());
+  }
+
+  private updateHighScore() {
+    if (this.playerPoints > this.highScore) {
+      this.highScore = this.playerPoints;
+      localStorage.setItem(this.highScoreKey, this.highScore.toString());
+    }
+  }
+
+  getProgressToNextLevel(): number {
+    const level = Math.floor(this.playerPoints / 100);
+    const nextLevelPoints = (level + 1) * 100;
+    return (this.playerPoints / nextLevelPoints) * 100;
+  }
+
+  getCurrentLevelImage(): string {
+    const level = Math.floor(this.playerPoints / 100);
+    return `assets/ranks/level-${level}.webp`;
+  }
+
+  getCurrentLevel(): number {
+    return Math.floor(this.playerPoints / 100);
   }
 }

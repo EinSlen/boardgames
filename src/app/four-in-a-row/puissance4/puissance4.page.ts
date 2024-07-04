@@ -26,13 +26,14 @@ import {
   arrowBackCircleOutline,
   happyOutline, alertCircleOutline, skullOutline
 } from "ionicons/icons";
+import {ToastComponent} from "../../toast/toast.component";
 
 @Component({
   selector: 'app-puissance4',
   templateUrl: './puissance4.page.html',
   styleUrls: ['./puissance4.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton, IonButtons]
+    imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, LoaderComponent, IonGrid, IonRow, IonCol, SquareComponent, IonButton, IonIcon, GameboardComponent, IonFab, IonFabButton, IonButtons, ToastComponent]
 })
 export class Puissance4Page implements OnInit {
   isLoading: boolean = true;

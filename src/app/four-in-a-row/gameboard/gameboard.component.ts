@@ -22,11 +22,13 @@ import {Puissance4Service} from "../../services/puissance4Service";
 })
 export class GameboardComponent implements OnInit {
   canPlace: boolean = true;
+  humanPlayer!: string ;
   constructor(public gameService: Puissance4Service) { }
 
   ngOnInit() {
     // Initialiser le jeu
     this.gameService.startGame('player', 'facile');
+    this.humanPlayer = this.gameService.humanPlayer;
   }
 
   async selectColumn(col: number) {
