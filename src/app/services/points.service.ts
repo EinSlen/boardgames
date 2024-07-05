@@ -40,6 +40,11 @@ export class PointsService {
     this.setPoints();
   }
 
+  resetHighScore() {
+    this.highScore = 0;
+    localStorage.setItem(this.highScoreKey, this.highScore.toString());
+  }
+
   private setPoints() {
     localStorage.setItem(this.pointsKey, this.playerPoints.toString());
   }
