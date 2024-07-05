@@ -13,6 +13,7 @@ import {
 import {NgForOf, NgStyle} from "@angular/common";
 import {ShopService} from "../../services/shop.service";
 import {ToastComponent} from "../../toast/toast.component";
+import {PointsService} from "../../services/points.service";
 
 @Component({
   selector: 'app-shop-modal',
@@ -23,7 +24,7 @@ import {ToastComponent} from "../../toast/toast.component";
 })
 export class ShopModalComponent  implements OnInit {
 
-  constructor(private modalCtrl: ModalController, private shopService: ShopService) {
+  constructor(private modalCtrl: ModalController, private shopService: ShopService, private pointsService: PointsService) {
   }
 
   shopTTTsymbols = this.shopService.shopTTTsymbols;
@@ -37,6 +38,8 @@ export class ShopModalComponent  implements OnInit {
 
   shopP4symbols = this.shopService.shopP4symbols;
   shopP4prices = this.shopService.shopP4prices;
+
+  playerPoints: number = this.pointsService.playerPoints;
 
     ngOnInit() {}
 
