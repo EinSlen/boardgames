@@ -152,7 +152,11 @@ export class PongPage implements AfterViewInit {
 
   goBack() {
     this.navCtrl.back();
+    this.countdown = -1;
     this.stopGame();
+    this.gameStarted = false; // Marquer que le jeu est arrêté
+    clearInterval(this.intervalId);
+    this.resetBall();
   }
 
   checkWin() {
