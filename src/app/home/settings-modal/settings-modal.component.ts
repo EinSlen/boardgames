@@ -11,6 +11,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular';
 import {PointsService} from "../../services/points.service";
+import {ShopService} from "../../services/shop.service";
 
 
 
@@ -23,7 +24,7 @@ import {PointsService} from "../../services/points.service";
 })
 export class SettingsModalComponent  implements OnInit {
 
-  constructor(private modalCtrl: ModalController, private pointsService: PointsService) {}
+  constructor(private modalCtrl: ModalController, private pointsService: PointsService, private shopService: ShopService) {}
 
   closeModal() {
     this.modalCtrl.dismiss();
@@ -34,6 +35,12 @@ export class SettingsModalComponent  implements OnInit {
 
   resetPoints() {
     this.pointsService.resetPoints();
+  }
+
+  resetAll() {
+    this.pointsService.resetPoints();
+    this.pointsService.resetHighScore();
+    this.shopService.resetData();
   }
 }
 

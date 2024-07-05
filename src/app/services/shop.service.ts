@@ -108,4 +108,18 @@ export class ShopService {
   setP4Symbol(symbol: string) {
     localStorage.setItem(this.P4key, symbol);
   }
+
+  resetData() {
+    //reset le local storage
+    localStorage.removeItem(this.TTTkey);
+    localStorage.removeItem(this.TTTbgcolorKey);
+    localStorage.removeItem(this.TTTbgskinKey);
+    localStorage.removeItem(this.P4key);
+    //reset les variables
+    this.TTTsymbol = this.shopTTTsymbols[0];
+    this.TTTbgcolor = this.shopTTTbgcolors[0];
+    this.TTTbgskin = this.shopTTTbgskins[0];
+    this.P4symbol = this.shopP4symbols[0];
+
+  }
 }

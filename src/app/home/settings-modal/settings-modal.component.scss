@@ -1,4 +1,11 @@
 .reset-button {
   min-height: 1em !important;
   font-size: medium;
+  --background: #e08400;
+}
+
+.reset-all-button {
+  min-height: 1em !important;
+  font-size: medium;
+  --background: #b20000;
 }
