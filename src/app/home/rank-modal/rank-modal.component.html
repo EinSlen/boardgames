@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <i class="fa fa-cog"></i>
+      Vos ranks
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<app-toast></app-toast>
+<div class="rank-container">
+  <div class="progress-container">
+    <img src="{{currentLevelImage}}" alt="Level Image" class="level-image">
+    <div class="progress-bar">
+      <div class="progress" [style.width.%]="progress"></div>
+    </div>
+  </div>
+  <p>Level : {{ currentLevel }}</p>
+  <div class="points-info">
+    <p>Current Points: <strong>{{ playerPoints }}</strong></p>
+    <p>High Score: <strong>{{ highScore }}</strong></p>
+    <ion-button (click)="addPoints()">Add Points</ion-button>
+    <ion-button (click)="resetPoints()">Reset Points</ion-button>
+  </div>
+</div>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="closeModal()">
+      <ion-icon name="close-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,20 +1,65 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<div>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row class="blue-background">
+        <ion-title>BoardGames</ion-title>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
+</div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <swiper-container #swiper>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <swiper-slide class="ion-text-center carousel" routerLink="{{slide.route}}" *ngFor="let slide of slides">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            {{slide.title}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+<!--          <div class="caroussel-frame">-->
+            <img class="image-game" src="{{slide.img}}" alt="Slide Image">
+<!--            <h2>{{slide.title}}</h2>-->
+<!--          </div>-->
+          <p class="click-to-play">CLICK TO PLAY</p>
+        </ion-card-content>
+
+      </ion-card>
+    </swiper-slide>
+
+  </swiper-container>
+
+  <!-- Points and Highscore Section -->
+  <ion-grid class="points-highscore-grid">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        <ion-label>Points: {{ playerPoints }}</ion-label>
+      </ion-col>
+      <ion-col size="12" class="ion-text-center">
+        <ion-label>HighScore: {{ playerHighscore }}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="ion-margin">
+    <ion-fab-button (click)="openModal('settings')">
+      <ion-icon name="settings-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button class="custom-fab-button" (click)="openModal('rank')">
+      <ion-icon name="shield-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" class="ion-margin">
+    <ion-fab-button (click)="openModal('shop')">
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

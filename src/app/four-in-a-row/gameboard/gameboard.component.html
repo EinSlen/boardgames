@@ -1,0 +1,7 @@
+<ion-grid class="game-board">
+  <ion-row *ngFor="let row of gameService.board; let i = index">
+    <ion-col *ngFor="let col of row; let j = index">
+      <app-square (click)="gameService.difficulty !== '' ? gameService.currentPlayer === humanPlayer && !gameService.thinking ? selectColumn(j) : null : selectColumn(j)" [value]="gameService.board[i][j]"></app-square>
+    </ion-col>
+  </ion-row>
+</ion-grid>

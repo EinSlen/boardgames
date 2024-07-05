@@ -1,0 +1,147 @@
+ion-content {
+  --background: #f0f0f0;
+
+  .header {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2em;
+    color: #333;
+  }
+
+  .game-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    padding-top: 50px;
+
+    .square {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      height: 40px;
+      width: 40px;
+      border: 1px solid #ccc;
+
+      &:nth-child(n+1) {
+        background: #47d4ff;
+      }
+    }
+  }
+
+  .info-game {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #555;
+  }
+
+  ion-grid {
+    position: fixed;
+    bottom: 20px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-around;
+
+    ion-row {
+      display: flex;
+      justify-content: center;
+
+      ion-col {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+
+        ion-button {
+          margin: 5px;
+          --border-radius: 12px;
+          --padding-start: 20px;
+          --padding-end: 20px;
+          --animation: buttonAnimation 0.1s ease infinite;
+
+          ion-icon {
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  @keyframes buttonAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* puissance4.page.scss */
+
+.loader-container {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.difficulty-facile {
+  background-color: lightgreen;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.difficulty-medium {
+  background-color: yellow;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.difficulty-expert {
+  background-color: lightcoral;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.arrow {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #39a0de;
+  opacity: 0;
+  animation: moveArrow 2s infinite alternate;
+}
+
+@keyframes moveArrow {
+  0% {
+    top: -30px;
+  }
+  50% {
+    top: -20px;
+  }
+  100% {
+    top: -20px;
+  }
+}
+
+.arrow.visible {
+  opacity: 1;
+}

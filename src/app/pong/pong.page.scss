@@ -1,0 +1,90 @@
+.game-container {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  background-color: #000;
+  overflow: hidden;
+  border: 1px solid black;
+}
+
+.ball {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.paddle {
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  background-color: #fff;
+}
+
+.player {
+  bottom: 0; /* Positioning player's paddle at the bottom */
+}
+
+.ai {
+  top: 0; /* Positioning AI's paddle at the top */
+}
+
+.countdown-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 48px;
+  color: white;
+  transition: color 0.5s ease; /* Smooth transition for color change */
+}
+
+.countdown-green {
+  color: green;
+}
+
+.countdown-orange {
+  color: orange;
+}
+
+.countdown-red {
+  color: red;
+}
+
+.scores {
+  position: absolute;
+  text-align: left; /* Aligning scores to the left */
+  color: #000000;
+  font-size: 36px;
+  font-weight: bold;
+  bottom: 80px; /* Positioning the score container at the bottom */
+  left: 120px; /* Adjusting left spacing */
+}
+
+.player-score, .ai-score {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+.start-button,
+.stop-button{
+  display: block;
+  margin: 50px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 150px;
+}
+
+.stop-button {
+  --background: red;
+  --color: white;
+  --border-radius: 8px;
+}
+
+

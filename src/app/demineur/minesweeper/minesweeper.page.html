@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Accueil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<app-toast></app-toast>
+<ion-content>
+  <div class="header">
+    DÉMINEUR
+  </div>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openDidactModal()">
+      <ion-icon name="help-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div class="remaining-mines">
+    Bombes restantes : {{ remainingMines }}
+  </div>
+  <div class="board-container">
+    <div class="board" [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 18px)'">
+      <div *ngFor="let row of board; let rowIndex = index">
+        <div *ngFor="let cell of row; let colIndex = index" class="cell"
+             [ngClass]="{'revealed': cell.revealed, 'mine': cell.mine}"
+             (click)="revealCell(rowIndex, colIndex)"
+             (contextmenu)="toggleFlag($event, rowIndex, colIndex)">
+          <ng-container *ngIf="cell.revealed">
+            <span *ngIf="cell.mine">💣</span>
+            <span *ngIf="!cell.mine && cell.neighborMines !== 0">{{ cell.neighborMines }}</span>
+          </ng-container>
+          <ng-container *ngIf="!cell.revealed && cell.flagged">
+            <span>🚩</span>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-game-settings
+    [selectedDifficulty]="selectedDifficulty"
+    (difficultySelected)="onDifficultySelected($event)">
+  </app-game-settings>
+</ion-content>

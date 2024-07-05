@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <i class="fa fa-cog"></i>
+      Settings
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>General</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button class="reset-button" (click)="resetPoints()">Reset Points</ion-button>
+      <ion-button class="reset-all-button" (click)="resetAll()">Reset All Datas</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Credit</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Valentin</strong> - Game Developer / PDG</p>
+      <p><strong>Ethan</strong> - Developer / Team Manager</p>
+      <p><strong>Léo</strong> - Developer / Community Manager</p>
+      <p><strong>Mathéo</strong> - Developer / Graphic Designer</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="ion-margin">
+    <ion-fab-button (click)="closeModal()">
+      <ion-icon name="close-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

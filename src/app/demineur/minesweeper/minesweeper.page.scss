@@ -1,0 +1,127 @@
+ion-content {
+  --background: #f0f0f0;
+
+  .header {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2em;
+    color: #333;
+  }
+  .game-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    padding-top: 50px;
+  }
+
+  .info-game {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #555;
+  }
+
+  ion-grid {
+    position: fixed;
+    bottom: 20px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-around;
+
+    ion-row {
+      display: flex;
+      justify-content: center;
+
+      ion-col {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+
+        ion-button {
+          margin: 5px;
+          --border-radius: 12px;
+          --padding-start: 20px;
+          --padding-end: 20px;
+          --animation: buttonAnimation 0.1s ease infinite;
+
+          ion-icon {
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  @keyframes buttonAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
+
+
+.board-container {
+  overflow-x: auto; /* Permet le défilement horizontal si nécessaire */
+  height: 360px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.board {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+.cell {
+  width: 18px;
+  height: 18px;
+  background-color: green;
+  border: 1px solid #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 15px;
+  color: black;
+}
+
+.cell.revealed {
+  background-color: #fff;
+}
+
+.cell.flagged {
+  color: red;
+}
+
+.difficulty-select {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+ion-button {
+  margin: 0 5px;
+}
+
+.remaining-mines {
+  color: black;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  text-align: right;
+  margin-top: 20px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}

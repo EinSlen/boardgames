@@ -1,0 +1,41 @@
+/* Exemple de style pour les états des cases */
+
+.square {
+  color: #070707;
+  width: 70px;
+  height: 70px;
+  font-size: 3em; /* Remplacez "4em" par la taille de police souhaitée */
+  text-align: center;
+  padding-top: 12px;
+  line-height: 100%;
+}
+
+.square:nth-child(n+1) {
+  background: #47d4ff;
+}
+
+.square:nth-child(n+1) {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.win-player {
+  background-color: green !important;
+  color: white;
+  animation: glow 1s infinite alternate;
+}
+
+.win-computer {
+  background-color: red !important;
+  color: white;
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: inset 0 0 5px 5px rgba(255, 255, 255, 0.5);
+  }
+  to {
+    box-shadow: inset 0 0 10px 10px rgba(255, 255, 255, 1);
+  }
+}

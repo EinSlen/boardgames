@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Accueil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isLoading">
+    <app-loader></app-loader>
+  </div>
+  <app-toast></app-toast>
+  <div *ngIf="!isLoading">
+    <div class="header">
+      TIC-TAC-TOE
+    </div>
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="openDidactModal()">
+        <ion-icon name="help-circle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <div class="game-board">
+      <app-gameboard></app-gameboard>
+    </div>
+
+    <div class="info-game">
+      <p>Au tour de: {{currentTurn}}</p>
+
+      <ion-button (click)="restartGame()">Recommencer</ion-button>
+      <ion-button (click)="switchToPlayerVsPlayer()">Joueur vs Joueur</ion-button>
+
+    </div>
+
+    <div *ngIf="isThinking" class="loader-container">
+      <app-loader class="loader"></app-loader>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="auto" *ngFor="let difficulty of difficulties">
+          <div class="arrow" [ngClass]="{'visible': difficulty.value === selectedDifficulty}"></div>
+          <ion-button expand="block" (click)="startGame(difficulty.value)" [color]="difficulty.value === selectedDifficulty ? difficulty.color : 'light'" class="difficulty-button">
+            {{ difficulty.label }}
+            <ion-icon slot="end" [name]="difficulty.icon"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+</ion-content>

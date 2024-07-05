@@ -1,0 +1,133 @@
+ion-content {
+  --background: #f0f0f0;
+
+  .header {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2em;
+    color: #333;
+  }
+
+  .game-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    padding-top: 50px;
+  }
+
+  .info-game {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #555;
+  }
+
+  ion-grid {
+    position: fixed;
+    bottom: 20px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-around;
+
+    ion-row {
+      display: flex;
+      justify-content: center;
+
+      ion-col {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+
+        ion-button {
+          margin: 5px;
+          --border-radius: 12px;
+          --padding-start: 20px;
+          --padding-end: 20px;
+          --animation: buttonAnimation 0.1s ease infinite;
+
+          ion-icon {
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  @keyframes buttonAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* morpion.page.scss */
+
+.loader-container {
+  position: relative;
+  margin-top: 20px;
+  width: 100%; /* Assure que le loader occupe toute la largeur disponible */
+  text-align: center; /* Centre le contenu horizontalement */
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.difficulty-facile {
+  background-color: lightgreen;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.difficulty-medium {
+  background-color: yellow;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.difficulty-expert {
+  background-color: lightcoral;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.arrow {
+  position: absolute;
+  top: -15px; /* Position initiale plus haute au-dessus du bouton */
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg); /* Rotate de 180 degrés */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent; /* Ajustez la taille des côtés de la flèche */
+  border-right: 10px solid transparent; /* Ajustez la taille des côtés de la flèche */
+  border-bottom: 20px solid #39a0de; /* Ajustez la taille et la couleur de la pointe de la flèche */
+  opacity: 0;
+  animation: moveArrow 2s infinite alternate; /* Animation de mouvement plus lente */
+}
+
+@keyframes moveArrow {
+  0% {
+    top: -30px; /* Position initiale */
+  }
+  50% {
+    top: -20px; /* Position légèrement au-dessus du bouton */
+  }
+  100% {
+    top: -20px; /* Position légèrement au-dessous du bouton */
+  }
+}
+
+.arrow.visible {
+  opacity: 1;
+}

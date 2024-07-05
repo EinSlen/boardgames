@@ -1,27 +1,137 @@
-#container {
-  text-align: center;
+//modals
+.shop-modal {
 
+}
+
+//* src/app/home/home.page.scss */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items flex-start for top alignment */
+  flex-direction: column;
+  height: 80vh; /* Reduced height to give space at the top */
+}
+
+.carousel-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-controls {
   position: absolute;
-  left: 0;
-  right: 0;
+  width: 100%;
+  top: 10px; /* Adjusted top distance */
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(0); /* Removed translateY for absolute positioning */
+}
+
+.custom-fab-button {
+  --width: 200px; /* Adjust the width as needed */
+  --height: 50px; /* Adjust the height as needed */
+  --border-radius: 25px; /* Makes it more rectangular */
+  --background: #3880ff; /* Custom background color */
+  --color: white; /* Text color */
+  --font-size: 16px; /* Font size */
+  --padding-start: 20px; /* Padding to adjust text position */
+  --padding-end: 20px; /* Padding to adjust text position */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.carousel-controls button {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carousel-controls button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-controls {
+  position: absolute;
+  width: 100%;
   top: 50%;
+  display: flex;
+  justify-content: space-between;
   transform: translateY(-50%);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.carousel-controls button:first-child {
+  margin-left: 10px; /* Adjust the distance to the left edge */
 }
 
-#container p {
+.carousel-controls button:last-child {
+  margin-right: 10px; /* Adjust the distance to the right edge */
+}
+
+.carousel-controls button {
+  border-radius: 50%;
+}
+
+.click-to-play {
+  text-align: center;
+  font-size: 24px;
+  padding: 20px;
+  animation: slideDown 1s ease-in-out infinite alternate;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(20px);
+    opacity: 1;
+  }
+}
+
+.image-game{
+  height: 200px;
+  border: black solid 5px;
+  margin-top: 30px;
+
+}
+
+.points-highscore-grid {
+  position: absolute;
+  bottom: 200px;
+  left: 0;
+  width: 100%;
+}
+
+.points-highscore-grid ion-label {
   font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+  font-weight: bold;
+  color: #000000;
 }
 
-#container a {
-  text-decoration: none;
+.points-highscore-grid ion-col {
+  padding: 5px;
 }
+
+
+
